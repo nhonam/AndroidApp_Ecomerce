@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CA4242"
+        android:gravity="center"
+        android:text="Quản Lí Sản Phẩm"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/edt_MaSV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhap ma sinh vien"
+        android:textColorHint="#3F51B5" />
+
+    <EditText
+        android:id="@+id/edt_TenSV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhap ten sinh vien"
+        android:textColorHint="#3F51B5" />
+
+    <EditText
+        android:id="@+id/edt_NgaySinh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhap ngay sinh  "
+        android:textColorHint="#3F51B5" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:text="Nam"
+            android:id="@+id/rad_Nam"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Nữ"
+            android:id="@+id/rad_Nu"/>
+    </RadioGroup>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Them"
+            android:id="@+id/btn_Them"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Sua"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/btn_Sua"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Xoa"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/btn_Xoa"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Thoat"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/btn_Thoat"/>
+    </LinearLayout>
+
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seacrch_SV"
+        />
+    <ListView
+        android:id="@+id/lvDanhsach"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:divider="#F61010"
+        android:dividerHeight="2dp"
+        android:listSelector="#89ABC6" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Chon Het"
+            android:id="@+id/btnCheckAll"
+            android:layout_marginRight="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Bỏ chọn hết"
+            android:id="@+id/btnUnCheckAll"
+            android:layout_marginRight="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Xóa"
+            android:id="@+id/btnXoaDuLieu"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
