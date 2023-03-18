@@ -76,7 +76,7 @@ public class Home extends AppCompatActivity {
             R.drawable.b,
             R.drawable.c,
             R.drawable.d,
-            R.drawable.e,
+            R.drawable.f,
 
     };
 
