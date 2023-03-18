@@ -3,6 +3,8 @@ package com.example.ecomerceshoppe.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
+
 
 import com.android.volley.VolleyError;
 import com.example.ecomerceshoppe.API.ProductAPI;
@@ -22,6 +25,7 @@ import com.example.ecomerceshoppe.service.CategoryService;
 import com.example.ecomerceshoppe.service.ProductService;
 import com.example.ecomerceshoppe.slider.PhotoAdapter;
 import com.example.ecomerceshoppe.ultils.InternetConnect;
+import com.example.ecomerceshoppe.ultils.ObjectWrapperForBinder;
 import com.example.ecomerceshoppe.ultils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
@@ -42,6 +46,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 
 public class Home extends AppCompatActivity {
+
+    Gson gson = new Gson();
 
     JSONArray productList;
     //slider
@@ -124,6 +130,7 @@ public class Home extends AppCompatActivity {
 
                         //init adapter
                         setAdapter();
+                        setEvent();
 
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -135,21 +142,26 @@ public class Home extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "khong có internet", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void setEvent(){
+        gr_productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final Object objSent = new Object();
+                final Bundle bundle = new Bundle();
+                try {
+                    bundle.putBinder("product", new ObjectWrapperForBinder(listProduct.get(i)));
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                startActivity(new Intent(Home.this, ProductDetail.class).putExtras(bundle));
+
+            }
+        });
 
 
     }
-
-//    new ProductAPI.VolleyCallback() {
-//        @Override
-//        public void onSuccess(JSONObject result) throws JSONException {
-//
-//        }
-//
-//        @Override
-//        public void onError(VolleyError error) {
-//
-//        }
-//    }
 
 
     private void ChangActivity() {
