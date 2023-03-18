@@ -53,12 +53,12 @@ public class ProductAPI {
 
     public static void getAPIJson(Context context, String url, APIEvent listener) {
         RequestQueue queue = Volley.newRequestQueue(context);
-        System.out.println("On get API JSON");
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println("On Resposne");
+
                         listener.onSuccess(response);
 
                     }

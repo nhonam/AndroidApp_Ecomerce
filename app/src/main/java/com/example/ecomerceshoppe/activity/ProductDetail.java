@@ -8,16 +8,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.model.Product;
+import com.example.ecomerceshoppe.ultils.ObjectWrapperForBinder;
+import com.google.gson.Gson;
 
 public class ProductDetail extends AppCompatActivity {
 
     private Product product;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Gson gson = new Gson();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_detail);
-        product = (Product) getIntent().getSerializableExtra("msg");
+// nhận về giá trị gửi từ page Home
+        final Object objReceived = ((ObjectWrapperForBinder) getIntent().getExtras().getBinder("product")).getData();
+
         mapping();
         setEvent();
 
