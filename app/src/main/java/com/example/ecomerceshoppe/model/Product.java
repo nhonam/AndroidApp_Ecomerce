@@ -1,46 +1,48 @@
 package com.example.ecomerceshoppe.model;
 
-public class Product {
-    private int id;
+import java.io.Serializable;
+
+public class Product  implements Serializable {
+    private String seller;
     private String nameProduct;
-    private String urlImg;
+    private String tag;
     private int quantity;
     private double price;
     private String category;
     private String description;
+    private String urlImage;
 
+    private boolean isSelect;
 
-    public Product(int id, String nameProduct, String urlImg, int quantity, double price, String category, String description) {
-
-        this.id = id;
+    public Product(String seller, String nameProduct, String tag, int quantity, double price, String category, String description, String urlImage) {
+        this.seller = seller;
         this.nameProduct = nameProduct;
-        this.urlImg = urlImg;
+        this.tag = tag;
         this.quantity = quantity;
         this.price = price;
         this.category = category;
         this.description = description;
+        this.urlImage = urlImage;
+        this.isSelect = false;
     }
 
-    public Product(String nameProduct, String urlImg, double price) {
-        this.nameProduct = nameProduct;
-        this.urlImg = urlImg;
-        this.price = price;
-
-
-        this.id = 0;
-
-        this.quantity = 0;
-
-        this.category = null;
-        this.description = null;
+    public Product() {
     }
 
-    public int getId() {
-        return id;
+    public boolean isSelect() {
+        return isSelect;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
+
+    public String getSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
     }
 
     public String getNameProduct() {
@@ -51,12 +53,12 @@ public class Product {
         this.nameProduct = nameProduct;
     }
 
-    public String getUrlImg() {
-        return urlImg;
+    public String getTag() {
+        return tag;
     }
 
-    public void setUrlImg(String urlImg) {
-        this.urlImg = urlImg;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public int getQuantity() {
@@ -91,17 +93,11 @@ public class Product {
         this.description = description;
     }
 
+    public String getUrlImage() {
+        return urlImage;
+    }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", nameProduct='" + nameProduct + '\'' +
-                ", urlImg='" + urlImg + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", category='" + category + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 }

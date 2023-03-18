@@ -11,17 +11,22 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ecomerceshoppe.interfaces.APIEvent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.EventListener;
+
 public class ProductAPI {
 
-    public interface VolleyCallback {
-        void onSuccess(JSONObject result) throws JSONException;
-        void onError(VolleyError error);
-    }
+//    public interface VolleyCallback {
+//        void onSuccess(JSONObject result) throws JSONException;
+//        void onError(VolleyError error);
+//    }
+
+
 
     public static void getAPIString(Context context, String url) {
         //init request
@@ -46,24 +51,23 @@ public class ProductAPI {
     }
 
 
-    public static void getAPIJson(Context context, String url, VolleyCallback callback) {
+    public static void getAPIJson(Context context, String url, APIEvent listener) {
         RequestQueue queue = Volley.newRequestQueue(context);
+        System.out.println("On get API JSON");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
-                        try {
-                            callback.onSuccess(response);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e+" Error funtion onRespone in getAPIJson (ProductAPI.java)");
-                        }
+                        System.out.println("On Resposne");
+                        listener.onSuccess(response);
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                callback.onError(error);
+                System.out.println("Error: ");
+                error.printStackTrace();
+//                callback.onError(error);
             }
         });
 

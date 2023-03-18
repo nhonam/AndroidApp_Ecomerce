@@ -17,6 +17,7 @@ import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.adapter.CategoryAdapter;
 import com.example.ecomerceshoppe.adapter.ProductLatestAdapter;
 import com.example.ecomerceshoppe.adapter.SliderAdapter;
+import com.example.ecomerceshoppe.interfaces.APIEvent;
 import com.example.ecomerceshoppe.service.CategoryService;
 import com.example.ecomerceshoppe.service.ProductService;
 import com.example.ecomerceshoppe.slider.PhotoAdapter;
@@ -64,6 +65,7 @@ public class Home extends AppCompatActivity {
 
     List<Double> priceProductList = new ArrayList<Double>();
 
+
     List<String> urlProductList = new ArrayList<String>();
 
     BottomNavigationView navi;
@@ -91,48 +93,41 @@ public class Home extends AppCompatActivity {
         //setData
         nameLogo = CategoryService.loadLogoName().toArray(new String[0]);
         imgLogo = CategoryService.loadLogo();
-        nameProductList = ProductService.getAllNameProduct();
-        priceProductList = ProductService.getAllPriceProduct();
-        urlProductList = ProductService.getAllUrlProduct();
-
 
         if (InternetConnect.isConnected(this)) {
             Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
-//            ProductAPI.getAPIString(this,"https://facebook.com/");
+//            ProductAPI.getAPIString(Home.this,"https://facebook.com/");
 //            ProductAPI.getAPIJson(this,"https://dummyjson.com/products/1");
-            ProductAPI.getAPIJson(this, Utils.BASE_URL + "product/get/allProduct", new ProductAPI.VolleyCallback() {
+            ProductAPI.getAPIJson(this, Utils.BASE_URL + "product/get/allProduct", new APIEvent() {
                 @Override
-                public void onSuccess(JSONObject result) throws JSONException {
-                    listProduct = result.getJSONArray("data");
-//                    JSONObject  product = (JSONObject) listProduct.get(8);
-//                    JSONObject img = (JSONObject) product.get("img");
-//                    System.out.println(img.get("url"));
+                public void onSuccess(JSONObject response) {
+                    try {
+                        listProduct = response.getJSONArray("data");
 
+                        JSONObject productTmp = new JSONObject();
+                        JSONObject imgTmp = new JSONObject();
+                        String urlImgTmp = "";
+                        for (int i = 0; i < listProduct.length(); i++) {
 
-                    JSONObject productTmp = new JSONObject();
-                    JSONObject imgTmp = new JSONObject();
-                    String urlImgTmp = "";
-                    for (int i = 0; i < listProduct.length(); i++) {
+                            productTmp = (JSONObject) listProduct.get(i);
+                            nameProductList.add((String) productTmp.get("name_product"));
 
-                        productTmp = (JSONObject) listProduct.get(i);
-                        nameProductList.add((String) productTmp.get("name_product"));
+                            imgTmp = (JSONObject) productTmp.get("img");
+                            urlImgTmp = (String) imgTmp.get("url");
 
-                        imgTmp = (JSONObject) productTmp.get("img");
-                        urlImgTmp = (String) imgTmp.get("url");
+                            priceProductList.add(Double.parseDouble(productTmp.getString("price")));
 
-                        //chưa lấy ddc list price *
-//                        priceProductList.add((Double) product.get("price"));
+                            priceProductList.add(1000.0);
+                            urlProductList.add(String.valueOf(urlImgTmp));
 
-                        priceProductList.add(1000.0);
-                        urlProductList.add(String.valueOf(urlImgTmp));
+                        }
 
+                        //init adapter
+                        setAdapter();
+
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
                     }
-
-
-                }
-
-                @Override
-                public void onError(VolleyError error) {
 
                 }
             });
@@ -142,13 +137,19 @@ public class Home extends AppCompatActivity {
         }
 
 
-        //init adapter
-        setAdapter();
-
-
-
-
     }
+
+//    new ProductAPI.VolleyCallback() {
+//        @Override
+//        public void onSuccess(JSONObject result) throws JSONException {
+//
+//        }
+//
+//        @Override
+//        public void onError(VolleyError error) {
+//
+//        }
+//    }
 
 
     private void ChangActivity() {

@@ -3,6 +3,8 @@ package com.example.ecomerceshoppe.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +16,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Profile extends AppCompatActivity {
 
 
-    BottomNavigationView navi;
+    private BottomNavigationView navi;
+    private Button btnManagerProduct;
 
 
 
@@ -24,14 +27,29 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        navi = findViewById(R.id.bottom_navigation_pro);
 
 
+        mapping();
 
         ChangActivity();
 
+        setEvent();
 
+    }
 
+    private void setEvent() {
+        btnManagerProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Profile.this, ManagerProduct.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void mapping() {
+        navi = findViewById(R.id.bottom_navigation_pro);
+        btnManagerProduct = findViewById(R.id.btnManagerProduct);
     }
 
     private void ChangActivity() {

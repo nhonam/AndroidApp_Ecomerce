@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ecomerceshoppe.R;
-import com.example.ecomerceshoppe.model.Product;
+//import com.example.ecomerceshoppe.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
