@@ -21,6 +21,7 @@ import com.example.ecomerceshoppe.adapter.CategoryAdapter;
 import com.example.ecomerceshoppe.adapter.ProductLatestAdapter;
 import com.example.ecomerceshoppe.adapter.SliderAdapter;
 import com.example.ecomerceshoppe.interfaces.APIEvent;
+import com.example.ecomerceshoppe.model.Product;
 import com.example.ecomerceshoppe.service.CategoryService;
 import com.example.ecomerceshoppe.service.ProductService;
 import com.example.ecomerceshoppe.slider.PhotoAdapter;
@@ -71,10 +72,15 @@ public class Home extends AppCompatActivity {
 
     List<Double> priceProductList = new ArrayList<Double>();
 
-
     List<String> urlProductList = new ArrayList<String>();
 
+    List<Product> ListProduct = new ArrayList<Product>();
+
     BottomNavigationView navi;
+
+    CategoryAdapter categoryAdapter;
+    ProductLatestAdapter latestProduct_test;
+    SliderAdapter sliderAdapter;
 
 
     int[] imgSliders = {
@@ -87,6 +93,8 @@ public class Home extends AppCompatActivity {
     };
 
     SliderView sliderView;
+
+    private String category = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +112,10 @@ public class Home extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
 //            ProductAPI.getAPIString(Home.this,"https://facebook.com/");
 //            ProductAPI.getAPIJson(this,"https://dummyjson.com/products/1");
-            ProductAPI.getAPIJson(this, Utils.BASE_URL + "product/get/allProduct", new APIEvent() {
+//            ProductAPI.getAllCategories(this, "Thời Trang Nam", Utils.BASE_URL+"product/search/");
+
+
+            ProductAPI.getAPIJson(this, Utils.BASE_URL + "product/get/allProduct/", new APIEvent() {
                 @Override
                 public void onSuccess(JSONObject response) {
                     try {
@@ -144,7 +155,7 @@ public class Home extends AppCompatActivity {
         }
     }
 
-    private void setEvent(){
+    private void setEvent() {
         gr_productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -158,6 +169,51 @@ public class Home extends AppCompatActivity {
                 startActivity(new Intent(Home.this, ProductDetail.class).putExtras(bundle));
 
             }
+        });
+
+        productCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                category = nameLogo[i];
+                System.out.println(category);
+
+
+                ProductAPI.getAPIJson(Home.this, Utils.BASE_URL + "product/get/allProduct/" + category, new APIEvent() {
+
+                    @Override
+                    public void onSuccess(JSONObject response) {
+                        try {
+                            nameProductList.clear();
+                            priceProductList.clear();
+                            urlProductList.clear();
+                            listProduct = response.getJSONArray("data");
+
+                            JSONObject productTmp = new JSONObject();
+                            JSONObject imgTmp = new JSONObject();
+                            String urlImgTmp = "";
+                            for (int i = 0; i < listProduct.length(); i++) {
+
+                                productTmp = (JSONObject) listProduct.get(i);
+                                nameProductList.add((String) productTmp.get("name_product"));
+
+                                imgTmp = (JSONObject) productTmp.get("img");
+                                urlImgTmp = (String) imgTmp.get("url");
+                                priceProductList.add(Double.parseDouble(productTmp.getString("price")));
+                                urlProductList.add(String.valueOf(urlImgTmp));
+                            }
+                            latestProduct_test.notifyDataSetChanged();
+
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                });
+
+
+            }
+
         });
 
 
@@ -192,16 +248,16 @@ public class Home extends AppCompatActivity {
 
     private void setAdapter() {
         //setCategoryProduct
-        CategoryAdapter categoryAdapter = new CategoryAdapter(Home.this, nameLogo, imgLogo);
+        categoryAdapter = new CategoryAdapter(Home.this, nameLogo, imgLogo);
         productCategory.setAdapter(categoryAdapter);
         // setlatestProduct_test
-        ProductLatestAdapter latestProduct_test = new ProductLatestAdapter(Home.this, nameProductList, priceProductList, urlProductList
+        latestProduct_test = new ProductLatestAdapter(Home.this, nameProductList, priceProductList, urlProductList
 
         );
         gr_productList.setAdapter(latestProduct_test);
 
         //setAdapterSlider
-        SliderAdapter sliderAdapter = new SliderAdapter(imgSliders);
+        sliderAdapter = new SliderAdapter(imgSliders);
         sliderView.setSliderAdapter(sliderAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
