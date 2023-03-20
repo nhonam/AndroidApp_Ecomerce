@@ -24,6 +24,7 @@ public class ProductLatestAdapter extends BaseAdapter {
     private List<Double> priceProductList;
 
     private List<String> urlProductList;
+
     @Override
     public int getCount() {
         return nameProductList.size();
@@ -49,13 +50,12 @@ public class ProductLatestAdapter extends BaseAdapter {
     }
 
 
-
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view= layoutInflater.inflate(R.layout.row_leastproduct, null);
-        TextView txtName =  view.findViewById(R.id.txtProductName);
-        TextView txtPrice =  view.findViewById(R.id.txtPrice);
+        view = layoutInflater.inflate(R.layout.row_leastproduct, null);
+        TextView txtName = view.findViewById(R.id.txtProductName);
+        TextView txtPrice = view.findViewById(R.id.txtPrice);
         ImageView imageView = view.findViewById(R.id.imgProductLatest);
 
         txtName.setText(nameProductList.get(i));
@@ -63,4 +63,5 @@ public class ProductLatestAdapter extends BaseAdapter {
         Glide.with(context).load(urlProductList.get(i)).into(imageView);
         return view;
     }
+
 }

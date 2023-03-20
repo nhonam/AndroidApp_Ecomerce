@@ -18,6 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.EventListener;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductAPI {
 
@@ -68,9 +70,33 @@ public class ProductAPI {
                 System.out.println("Error: ");
                 error.printStackTrace();
 //                callback.onError(error);
+                System.err.println("lỗi port server vui lòng đổi IP trong file Utils.java");
             }
         });
 
+        queue.add(jsonObjectRequest);
+    }
+
+    public static void getAllCategories(Context context, String category, String url) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url+category, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // handle response
+
+                        System.out.println(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // handle error
+                        System.err.println(("API Error " + error.toString()));
+                    }
+                }) ;
         queue.add(jsonObjectRequest);
     }
 
