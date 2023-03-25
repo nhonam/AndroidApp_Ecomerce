@@ -3,6 +3,7 @@ package com.example.ecomerceshoppe.model;
 import java.io.Serializable;
 
 public class Product  implements Serializable {
+    String id;
     private String seller;
     private String nameProduct;
     private String tag;
@@ -12,9 +13,12 @@ public class Product  implements Serializable {
     private String description;
     private String urlImage;
 
+
+
     private boolean isSelect;
 
-    public Product(String seller, String nameProduct, String tag, int quantity, double price, String category, String description, String urlImage) {
+    public Product(String id,String seller, String nameProduct, String tag, int quantity, double price, String category, String description, String urlImage) {
+       this.id = id;
         this.seller = seller;
         this.nameProduct = nameProduct;
         this.tag = tag;
@@ -27,6 +31,14 @@ public class Product  implements Serializable {
     }
 
     public Product() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public boolean isSelect() {

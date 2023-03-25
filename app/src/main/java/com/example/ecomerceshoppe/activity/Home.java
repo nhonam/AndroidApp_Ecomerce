@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
-
 
 import com.android.volley.VolleyError;
 import com.example.ecomerceshoppe.API.ProductAPI;
@@ -20,18 +18,14 @@ import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.adapter.CategoryAdapter;
 import com.example.ecomerceshoppe.adapter.ProductLatestAdapter;
 import com.example.ecomerceshoppe.adapter.SliderAdapter;
-import com.example.ecomerceshoppe.interfaces.APIEvent;
+import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Product;
 import com.example.ecomerceshoppe.service.CategoryService;
-import com.example.ecomerceshoppe.service.ProductService;
-import com.example.ecomerceshoppe.slider.PhotoAdapter;
+
 import com.example.ecomerceshoppe.ultils.InternetConnect;
 import com.example.ecomerceshoppe.ultils.ObjectWrapperForBinder;
 import com.example.ecomerceshoppe.ultils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -43,20 +37,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
-
 
 public class Home extends AppCompatActivity {
-
-    Gson gson = new Gson();
-
-    JSONArray productList;
-    //slider
-    private ViewPager viewPager;
-    //hiển thị slider
-    private PhotoAdapter photoAdapter;
-
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     //gridview Category Product
     GridView productCategory, gr_productList;
@@ -99,7 +81,10 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         Mapping();
         ChangActivity();
 
@@ -115,7 +100,9 @@ public class Home extends AppCompatActivity {
 //            ProductAPI.getAllCategories(this, "Thời Trang Nam", Utils.BASE_URL+"product/search/");
 
 
-            ProductAPI.getAPIJson(this, Utils.BASE_URL + "product/get/allProduct/", new APIEvent() {
+
+
+            ProductAPI.getAPIJson(this, Utils.BASE_URL + "product/get/allProduct/", new APICallBack() {
                 @Override
                 public void onSuccess(JSONObject response) {
                     try {
@@ -148,6 +135,11 @@ public class Home extends AppCompatActivity {
                     }
 
                 }
+
+                @Override
+                public void onError(VolleyError error) {
+
+                }
             });
 
         } else {
@@ -176,10 +168,8 @@ public class Home extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 category = nameLogo[i];
-                System.out.println(category);
 
-
-                ProductAPI.getAPIJson(Home.this, Utils.BASE_URL + "product/get/allProduct/" + category, new APIEvent() {
+                ProductAPI.getAPIJson(Home.this, Utils.BASE_URL + "product/get/allProduct/" + category, new APICallBack() {
 
                     @Override
                     public void onSuccess(JSONObject response) {
@@ -207,6 +197,11 @@ public class Home extends AppCompatActivity {
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
+
+                    }
+
+                    @Override
+                    public void onError(VolleyError error) {
 
                     }
                 });

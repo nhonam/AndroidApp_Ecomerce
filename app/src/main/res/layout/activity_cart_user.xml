@@ -1,13 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="top"
+    tools:context=".activity.CartUser">
 
-    <TextView
-        android:text="PAGE GIỎI HÀNG USE"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></TextView>
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:elevation="3dp"
+
+        android:layout_marginBottom="1dp"
+        android:orientation="horizontal">
 
 
+        <ImageView
+            android:id="@+id/homeCart"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_home" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="90dp"
+            android:layout_marginLeft="100dp">
+            <TextView
+                android:layout_width="91dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+
+                android:gravity="center"
+                android:text="Giỏ hàng"
+                android:textColor="#353535"
+                android:textSize="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:gravity="center"
+                android:text="(39)"
+
+                android:textColor="#353535"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_email" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="-3dp"
+        android:background="#FFE5BE">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/ic_store"/>
+
+        <TextView
+            android:layout_width="match_parent"
+
+            android:text="  Có hai phương thức thành toán là thanh toán khi nhận hàng và thanh toán bằng MoMo"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+   <ListView
+       android:id="@+id/listViewCart"
+       android:layout_width="match_parent"
+       android:layout_height="600dp"/>
+
+    <LinearLayout
+        android:layout_width="420dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="90dp"
+        android:layout_marginRight="90dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-3dp"
+            android:background="#FFE5BE"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_cart" />
+
+            <TextView
+                android:layout_width="352dp"
+                android:layout_height="wrap_content"
+
+                android:text="  Khi thanh toán bằng MoMo bạn có thể nhận nhiều ưu đãi hơn từ các nhãn hàng" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:layout_width="28dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:gravity="center"
+                android:text="Tất cả"
+                android:textColor="#353535"
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:gravity="center"
+                    android:text="Tổng thanh toán"
+                    android:textColor="#353535"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="1.235.999đ"
+                    android:textColor="#f57224"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#ee4d2d"
+                android:gravity="center"
+                android:padding="12dp"
+                android:id="@+id/btnBuyCart"
+                android:text="Mua hàng (10)"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold|normal" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

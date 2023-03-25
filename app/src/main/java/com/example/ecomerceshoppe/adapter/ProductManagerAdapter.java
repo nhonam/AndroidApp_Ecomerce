@@ -1,35 +1,39 @@
 package com.example.ecomerceshoppe.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+import com.example.ecomerceshoppe.API.ProductAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.ManagerProductDetail;
+import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Product;
+import com.example.ecomerceshoppe.ultils.CustomToast;
+import com.example.ecomerceshoppe.ultils.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductManagerAdapter extends ArrayAdapter<Product> {
     Context myContext;
     int myLayout;
     ArrayList<Product> data;
-
     ArrayList<Product> data_tmp = new ArrayList<>();
 
     public ProductManagerAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Product> listProduct) {
@@ -40,10 +44,8 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> {
 //        this.data_tmp.addAll(data);
     }
 
-
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
 
         ViewHorder viewHorder = null;
         if (convertView == null) {
@@ -53,7 +55,6 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> {
         } else {
             viewHorder = (ViewHorder) convertView.getTag();
         }
-
         Product pd = data.get(position);
         viewHorder.txtProductName.setText((pd.getNameProduct()));
         viewHorder.txtTag.setText((pd.getTag()));
@@ -62,7 +63,6 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> {
         viewHorder.txtCategory.setText(pd.getCategory());
         viewHorder.txtDescription.setText(pd.getDescription());
         Glide.with(myContext).load(pd.getUrlImage()).into(viewHorder.imageView);
-
 //click vào icon sửa
         viewHorder.ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,31 +73,25 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> {
             }
         });
 
-
-
-
-        if(pd.isSelect())
-            viewHorder.checkBox.setChecked(true);
-        else
-            viewHorder.checkBox.setChecked(false);
-
-        viewHorder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        viewHorder.ivDel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                pd.setSelect(b);
+            public void onClick(View view) {
+                clickDeleteItem(pd.getId());
             }
         });
+
+
         return convertView;
 
     }
 
     private class ViewHorder {
 
-
         TextView txtProductName,txtTag,txtquantity,txtPrice,txtCategory,txtDescription;
         ImageView imageView, ivEdit, ivDel;
 
         CheckBox checkBox;
+
 
         public ViewHorder(View view) {
             txtProductName = view.findViewById(R.id.name_ManagerProduct);
@@ -109,7 +103,6 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> {
             imageView = view.findViewById(R.id.image_ManagerProduct);
             ivEdit = view.findViewById(R.id.updateProduct);
             ivDel = view.findViewById(R.id.Delete_Product);
-            checkBox = view.findViewById(R.id.checkboxProduct);
         }
     }
     public  void searchProduct(String query){
@@ -122,6 +115,50 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> {
                 data.add(pd);
         }
         notifyDataSetChanged();
+    }
+
+    private void clickDeleteItem( String idProduct) {
+        Dialog dialog = new Dialog(myContext);
+
+        dialog.setContentView(R.layout.alert_delete);
+
+        Button btnYes = dialog.findViewById(R.id.Yes);
+        Button btnNo = dialog.findViewById(R.id.No);
+
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Call api xóa
+
+                try {
+                    ProductAPI.APIDelProduct(myContext.getApplicationContext(), Utils.BASE_URL + "product/delete/", idProduct, new APICallBack() {
+                        @Override
+                        public void onSuccess(JSONObject response) throws JSONException {
+                            CustomToast.makeText(myContext,"Xóa Sản Phẩm Thành Công",CustomToast.LENGTH_SHORT,CustomToast.SUCCESS,true).show();
+                        }
+
+                        @Override
+                        public void onError(VolleyError error) {
+                            CustomToast.makeText(myContext,"Xóa Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
+                        }
+                    });
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+                dialog.dismiss();
+            }
+        });
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
     }
     public  void XoaDuLieu(){
         data_tmp.clear();

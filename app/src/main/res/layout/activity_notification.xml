@@ -6,20 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-   <TextView
+   <ImageView
+       android:src="@drawable/noti"
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:textSize="30dp"
-       android:textStyle="bold"
-       android:text="Thông Báo"/>
+       android:layout_height="match_parent">
 
-    <ListView
-        android:layout_marginTop="70dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
-       app:layout_constraintBottom_toBottomOf="parent" />
+   </ImageView>
 
     <FrameLayout
         android:orientation="horizontal"

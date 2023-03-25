@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.ecomerceshoppe.R;
-import com.smarteist.autoimageslider.SliderView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 public class SliderAdapter  extends SliderViewAdapter<SliderAdapter.Holder> {

@@ -58,7 +58,8 @@
                 </TextView>
 
                 <GridView
-
+                    android:horizontalSpacing="2dp"
+                    android:verticalSpacing="2dp"
                     android:id="@+id/productCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,7 +85,8 @@
 
                 <GridView
                     android:id="@+id/latestProduct"
-
+                    android:horizontalSpacing="6dp"
+                    android:verticalSpacing="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:columnWidth="100dp"
