@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/name_User"
                     android:layout_marginTop="15dp"
                     android:text="Đinh Nho Nam"
                     android:textSize="20sp"
@@ -33,6 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <TextView
+                    android:id="@+id/id_user"
                     android:layout_marginTop="2dp"
                     android:text="PID:362Hb458760"
                     android:textSize="13sp"
@@ -78,6 +80,7 @@
 
     </RelativeLayout>
     <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/avt_User"
         android:src="@drawable/bn1"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
         android:elevation="15dp"

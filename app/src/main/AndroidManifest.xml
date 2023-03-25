@@ -19,8 +19,9 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".activity.ProductDetail"
+            android:name=".activity.Main"
             android:exported="false" />
+
 
         <activity
             android:name=".activity.CartUser"

@@ -3,6 +3,7 @@ package com.example.ecomerceshoppe.activity;
 import static java.util.stream.Collectors.mapping;
 
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,17 +35,20 @@ public class ProductDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         setContentView(R.layout.product_detail);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         // nhận về giá trị gửi từ page Home
         final Object objReceived = ((ObjectWrapperForBinder) getIntent().getExtras().getBinder("product")).getData();
 
         productObj = (JSONObject) objReceived;
         try {
-            product = new Product("1",productObj.getString("name_product"),productObj.getString("tag"),(int) productObj.get("quantity"),Double.parseDouble(productObj.getString("price")),productObj.getString("category"),productObj.getString("description"),((JSONObject) productObj.get("img")).getString("url"));
-            System.out.println(product);
+            product = new Product(productObj.getString("_id"),((JSONObject)productObj.get("seller")).getString("_id"),productObj.getString("name_product"),productObj.getString("tag"),(int) productObj.get("quantity"),Double.parseDouble(productObj.getString("price")),productObj.getString("category"),productObj.getString("description"),((JSONObject) productObj.get("img")).getString("url"));
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
+
 
 
         mapping();
