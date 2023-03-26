@@ -26,6 +26,16 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         navi = findViewById(R.id.bottom_navigation);
+        if (fragHome==null)
+            fragHome= new FragHome();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.anim.fade_out,  // enter
+                        R.anim.slide_out_left  // exit
+                )
+                .replace(R.id.content_main,fragHome)
+                .commit();
 
         navi.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -37,6 +47,10 @@ public class Main extends AppCompatActivity {
                             fragHome= new FragHome();
                         getSupportFragmentManager()
                                 .beginTransaction()
+                                .setCustomAnimations(
+                                        R.anim.fade_out,  // enter
+                                        R.anim.slide_out_left  // exit
+                                )
                                 .replace(R.id.content_main,fragHome)
                                 .commit();
                         break;
@@ -46,6 +60,11 @@ public class Main extends AppCompatActivity {
                             fragNotification= new FragNotification();
                         getSupportFragmentManager()
                                 .beginTransaction()
+                                .setCustomAnimations(
+                                        R.anim.slide_in ,
+                                        R.anim.fade_out
+
+                                )
                                 .replace(R.id.content_main,fragNotification)
                                 .commit();
 
@@ -56,6 +75,10 @@ public class Main extends AppCompatActivity {
                             fragProfile= new FragProfile();
                         getSupportFragmentManager()
                                 .beginTransaction()
+                                .setCustomAnimations(
+                                        R.anim.fade_out,  // enter
+                                        R.anim.slide_in  // exit
+                                )
                                 .replace(R.id.content_main,fragProfile)
                                 .commit();
 
