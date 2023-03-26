@@ -103,7 +103,7 @@ public class CartUser extends AppCompatActivity {
         ic_homeCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CartUser.this, Home.class);
+                Intent intent = new Intent(CartUser.this, Main.class);
                 startActivity(intent);
             }
         });

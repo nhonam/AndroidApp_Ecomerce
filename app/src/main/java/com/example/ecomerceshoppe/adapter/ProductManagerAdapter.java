@@ -136,6 +136,7 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> {
                         @Override
                         public void onSuccess(JSONObject response) throws JSONException {
                             CustomToast.makeText(myContext,"Xóa Sản Phẩm Thành Công",CustomToast.LENGTH_SHORT,CustomToast.SUCCESS,true).show();
+                            notifyDataSetChanged();
                         }
 
                         @Override
