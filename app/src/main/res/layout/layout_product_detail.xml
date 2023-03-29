@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="143 grams"
+                        android:hint="Nhập vào tên sản phẩm"
                          />
                 </LinearLayout>
 
@@ -89,7 +89,6 @@
                     android:padding="16dp" />
 
 
-                <!--*********discription**********-->
 
                 <LinearLayout
 
@@ -106,7 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:text="Item discription"
+                       android:hint="Nhập mô tả"
 
 
                         />
@@ -120,8 +119,6 @@
                     android:background="@color/black"
                     android:padding="16dp" />
 
-
-                <!--*********Est. delivery**********-->
 
                 <LinearLayout
 
@@ -172,7 +169,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="#aaaa"
+                        android:hint="#tag"
                        />
 
                 </LinearLayout>
@@ -210,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
 
-                        android:text="100"
+                        android:hint="Nhập số lượng"
                         android:textColor="@color/black"
 
                         />
@@ -249,14 +246,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
 
-                        android:text="100"
+                        android:hint="Nhập vào giá thành vnđ"
                         android:textColor="@color/black"
 
                         />
 
                 </LinearLayout>
                 <LinearLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -369,6 +365,7 @@
                         android:visibility="visible">
 
                         <ImageView
+
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center"

@@ -2,6 +2,7 @@ package com.example.ecomerceshoppe.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,10 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         setContentView(R.layout.main);
+
         navi = findViewById(R.id.bottom_navigation);
         if (fragHome==null)
             fragHome= new FragHome();

@@ -1,9 +1,17 @@
 package com.example.ecomerceshoppe.activity;
 
+import static android.hardware.SensorPrivacyManager.Sensors.CAMERA;
+
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -15,13 +23,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+import com.example.ecomerceshoppe.API.ProductAPI;
 import com.example.ecomerceshoppe.R;
+import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Product;
 import com.example.ecomerceshoppe.ultils.CustomToast;
+import com.example.ecomerceshoppe.ultils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,13 +58,21 @@ public class ManagerProductDetail extends AppCompatActivity {
     TextView btnSave;
 
     LinearLayout btnImage,btnExit;
+    String idUser = "639efa984b8a0a26a55db03c";
+
+    Bitmap bitmap= null;
+    private ProgressDialog progressDialog;
+
 
 
 
     private Product product;
     ArrayAdapter adapterCategory;
 
+    int categoryCurrent = 0;
+
     List<String> ListCategory = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +81,10 @@ public class ManagerProductDetail extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.layout_product_detail);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
         product = (Product) getIntent().getSerializableExtra("msg");
+//        if(product.getId()!=null)
+//        System.out.println("id   "+product.getId());
         mapping();
         setEvent();
 
@@ -64,6 +94,7 @@ public class ManagerProductDetail extends AppCompatActivity {
 
     }
     private void mapping() {
+
         edtName = findViewById(R.id.nameProduct_ManagerProductDetail);
         edtTag = findViewById(R.id.tag_ManagerProductDetail);
         edtQuanti = findViewById(R.id.quantity_ManagerProductDetail);
@@ -84,22 +115,81 @@ public class ManagerProductDetail extends AppCompatActivity {
         ListCategory.add("Đồ Điện Tử");
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK) {
-            if (requestCode== GALLERY_REQ_CODE) {
-                imgProduct.setImageURI(data.getData());
-                imgPath = data.getData(); // đưa vào api để đẩy lên clound
 
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == this.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == GALLERY_REQ_CODE) {
+            if (data != null) {
+                Uri contentURI = data.getData();
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+//                    Log.e("The image", imageToString(bitmap));
+                    imgProduct.setImageBitmap(bitmap);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+        } else if (requestCode == CAMERA) {
+            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            imgProduct.setImageBitmap(thumbnail);
+//            Toast.makeText(MainActivity.this, "Image Saved!", Toast.LENGTH_SHORT).show();
         }
     }
 
 
+    public void choosePhotoFromGallary() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(galleryIntent, GALLERY_REQ_CODE);
+    }
+
+    private void takePhotoFromCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA);
+    }
+
+    private void showPictureDialog() {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Vui lòng chọn !!!");
+        String[] pictureDialogItems = {
+                "Chọn ảnh tù thư viện",
+                "Chụp ảnh từ camera"};
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                choosePhotoFromGallary();
+                                break;
+                            case 1:
+                                takePhotoFromCamera();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
+    }
 
 
     private void setEvent() {
+
+        initDataForCategory();
+        adapterCategory = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ListCategory);
+        spCategory.setAdapter(adapterCategory);
+//        int selectionPosition= adapterCategory.getPosition(product.getCategory());
+        spCategory.setSelection(categoryCurrent);
 
         if(product!=null) {
             Glide.with(this).load(product.getUrlImage()).into(imgProduct);
@@ -108,32 +198,14 @@ public class ManagerProductDetail extends AppCompatActivity {
             edtQuanti.setText(String.valueOf(product.getQuantity()));
             edtPrice.setText(  String.valueOf(product.getPrice()));
             edtDescription.setText(product.getDescription());
-            initDataForCategory();
-            adapterCategory = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ListCategory);
-            spCategory.setAdapter(adapterCategory);
-
-            int selectionPosition= adapterCategory.getPosition(product.getCategory());
-
-
-            spCategory.setSelection(selectionPosition);
+            categoryCurrent= adapterCategory.getPosition(product.getCategory());
+            spCategory.setSelection(categoryCurrent);
         }
-        initDataForCategory();
-        adapterCategory = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ListCategory);
-        spCategory.setAdapter(adapterCategory);
-
-//        int selectionPosition= adapterCategory.getPosition(product.getCategory());
-
-
-        spCategory.setSelection(0);
-
-
 
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iGallery = new Intent(Intent.ACTION_PICK);
-                iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(iGallery, GALLERY_REQ_CODE);
+                showPictureDialog();
             }
         });
 
@@ -144,14 +216,110 @@ public class ManagerProductDetail extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        progressDialog = new ProgressDialog(ManagerProductDetail.this);
+        if (product!=null)
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //call api updatesp
-                CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Thành Công",CustomToast.LENGTH_SHORT,CustomToast.SUCCESS,true).show();
+
+                Product productTmp = new Product();
+                productTmp.setId(product.getId());
+                productTmp.setNameProduct(String.valueOf(edtName.getText()));
+//                productTmp.setSeller(product.getSeller());
+                productTmp.setTag(String.valueOf(edtTag.getText()));
+                productTmp.setQuantity(Integer.parseInt(String.valueOf(edtQuanti.getText())));
+                productTmp.setPrice(Double.parseDouble(String.valueOf(edtPrice.getText())));
+                productTmp.setCategory( String.valueOf(spCategory.getSelectedItem()));
+                productTmp.setDescription(String.valueOf(edtDescription.getText()));
+
+                String base64Img ="";
+                if (bitmap!=null) {
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                    byte[] bytes = byteArrayOutputStream.toByteArray();
+                    base64Img = Base64.encodeToString(bytes, Base64.NO_WRAP);
+                    progressDialog.setMessage("Image Uploading...!!!");
+                }
+
+
+                try {
+                    ProductAPI.APIUpdateProduct(getApplicationContext(), Utils.BASE_URL + "product/updatePatch/", productTmp, base64Img , new APICallBack() {
+                        @Override
+                        public void onSuccess(JSONObject response) throws JSONException {
+                            CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Thành Công",CustomToast.LENGTH_SHORT,CustomToast.SUCCESS,true).show();
+//                            System.out.println(response);
+//                            progressDialog.dismiss();
+
+                        }
+
+                        @Override
+                        public void onError(VolleyError error) {
+//                            System.err.println(error.getMessage());
+                            progressDialog.dismiss();
+                            CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
+
+                        }
+                    });
+                } catch (JSONException e) {
+                    CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
+
+                    throw new RuntimeException(e);
+
+                }
             }
         });
+        else {
+            btnSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //call api create product
+                    Product productTmp = new Product();
+                    productTmp.setNameProduct(String.valueOf(edtName.getText()));
+                    productTmp.setSeller(idUser);
+                    productTmp.setTag(String.valueOf(edtTag.getText()));
+                    productTmp.setQuantity(Integer.parseInt(String.valueOf(edtQuanti.getText())));
+                    productTmp.setPrice(Double.parseDouble(String.valueOf(edtPrice.getText())));
+                    productTmp.setCategory( String.valueOf(spCategory.getSelectedItem()));
+                    productTmp.setDescription(String.valueOf(edtDescription.getText()));
+
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                    byte[] bytes = byteArrayOutputStream.toByteArray();
+                    final String base64Img = Base64.encodeToString(bytes, Base64.NO_WRAP);
+                    progressDialog.setMessage("Image Uploading...!!!");
+
+                    try {
+                        ProductAPI.APIAddProduct(getApplicationContext(), Utils.BASE_URL + "product/create", productTmp, base64Img, new APICallBack() {
+                            @Override
+                            public void onSuccess(JSONObject response) throws JSONException {
+//                                progressDialog.dismiss();
+                                CustomToast.makeText(ManagerProductDetail.this,"Thêm Mới Sản Phẩm Thành Công",CustomToast.LENGTH_SHORT,CustomToast.SUCCESS,true).show();
+                                System.out.println(response);
+
+
+                            }
+
+                            @Override
+                            public void onError(VolleyError error) {
+                                System.err.println(error.getMessage());
+//                                progressDialog.dismiss();
+                                CustomToast.makeText(ManagerProductDetail.this,"Error Thêm Mới Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
+
+                            }
+                        });
+                    } catch (JSONException e) {
+//                        progressDialog.dismiss();
+                        CustomToast.makeText(ManagerProductDetail.this,"Catch Thêm Mới Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
+
+                        throw new RuntimeException(e);
+
+                    }
+                }
+            });
+
+
+        }
+
 
     }
 

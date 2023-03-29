@@ -60,11 +60,13 @@ public class Login extends AppCompatActivity {
                 }
             });
         } catch (JSONException e) {
+            System.out.println("nam"+e.getMessage());
             throw new RuntimeException(e);
         }
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 CustomToast.makeText(Login.this,"Kết Nối Server không thành công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
             }
         });

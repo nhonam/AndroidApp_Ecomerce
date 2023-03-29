@@ -57,8 +57,8 @@ public class FragProfile  extends Fragment {
                 public void onSuccess(JSONObject response) throws JSONException {
 //                    System.out.println("Profile :" + response.getJSONObject("data"));
                     profileObj = response.getJSONObject("data");
-                    System.out.println(profileObj);
-                    System.out.println( profileObj.get("admin"));
+//                    System.out.println(profileObj);
+//                    System.out.println( profileObj.get("admin"));
                     setEvent();
 
                 }

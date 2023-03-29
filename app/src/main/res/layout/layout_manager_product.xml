@@ -1,31 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-   * Grocery App
-   * https://github.com/quintuslabs/GroceryStore
-   * Created on 18-Feb-2019.
-   * Created by : Santosh Kumar Dash:- http://santoshdash.epizy.com
-   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.ManagerProduct">
 
-    <TextView
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         android:id="@+id/manager"
-        android:text="QUẢN LÍ SẢN PHẨM"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        android:textAlignment="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <ImageView
+
+            android:id="@+id/ic_backManagerProduct"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_home" />
+
+        <TextView
+
+            android:text="QUẢN LÍ SẢN PHẨM"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
 
     <SearchView
-        android:layout_alignLeft="@id/manager"
+
         android:id="@+id/seacrch_SV"
+        style="@style/border"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/manager"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="50dp"
+        android:background="#CAC4C4" />
 
     <RelativeLayout
         android:layout_marginTop="100dp"
@@ -33,33 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/b" />
 
-        <ImageView
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/bn1" />
-
-        <ImageView
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/bn3" />
-
-        <ImageView
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/bn1" />
 
         <RelativeLayout
             android:layout_width="match_parent"
