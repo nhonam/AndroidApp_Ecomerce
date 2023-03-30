@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -34,6 +35,8 @@ import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Product;
 import com.example.ecomerceshoppe.ultils.CustomToast;
 import com.example.ecomerceshoppe.ultils.Utils;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,9 +50,6 @@ import java.util.List;
 public class ManagerProductDetail extends AppCompatActivity {
 
     private int GALLERY_REQ_CODE = 1000;
-
-    private Uri imgPath;
-
     private EditText edtName, edtTag, edtQuanti, edtPrice, edtDescription;
     private Spinner spCategory;
     private ImageView imgProduct;
@@ -64,14 +64,14 @@ public class ManagerProductDetail extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
 
-
-
     private Product product;
     ArrayAdapter adapterCategory;
 
     int categoryCurrent = 0;
 
     List<String> ListCategory = new ArrayList<>();
+    ProgressBar progressBar;;
+
 
 
     @Override
@@ -87,14 +87,13 @@ public class ManagerProductDetail extends AppCompatActivity {
 //        System.out.println("id   "+product.getId());
         mapping();
         setEvent();
-
-
         //show icon back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
     private void mapping() {
-
+        progressBar = (ProgressBar)findViewById(R.id.spin_kit);
+        progressBar.setVisibility(View.GONE);
         edtName = findViewById(R.id.nameProduct_ManagerProductDetail);
         edtTag = findViewById(R.id.tag_ManagerProductDetail);
         edtQuanti = findViewById(R.id.quantity_ManagerProductDetail);
@@ -110,9 +109,12 @@ public class ManagerProductDetail extends AppCompatActivity {
 
     private void initDataForCategory(){
         ListCategory.add("Áo Quần");
-        ListCategory.add("Sách Vở");
-        ListCategory.add("Đồ Gia Dụng");
-        ListCategory.add("Đồ Điện Tử");
+        ListCategory.add("Điện Thoại");
+        ListCategory.add("Sách");
+        ListCategory.add("Máy Tính");
+        ListCategory.add("Điện Tử");
+        ListCategory.add("Thuốc");
+
     }
 
 
@@ -216,7 +218,7 @@ public class ManagerProductDetail extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        progressDialog = new ProgressDialog(ManagerProductDetail.this);
+
         if (product!=null)
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,11 +236,13 @@ public class ManagerProductDetail extends AppCompatActivity {
 
                 String base64Img ="";
                 if (bitmap!=null) {
+                    //anim loading
+                    progressBar.setVisibility(View.VISIBLE);
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                     byte[] bytes = byteArrayOutputStream.toByteArray();
                     base64Img = Base64.encodeToString(bytes, Base64.NO_WRAP);
-                    progressDialog.setMessage("Image Uploading...!!!");
+
                 }
 
 
@@ -246,6 +250,7 @@ public class ManagerProductDetail extends AppCompatActivity {
                     ProductAPI.APIUpdateProduct(getApplicationContext(), Utils.BASE_URL + "product/updatePatch/", productTmp, base64Img , new APICallBack() {
                         @Override
                         public void onSuccess(JSONObject response) throws JSONException {
+                            progressBar.setVisibility(View.GONE);
                             CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Thành Công",CustomToast.LENGTH_SHORT,CustomToast.SUCCESS,true).show();
 //                            System.out.println(response);
 //                            progressDialog.dismiss();
@@ -255,12 +260,13 @@ public class ManagerProductDetail extends AppCompatActivity {
                         @Override
                         public void onError(VolleyError error) {
 //                            System.err.println(error.getMessage());
-                            progressDialog.dismiss();
+                            progressBar.setVisibility(View.GONE);
                             CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
 
                         }
                     });
                 } catch (JSONException e) {
+                    progressBar.setVisibility(View.GONE);
                     CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
 
                     throw new RuntimeException(e);
@@ -286,13 +292,14 @@ public class ManagerProductDetail extends AppCompatActivity {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                     byte[] bytes = byteArrayOutputStream.toByteArray();
                     final String base64Img = Base64.encodeToString(bytes, Base64.NO_WRAP);
-                    progressDialog.setMessage("Image Uploading...!!!");
+                    progressBar.setVisibility(View.VISIBLE);
 
                     try {
                         ProductAPI.APIAddProduct(getApplicationContext(), Utils.BASE_URL + "product/create", productTmp, base64Img, new APICallBack() {
                             @Override
                             public void onSuccess(JSONObject response) throws JSONException {
 //                                progressDialog.dismiss();
+                                progressBar.setVisibility(View.GONE);
                                 CustomToast.makeText(ManagerProductDetail.this,"Thêm Mới Sản Phẩm Thành Công",CustomToast.LENGTH_SHORT,CustomToast.SUCCESS,true).show();
                                 System.out.println(response);
 
@@ -303,12 +310,14 @@ public class ManagerProductDetail extends AppCompatActivity {
                             public void onError(VolleyError error) {
                                 System.err.println(error.getMessage());
 //                                progressDialog.dismiss();
+                                progressBar.setVisibility(View.GONE);
                                 CustomToast.makeText(ManagerProductDetail.this,"Error Thêm Mới Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
 
                             }
                         });
                     } catch (JSONException e) {
 //                        progressDialog.dismiss();
+                        progressBar.setVisibility(View.GONE);
                         CustomToast.makeText(ManagerProductDetail.this,"Catch Thêm Mới Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
 
                         throw new RuntimeException(e);
