@@ -74,6 +74,7 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> implements Filt
             public void onClick(View view) {
                 Intent intent = new Intent(myContext, ManagerProductDetail.class);
                 intent.putExtra("msg", pd);
+
                 myContext.startActivity(intent);
             }
         });

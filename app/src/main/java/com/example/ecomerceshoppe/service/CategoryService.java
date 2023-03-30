@@ -15,7 +15,7 @@ public class CategoryService {
 
 
         String[] nameLogo = new String[]{
-                "Thời Trang Nam", "Thời Trang nữ", "Điện Thoại & Phụ Kiện", "Nhà Sách Online", "Máy tính & LapTop", "Thiết Bị Điện tử", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam"
+                "Áo Quần", "Điện Thoại", "Sách", "Máy Tính", "Điện Tử", "Thuốc", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam"
         };
 
         return Arrays.asList(nameLogo);
