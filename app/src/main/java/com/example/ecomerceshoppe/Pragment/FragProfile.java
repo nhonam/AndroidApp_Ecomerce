@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.ActionMenuView;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.VolleyError;
@@ -19,6 +20,7 @@ import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.CartUser;
 import com.example.ecomerceshoppe.activity.Login;
 import com.example.ecomerceshoppe.activity.ManagerProduct;
+import com.example.ecomerceshoppe.activity.VerifyOTP;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.User;
 import com.example.ecomerceshoppe.ultils.Feature;
@@ -32,12 +34,12 @@ public class FragProfile  extends Fragment {
 
     JSONObject profileObj = new JSONObject();
     ImageView avtUser;
-    TextView nameUser, idUser;
+    TextView nameUser;
+
+
     TextView nameProfile, emailProfile,phoneProfile,
             adressProfile, birthdayProfile, idProfile;
 
-
-    private BottomNavigationView navi;
     private TextView btnManagerProduct;
     private ImageView btnCart;
 
@@ -52,9 +54,7 @@ public class FragProfile  extends Fragment {
         String token = getArguments().getString("token");
 
          userCurrent = Feature.ConvertStringtoUser(UserStr);
-//        System.out.println("iduser////"+userCurrent.getId());
-//        System.out.println("token///"+token);
-        System.out.println("nammmmm/// "+userCurrent.getId());
+
 
 
         View view=inflater.inflate(R.layout.frag_profile, container, false);
@@ -62,7 +62,7 @@ public class FragProfile  extends Fragment {
 
         mapping(view);
         try {
-            UserAPI.getProfileUserAPI(getContext(), Utils.BASE_URL + "auth/getUser/","token" , new APICallBack() {
+            UserAPI.getProfileUserAPI(getContext(), Utils.BASE_URL + "auth/getUser/",token , new APICallBack() {
                 @Override
                 public void onSuccess(JSONObject response) throws JSONException {
 //                    System.out.println("Profile :" + response.getJSONObject("data"));
@@ -90,9 +90,11 @@ public class FragProfile  extends Fragment {
             public void onClick(View view) {
                 if(userCurrent.isAdmin()) {
                     Intent intent = new Intent(getContext(), ManagerProduct.class);
+
                     startActivity(intent);
                 }else {
-                    System.out.println("vui long dang ki lam shop");
+                    Intent intent = new Intent(getContext(), VerifyOTP.class);
+                    startActivity(intent);
                 }
 
             }
@@ -121,18 +123,17 @@ public class FragProfile  extends Fragment {
     }
 
     private void mapping(View view) {
-        nameProfile = view.findViewById(R.id.nameProfile);
+        nameProfile = view.findViewById(R.id.fullname);
         emailProfile = view.findViewById(R.id.emailProfile);
         phoneProfile = view.findViewById(R.id.phoneProfile);
         adressProfile = view.findViewById(R.id.adressProfile);
         birthdayProfile = view.findViewById(R.id.birthdayProfile);
-        idProfile = view.findViewById(R.id.idProfile);
+        idProfile = view.findViewById(R.id.id_user);
         avtUser = view.findViewById(R.id.avt_User);
         nameUser = view.findViewById(R.id.name_User);
-        idUser = view.findViewById(R.id.id_user);
 
         btnCart = (ImageView) view.findViewById(R.id.cart_profile);
-        navi = view.findViewById(R.id.bottom_navigation_pro);
+//        navi = view.findViewById(R.id.bottom_navigation_pro);
         btnManagerProduct = view.findViewById(R.id.btnManagerProduct);
         btnLogout = view.findViewById(R.id.logout);
 

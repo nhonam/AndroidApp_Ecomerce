@@ -53,6 +53,7 @@ public class ManagerProduct extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         SharedPreferences sharedPreferences = getSharedPreferences("matkhau", MODE_PRIVATE);
         idUser=sharedPreferences.getString("idUserCurent","");
+
 //        initData();
         mapping();
 
@@ -113,6 +114,7 @@ public class ManagerProduct extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ManagerProduct.this, ManagerProductDetail.class);
+                intent.putExtra("idUserCurrent",idUser);
                 startActivity(intent);
             }
         });

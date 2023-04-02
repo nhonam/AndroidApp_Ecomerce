@@ -16,7 +16,9 @@ public class VerifyOTP extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.layout_otp);
+        //kiểm tra nếu chưa có đầy đủ thông tin tthif phai update thông tin rồi mới gủi OTP
+
 
     }
 }

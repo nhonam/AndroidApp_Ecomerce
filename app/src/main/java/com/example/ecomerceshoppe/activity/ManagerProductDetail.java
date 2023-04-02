@@ -51,7 +51,8 @@ public class ManagerProductDetail extends AppCompatActivity {
     TextView btnSave;
 
     LinearLayout btnImage,btnExit;
-    String idUser = "639efa984b8a0a26a55db03c";
+
+    String idUser = "";
 
     Bitmap bitmap= null;
     private ProgressDialog progressDialog;
@@ -74,7 +75,7 @@ public class ManagerProductDetail extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.layout_product_detail);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
+        idUser = getIntent().getStringExtra("idUserCurrent");
         product = (Product) getIntent().getSerializableExtra("msg");
 //        if(product.getId()!=null)
 //        System.out.println("id   "+product.getId());
@@ -212,65 +213,60 @@ public class ManagerProductDetail extends AppCompatActivity {
             }
         });
 
-        if (product!=null)
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Product productTmp = new Product();
-                productTmp.setId(product.getId());
-                productTmp.setNameProduct(String.valueOf(edtName.getText()));
+                if(product!=null) {
+                    Product productTmp = new Product();
+                    productTmp.setId(product.getId());
+                    productTmp.setNameProduct(String.valueOf(edtName.getText()));
 //                productTmp.setSeller(product.getSeller());
-                productTmp.setTag(String.valueOf(edtTag.getText()));
-                productTmp.setQuantity(Integer.parseInt(String.valueOf(edtQuanti.getText())));
-                productTmp.setPrice(Double.parseDouble(String.valueOf(edtPrice.getText())));
-                productTmp.setCategory( String.valueOf(spCategory.getSelectedItem()));
-                productTmp.setDescription(String.valueOf(edtDescription.getText()));
+                    productTmp.setTag(String.valueOf(edtTag.getText()));
+                    productTmp.setQuantity(Integer.parseInt(String.valueOf(edtQuanti.getText())));
+                    productTmp.setPrice(Double.parseDouble(String.valueOf(edtPrice.getText())));
+                    productTmp.setCategory( String.valueOf(spCategory.getSelectedItem()));
+                    productTmp.setDescription(String.valueOf(edtDescription.getText()));
 
-                String base64Img ="";
-                if (bitmap!=null) {
-                    //anim loading
-                    progressBar.setVisibility(View.VISIBLE);
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-                    byte[] bytes = byteArrayOutputStream.toByteArray();
-                    base64Img = Base64.encodeToString(bytes, Base64.NO_WRAP);
+                    String base64Img ="";
+                    if (bitmap!=null) {
+                        //anim loading
+                        progressBar.setVisibility(View.VISIBLE);
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                        byte[] bytes = byteArrayOutputStream.toByteArray();
+                        base64Img = Base64.encodeToString(bytes, Base64.NO_WRAP);
 
-                }
+                    }
 
 
-                try {
-                    ProductAPI.APIUpdateProduct(getApplicationContext(), Utils.BASE_URL + "product/updatePatch/", productTmp, base64Img , new APICallBack() {
-                        @Override
-                        public void onSuccess(JSONObject response) throws JSONException {
-                            progressBar.setVisibility(View.GONE);
-                            CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Thành Công",CustomToast.LENGTH_SHORT,CustomToast.SUCCESS,true).show();
+                    try {
+                        ProductAPI.APIUpdateProduct(getApplicationContext(), Utils.BASE_URL + "product/updatePatch/", productTmp, base64Img , new APICallBack() {
+                            @Override
+                            public void onSuccess(JSONObject response) throws JSONException {
+                                progressBar.setVisibility(View.GONE);
+                                CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Thành Công",CustomToast.LENGTH_SHORT,CustomToast.SUCCESS,true).show();
 //                            System.out.println(response);
 //                            progressDialog.dismiss();
 
-                        }
+                            }
 
-                        @Override
-                        public void onError(VolleyError error) {
+                            @Override
+                            public void onError(VolleyError error) {
 //                            System.err.println(error.getMessage());
-                            progressBar.setVisibility(View.GONE);
-                            CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
+                                progressBar.setVisibility(View.GONE);
+                                CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
 
-                        }
-                    });
-                } catch (JSONException e) {
-                    progressBar.setVisibility(View.GONE);
-                    CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
+                            }
+                        });
+                    } catch (JSONException e) {
+                        progressBar.setVisibility(View.GONE);
+                        CustomToast.makeText(ManagerProductDetail.this,"Cập Nhật Sản Phẩm Không Thành Công",CustomToast.LENGTH_SHORT,CustomToast.ERROR,true).show();
 
-                    throw new RuntimeException(e);
+                        throw new RuntimeException(e);
 
-                }
-            }
-        });
-        else {
-            btnSave.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+                    }
+                }else {
                     //call api create product
                     Product productTmp = new Product();
                     productTmp.setNameProduct(String.valueOf(edtName.getText()));
@@ -317,10 +313,9 @@ public class ManagerProductDetail extends AppCompatActivity {
 
                     }
                 }
-            });
 
-
-        }
+            }
+        });
 
 
     }

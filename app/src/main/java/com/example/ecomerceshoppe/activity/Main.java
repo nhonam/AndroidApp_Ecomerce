@@ -35,6 +35,7 @@ public class Main extends AppCompatActivity {
         bundle.putString("token", token);
 
 
+
 // set Fragmentclass Arguments
         fragProfile = new FragProfile();
         fragProfile.setArguments(bundle);

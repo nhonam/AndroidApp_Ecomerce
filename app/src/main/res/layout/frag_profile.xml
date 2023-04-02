@@ -66,15 +66,16 @@
                     android:src="@drawable/ic_cart" />
 
                 <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:padding="1dp"
-                    android:src="@drawable/ic_setting" />
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:padding="1dp"
+                        android:src="@drawable/ic_setting" />
+
 
             </RelativeLayout>
 
@@ -125,14 +126,16 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <ImageView
 
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginStart="20dp"
-                        android:src="@drawable/ic_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:src="@drawable/ic_email" />
+
                     <TextView
-                        android:textSize="20dp"
+                        android:textSize="25dp"
                         android:layout_marginStart="10dp"
                         android:text="Email"
                         android:layout_width="wrap_content"
@@ -142,7 +145,9 @@
 
                 </LinearLayout>
                 <TextView
-                    android:layout_marginStart="50dp"
+                    android:id="@+id/emailProfile"
+                    android:textSize="20dp"
+                    android:layout_marginStart="65dp"
                     android:text="nhonamstg@gmail.com"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -165,13 +170,14 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-
-                        android:layout_width="21dp"
-                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginStart="20dp"
                         android:src="@drawable/ic_profile" />
+
                     <TextView
-                        android:textSize="20dp"
+                        android:textSize="25dp"
                         android:layout_marginStart="10dp"
                         android:text="Họ tên"
                         android:layout_width="wrap_content"
@@ -181,7 +187,9 @@
 
                 </LinearLayout>
                 <TextView
-                    android:layout_marginStart="50dp"
+                    android:id="@+id/fullname"
+                    android:textSize="20dp"
+                    android:layout_marginStart="65dp"
                     android:text="nhonamstg@gmail.com"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -202,15 +210,16 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
-
+                        android:layout_marginTop="5dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginStart="20dp"
-                        android:src="@drawable/ic_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:textSize="20dp"
+                        android:src="@drawable/ic_phone" />
 
+                    <TextView
+                        android:textSize="25dp"
                         android:layout_marginStart="10dp"
                         android:text="Số điện thoại"
                         android:layout_width="wrap_content"
@@ -220,7 +229,9 @@
 
                 </LinearLayout>
                 <TextView
-                    android:layout_marginStart="50dp"
+                    android:id="@+id/phoneProfile"
+                    android:textSize="20dp"
+                    android:layout_marginStart="65dp"
                     android:text="nhonamstg@gmail.com"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -241,15 +252,16 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
-
+                        android:layout_marginTop="5dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginStart="20dp"
-                        android:src="@drawable/ic_adress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:textSize="20dp"
+                        android:src="@drawable/ic_adress" />
 
+                    <TextView
+                        android:textSize="25dp"
                         android:layout_marginStart="10dp"
                         android:text="Địa chỉ"
                         android:layout_width="wrap_content"
@@ -259,8 +271,9 @@
 
                 </LinearLayout>
                 <TextView
-
-                    android:layout_marginStart="50dp"
+                    android:id="@+id/adressProfile"
+                    android:textSize="20dp"
+                    android:layout_marginStart="65dp"
                     android:text="nhonamstg@gmail.com"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -281,15 +294,16 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
-
+                        android:layout_marginTop="5dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginStart="20dp"
-                        android:src="@drawable/ic_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:textSize="20dp"
+                        android:src="@drawable/ic_date" />
 
+                    <TextView
+                        android:textSize="25dp"
                         android:layout_marginStart="10dp"
                         android:text="Ngày sinh"
                         android:layout_width="wrap_content"
@@ -299,8 +313,9 @@
 
                 </LinearLayout>
                 <TextView
-
-                    android:layout_marginStart="50dp"
+                    android:id="@+id/birthdayProfile"
+                    android:textSize="20dp"
+                    android:layout_marginStart="65dp"
                     android:text="30/03/2001"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -321,6 +336,8 @@
                 android:layout_height="wrap_content">
 
             </Button>
+
+
 
 
 

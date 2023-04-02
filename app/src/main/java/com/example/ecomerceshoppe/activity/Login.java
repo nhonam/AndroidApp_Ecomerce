@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.android.volley.VolleyError;
 import com.example.ecomerceshoppe.API.UserAPI;
+import com.example.ecomerceshoppe.DTO.UserDTO;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.User;
@@ -60,7 +61,6 @@ public class Login extends AppCompatActivity {
         Gson gson = new Gson();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("user", gson.toJson(user));
-        System.out.println("nam121"+user.getId());
         editor.putString("token", token);
         editor.putString("idUserCurent", idUser);
         editor.putString("username", username);
@@ -149,8 +149,10 @@ public class Login extends AppCompatActivity {
                 userDTO.setEmail(userCurrent.getString("email"));
                 userDTO.setAddress(userCurrent.getString("address"));
                 userDTO.setIdentity_card(userCurrent.getString("identity_card"));
-                userDTO.setActive(true);
+
                 userDTO.setPhone(userCurrent.getString("phone"));
+
+
                 userDTO.setAdmin(Boolean.parseBoolean(userCurrent.getString("isAdmin")));
                 userDTO.setBirthday(Feature.ConvertStringtoDate(userCurrent.getString("birthday")));
 

@@ -48,7 +48,7 @@ public class CartUser extends AppCompatActivity {
         mapping();
 
         try {
-            CartAPI.getCartByUser(this, Utils.BASE_URL + "cart/get/cart/user/", idUser, new APICallBack() {
+            CartAPI.getCartByUser(this, Utils.BASE_URL + "cart/get/cartuser/", idUser, new APICallBack() {
                 @Override
                 public void onSuccess(JSONObject response) throws JSONException {
 //                    System.out.println("api get cart by user: "+response);
