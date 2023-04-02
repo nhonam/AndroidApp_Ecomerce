@@ -39,14 +39,9 @@
             android:name=".activity.ManagerProductDetail"
             android:exported="false" />
         <activity
-            android:name=".activity.ThongBao"
+            android:name=".activity.Register"
             android:exported="false" />
-        <activity
-            android:name=".activity.Profile"
-            android:exported="false" />
-        <activity
-            android:name=".activity.Home"
-            android:exported="false" />
+
         <activity
             android:name=".activity.Login"
             android:exported="true">

@@ -1,6 +1,7 @@
 package com.example.ecomerceshoppe.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -17,7 +18,6 @@ import com.example.ecomerceshoppe.adapter.CartAdapter;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Cart;
 import com.example.ecomerceshoppe.ultils.Utils;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +30,7 @@ public class CartUser extends AppCompatActivity {
 
     private Cart cartUser;
     private ArrayList<Cart> listCart = new ArrayList<>();
-    String idUser ="63af70c03f562b7531d4c5db";
+    String idUser ="63af70c03f562b7531d4c5db"; //ttesstt
     TextView txtVIew ;
 
     ListView listViewCart;
@@ -43,6 +43,8 @@ public class CartUser extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_cart_user);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        SharedPreferences sharedPreferences = getSharedPreferences("matkhau", MODE_PRIVATE);
+        idUser=sharedPreferences.getString("idUserCurent","");
         mapping();
 
         try {

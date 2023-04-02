@@ -1,8 +1,8 @@
 package com.example.ecomerceshoppe.service;
 
-import com.example.ecomerceshoppe.API.ProductAPI;
 import com.example.ecomerceshoppe.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +20,18 @@ public class CategoryService {
 
         return Arrays.asList(nameLogo);
 
+
+    }
+
+    private List<String> initDataForCategory(){
+        List<String> ListCategory = new ArrayList<>();
+        ListCategory.add("Áo Quần");
+        ListCategory.add("Điện Thoại");
+        ListCategory.add("Sách");
+        ListCategory.add("Máy Tính");
+        ListCategory.add("Điện Tử");
+        ListCategory.add("Thuốc");
+        return ListCategory;
 
     }
 

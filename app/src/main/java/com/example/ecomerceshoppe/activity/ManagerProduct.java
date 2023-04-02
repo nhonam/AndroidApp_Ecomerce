@@ -1,22 +1,19 @@
 package com.example.ecomerceshoppe.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.media.Image;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.VolleyError;
 import com.example.ecomerceshoppe.API.UserAPI;
-import com.example.ecomerceshoppe.Pragment.FragProfile;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.adapter.ProductManagerAdapter;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
@@ -45,7 +42,7 @@ public class ManagerProduct extends AppCompatActivity {
 
     SearchView searchView;
 
-    String idUser = "639efa984b8a0a26a55db03c";
+    String idUser = "639efa984b8a0a26a55db03c"; //test
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +51,8 @@ public class ManagerProduct extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.layout_manager_product);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("matkhau", MODE_PRIVATE);
+        idUser=sharedPreferences.getString("idUserCurent","");
 //        initData();
         mapping();
 

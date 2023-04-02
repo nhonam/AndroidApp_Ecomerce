@@ -1,7 +1,5 @@
 package com.example.ecomerceshoppe.activity;
 
-import static java.util.stream.Collectors.mapping;
-
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.Button;
@@ -14,15 +12,11 @@ import com.bumptech.glide.Glide;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.model.Product;
 import com.example.ecomerceshoppe.ultils.ObjectWrapperForBinder;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Map;
-
 public class ProductDetail extends AppCompatActivity {
-
     ImageView Img_ProductDetail;
     TextView nameProductDetail,priceProductDeltail,tagProductDeltail,descriptionProductDetail;
     Button chatNow,addCart,btnBuy;

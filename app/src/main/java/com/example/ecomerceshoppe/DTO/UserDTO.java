@@ -1,12 +1,13 @@
-package com.example.ecomerceshoppe.model;
+package com.example.ecomerceshoppe.DTO;
 
 import java.util.Date;
 
-public class User {
+public class UserDTO {
 
-    private String userName;
     private String id;
-    private String passWord;
+
+
+
     private String fullName;
     private String email;
     private String address;
@@ -14,8 +15,15 @@ public class User {
     private String urlAvatar;
     private String phone;
     private String identity_card;
-    private boolean isActive;
+
     private boolean isAdmin;
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
 
     public String getId() {
@@ -24,30 +32,6 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -98,13 +82,7 @@ public class User {
         this.identity_card = identity_card;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
 
-    public void setActive(boolean active) {
-        isActive = active;
-    }
 
     public boolean isAdmin() {
         return isAdmin;
@@ -114,21 +92,20 @@ public class User {
         isAdmin = admin;
     }
 
+    public UserDTO() {
 
-    public User() {
     }
 
-    public User(String userName, String passWord, String fullName, String email, String address, Date birthday, String urlAvatar, String phone, String identity_card, boolean isActive, boolean isAdmin) {
-        this.userName = userName;
-        this.passWord = passWord;
-        this.fullName = fullName;
+    public UserDTO(String id, String email, String address, Date birthday, String urlAvatar, String phone, String identity_card, boolean isAdmin) {
+
+        this.id = id;
         this.email = email;
         this.address = address;
         this.birthday = birthday;
         this.urlAvatar = urlAvatar;
         this.phone = phone;
         this.identity_card = identity_card;
-        this.isActive = isActive;
+
         this.isAdmin = isAdmin;
     }
 }

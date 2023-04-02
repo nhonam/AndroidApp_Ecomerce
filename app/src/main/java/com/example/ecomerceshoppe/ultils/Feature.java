@@ -1,5 +1,11 @@
 package com.example.ecomerceshoppe.ultils;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
+
+import com.example.ecomerceshoppe.model.User;
+import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
 import org.json.JSONException;
@@ -7,10 +13,47 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Map;
 
 public class Feature {
+
+    public static User ConvertStringtoUser(String str){
+            Gson gson = new Gson();
+            return gson.fromJson(str, User.class);
+
+    }
+
+    public  static Date ConvertStringtoDate(String strDate ) {
+
+        Instant instant = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            instant = Instant.parse(strDate);
+        }
+        LocalDateTime dateTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        }
+        LocalDate localDate = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            localDate = dateTime.toLocalDate();
+        }
+        Date date = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return date;
+
+    }
     public static JSONObject convertKeyValueToJSON(LinkedTreeMap<String, Object> ltm) {
+
+
         JSONObject jo=new JSONObject();
         Object[] objs = ltm.entrySet().toArray();
         for (int l=0;l<objs.length;l++)
@@ -49,5 +92,7 @@ public class Feature {
                 return true;
         }
     };
+
+
 
 }
