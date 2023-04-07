@@ -201,7 +201,7 @@ public class ProductAPI {
 //        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 //        Date date = new Date();
 
-
+        System.out.println("api create đc gọi");
         JSONObject postData = new JSONObject();
 
         postData.put("seller", product.getSeller());
@@ -232,7 +232,6 @@ public class ProductAPI {
                     }
                 },
                 new Response.ErrorListener() {
-
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Handle error

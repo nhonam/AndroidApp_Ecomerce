@@ -21,8 +21,8 @@ import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.example.ecomerceshoppe.API.ProductAPI;
 import com.example.ecomerceshoppe.R;
-import com.example.ecomerceshoppe.activity.ManagerProduct;
 import com.example.ecomerceshoppe.activity.ManagerProductDetail;
+import com.example.ecomerceshoppe.activity.ManagerShop;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Product;
 import com.example.ecomerceshoppe.ultils.CustomToast;
@@ -32,7 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ProductManagerAdapter extends ArrayAdapter<Product> implements Filterable {
     Context myContext;
@@ -45,7 +44,7 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> implements Filt
         this.myContext = context;
         this.myLayout = resource;
         this.data = listProduct;
-       data_tmp = data;
+        data_tmp = data;
 
     }
 
@@ -90,6 +89,8 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> implements Filt
         return convertView;
 
     }
+
+
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -124,7 +125,6 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> implements Filt
         };
 
 
-
     }
 
     private void clickDeleteItem(String idProduct) {
@@ -146,7 +146,7 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> implements Filt
                         @Override
                         public void onSuccess(JSONObject response) throws JSONException {
                             CustomToast.makeText(myContext, "Xóa Sản Phẩm Thành Công", CustomToast.LENGTH_SHORT, CustomToast.SUCCESS, true).show();
-                            myContext.startActivity(new Intent(myContext, ManagerProduct.class));
+                            myContext.startActivity(new Intent(myContext, ManagerShop.class));
 
                         }
 
@@ -177,11 +177,8 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> implements Filt
     private class ViewHorder {
 
 
-
         TextView txtProductName, txtTag, txtquantity, txtPrice, txtCategory, txtDescription;
         ImageView imageView, ivEdit, ivDel;
-
-        CheckBox checkBox;
 
 
         public ViewHorder(View view) {
@@ -196,8 +193,6 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> implements Filt
             ivDel = view.findViewById(R.id.Delete_Product);
         }
     }
-
-
 
 
 }

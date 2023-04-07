@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#E8E2E2">
+
+    <LinearLayout
+        android:layout_marginBottom="20dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:backgroundTint="@color/white"
+            android:background="@drawable/border_for_bg"
+            android:layout_marginRight="50dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/ic_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:text="Số lượng sản phẩm đã bán"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:layout_marginStart="30dp"
+                android:text="4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:backgroundTint="@color/white"
+            android:background="@drawable/border_for_bg"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/ic_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:text="Tổng doanh thu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginStart="30dp"
+                android:textSize="30dp"
+                android:text="4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/idPieChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+    <TextView
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Biểu đồ: Sản phẩm nổi bật"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></TextView>
+
+<View
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="2dp"/>
+    <com.github.mikephil.charting.charts.BarChart
+       android:layout_marginTop="15dp"
+        android:id="@+id/idBarChart"
+        android:layout_width="match_parent"
+        android:layout_height="250dp" />
+    <LinearLayout
+
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="20dp"
+            android:gravity="center"
+            android:text="Biểu đồ doanh thu Quý "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        app:itemIconTint="@color/custom_color_navigationbottom"
+        app:itemTextColor="@color/custom_color_navigationbottom"
+        app:menu="@menu/menu_chart" />
+
+</LinearLayout>

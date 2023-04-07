@@ -2,12 +2,10 @@ package com.example.ecomerceshoppe.DTO;
 
 import java.util.Date;
 
-public class UserDTO {
+public class UserDTO
+{
 
     private String id;
-
-
-
     private String fullName;
     private String email;
     private String address;
@@ -15,7 +13,6 @@ public class UserDTO {
     private String urlAvatar;
     private String phone;
     private String identity_card;
-
     private boolean isAdmin;
     public String getFullName() {
         return fullName;

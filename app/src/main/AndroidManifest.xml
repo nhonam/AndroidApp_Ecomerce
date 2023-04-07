@@ -23,6 +23,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".activity.ManagerShop"
+            android:exported="false" />
+
+        <activity
             android:name=".activity.ProductDetail"
             android:exported="false" />
 
@@ -35,9 +39,6 @@
             android:name=".activity.CartUser"
             android:exported="false" />
 
-        <activity
-            android:name=".activity.ManagerProduct"
-            android:exported="false" />
 
         <activity
             android:name=".activity.ManagerProductDetail"

@@ -18,7 +18,6 @@ import java.util.List;
 
 public class CategoryRCVAdapter extends RecyclerView.Adapter<CategoryRCVAdapter.ViewHolder> {
     //Dữ liệu hiện thị là danh sách sinh viên
-    Context context;
     private String[] logoNameList;
     private int[] imgPhotoList;
     // Lưu Context để dễ dàng truy cập

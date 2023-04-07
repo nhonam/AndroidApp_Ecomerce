@@ -19,7 +19,7 @@ import com.example.ecomerceshoppe.API.UserAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.CartUser;
 import com.example.ecomerceshoppe.activity.Login;
-import com.example.ecomerceshoppe.activity.ManagerProduct;
+import com.example.ecomerceshoppe.activity.ManagerShop;
 import com.example.ecomerceshoppe.activity.VerifyOTP;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.User;
@@ -89,9 +89,14 @@ public class FragProfile  extends Fragment {
             @Override
             public void onClick(View view) {
                 if(userCurrent.isAdmin()) {
-                    Intent intent = new Intent(getContext(), ManagerProduct.class);
+//                    Intent intent = new Intent(getContext(), ManagerProduct.class);
+//
+//                    startActivity(intent);
 
+                    Intent intent = new Intent(getContext(), ManagerShop.class);
+//
                     startActivity(intent);
+
                 }else {
                     Intent intent = new Intent(getContext(), VerifyOTP.class);
                     startActivity(intent);

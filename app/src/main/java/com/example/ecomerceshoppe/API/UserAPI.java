@@ -182,7 +182,6 @@ public class UserAPI {
         postData.put("username", username);
         postData.put("password", password);
         postData.put("repassword", repassword);
-
         JSONObject requestBody = new JSONObject();
         requestBody.put("data", postData);
 

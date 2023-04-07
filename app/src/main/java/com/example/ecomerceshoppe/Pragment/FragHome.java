@@ -20,7 +20,6 @@ import com.android.volley.VolleyError;
 import com.example.ecomerceshoppe.API.ProductAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.ProductDetail;
-import com.example.ecomerceshoppe.adapter.CategoryAdapter;
 import com.example.ecomerceshoppe.adapter.CategoryRCVAdapter;
 import com.example.ecomerceshoppe.adapter.ProductLatestAdapter;
 import com.example.ecomerceshoppe.adapter.SliderAdapter;

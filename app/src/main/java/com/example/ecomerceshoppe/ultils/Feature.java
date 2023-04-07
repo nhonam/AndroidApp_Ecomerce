@@ -3,6 +3,8 @@ package com.example.ecomerceshoppe.ultils;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.util.Base64;
 
 import com.example.ecomerceshoppe.model.User;
 import com.google.gson.Gson;
@@ -11,6 +13,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.text.SimpleDateFormat;
@@ -22,6 +25,13 @@ import java.util.Date;
 import java.util.Map;
 
 public class Feature {
+
+    public static String CovertBitmapToBase64(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        return  Base64.encodeToString(bytes, Base64.NO_WRAP);
+    }
 
     public static User ConvertStringtoUser(String str){
             Gson gson = new Gson();
@@ -92,6 +102,8 @@ public class Feature {
                 return true;
         }
     };
+
+
 
 
 

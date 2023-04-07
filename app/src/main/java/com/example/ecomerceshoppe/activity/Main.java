@@ -22,7 +22,6 @@ public class Main extends AppCompatActivity {
     FragProfile fragProfile = null;
     SharedPreferences sharedPreferences;
     BottomNavigationView navi;
-
     void LoadDataInLocal(){
         sharedPreferences = getSharedPreferences("matkhau", MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
@@ -33,8 +32,6 @@ public class Main extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("user", userStr);
         bundle.putString("token", token);
-
-
 
 // set Fragmentclass Arguments
         fragProfile = new FragProfile();
@@ -86,7 +83,6 @@ public class Main extends AppCompatActivity {
                                 .setCustomAnimations(
                                         R.anim.slide_in ,
                                         R.anim.fade_out
-
                                 )
                                 .replace(R.id.content_main,fragNotification)
                                 .commit();
@@ -105,11 +101,8 @@ public class Main extends AppCompatActivity {
                                 )
                                 .replace(R.id.content_main,fragProfile)
                                 .commit();
-
                         break;
                 }
-
-
                 return false;
             }
         });

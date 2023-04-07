@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mn_ManagerPD"
+        android:icon="@drawable/ic_profile"
+        android:title="Quản lý sản phẩm" />
+    <item
+        android:id="@+id/mn_Revenue"
+        android:icon="@drawable/ic_revenue"
+        android:title="Thống kê doanh thu" />
+    <item
+        android:id="@+id/mn_ManagerOrder"
+        android:icon="@drawable/ic_store"
+        android:title="Quản lí đơn hàng" />
+    <item
+        android:id="@+id/mn_Exit"
+        android:icon="@drawable/ic_back"
+        android:title="Thoát" />
+
+</menu>
