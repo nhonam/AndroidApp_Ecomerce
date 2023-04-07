@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_marginTop="10dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:id="@+id/manager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -24,8 +24,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+<!--        <Spinner-->
+<!--            android:id="@+id/sp_category_manager"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
 
     </LinearLayout>
+
+
 
     <SearchView
 

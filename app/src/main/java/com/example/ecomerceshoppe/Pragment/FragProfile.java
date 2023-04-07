@@ -15,6 +15,7 @@ import androidx.appcompat.widget.ActionMenuView;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.VolleyError;
+import com.bumptech.glide.Glide;
 import com.example.ecomerceshoppe.API.UserAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.CartUser;
@@ -55,12 +56,10 @@ public class FragProfile  extends Fragment {
 
          userCurrent = Feature.ConvertStringtoUser(UserStr);
 
-
-
         View view=inflater.inflate(R.layout.frag_profile, container, false);
 
-
         mapping(view);
+        setDataProfile();
         try {
             UserAPI.getProfileUserAPI(getContext(), Utils.BASE_URL + "auth/getUser/",token , new APICallBack() {
                 @Override
@@ -142,7 +141,18 @@ public class FragProfile  extends Fragment {
         btnManagerProduct = view.findViewById(R.id.btnManagerProduct);
         btnLogout = view.findViewById(R.id.logout);
 
+    }
 
+    public void setDataProfile() {
+        System.out.println("huhuhu:"+userCurrent.getUrlAvatar());
+        Glide.with(getContext()).load(userCurrent.getUrlAvatar()).into(avtUser);
+        nameUser.setText(userCurrent.getFullName());
+        idProfile.setText(userCurrent.getId());
+        emailProfile.setText(userCurrent.getEmail());
+        nameProfile.setText(userCurrent.getFullName());
+        phoneProfile.setText(userCurrent.getPhone());
+        adressProfile.setText(userCurrent.getAddress());
+//        birthdayProfile.setText((CharSequence) userCurrent.getBirthday());
 
     }
 }

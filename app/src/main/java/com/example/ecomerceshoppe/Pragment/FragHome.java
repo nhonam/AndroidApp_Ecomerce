@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
+import com.bumptech.glide.Glide;
 import com.example.ecomerceshoppe.API.ProductAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.ProductDetail;
@@ -40,10 +43,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragHome  extends Fragment {
+public class FragHome extends Fragment {
     //gridview Category Product
-    GridView  gr_productList;
-    RecyclerView rcvCategory ;
+    GridView gr_productList;
+    RecyclerView rcvCategory;
 
 //    RecyclerView rcvCategory;
 
@@ -66,6 +69,8 @@ public class FragHome  extends Fragment {
     CategoryRCVAdapter categoryRCVAdapter;
     ProductLatestAdapter latestProduct_test;
     SliderAdapter sliderAdapter;
+
+
 
 
     int[] imgSliders = {
@@ -93,19 +98,18 @@ public class FragHome  extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.frag_home, container, false);
+        View view = inflater.inflate(R.layout.frag_home, container, false);
 
         Mapping(view);
         nameLogo = CategoryService.loadLogoName().toArray(new String[0]);
         imgLogo = CategoryService.loadLogo();
+
 
         if (InternetConnect.isConnected(getContext())) {
             Toast.makeText(getContext(), "ok", Toast.LENGTH_LONG).show();
 //            ProductAPI.getAPIString(Home.this,"https://facebook.com/");
 //            ProductAPI.getAPIJson(this,"https://dummyjson.com/products/1");
 //            ProductAPI.getAllCategories(this, "Thời Trang Nam", Utils.BASE_URL+"product/search/");
-
-
 
 
             ProductAPI.getAPIJson(getContext(), Utils.BASE_URL + "product/get/allProduct/", new APICallBack() {
@@ -155,13 +159,12 @@ public class FragHome  extends Fragment {
         }
 
 
-
         return view;
     }
 
     private void setAdapter() {
         //setCategoryProduct and click item category
-        categoryRCVAdapter = new CategoryRCVAdapter(getContext(),nameLogo, imgLogo,(view, position) -> {
+        categoryRCVAdapter = new CategoryRCVAdapter(getContext(), nameLogo, imgLogo, (view, position) -> {
             category = nameLogo[position];
             ProductAPI.getAPIJson(getContext(), Utils.BASE_URL + "product/get/allProduct/" + category, new APICallBack() {
 
@@ -240,6 +243,7 @@ public class FragHome  extends Fragment {
         rcvCategory = view.findViewById(R.id.productCategory);
         gr_productList = view.findViewById(R.id.latestProduct);
         sliderView = view.findViewById(R.id.slider);
+
 
     }
 }

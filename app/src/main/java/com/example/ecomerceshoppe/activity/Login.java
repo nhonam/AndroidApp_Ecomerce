@@ -149,9 +149,9 @@ public class Login extends AppCompatActivity {
                 userDTO.setEmail(userCurrent.getString("email"));
                 userDTO.setAddress(userCurrent.getString("address"));
                 userDTO.setIdentity_card(userCurrent.getString("identity_card"));
-
                 userDTO.setPhone(userCurrent.getString("phone"));
-
+                JSONObject tmp = (JSONObject) userCurrent.get("avt");
+                userDTO.setUrlAvatar(tmp.getString("url"));
 
                 userDTO.setAdmin(Boolean.parseBoolean(userCurrent.getString("isAdmin")));
                 userDTO.setBirthday(Feature.ConvertStringtoDate(userCurrent.getString("birthday")));

@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -13,10 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.bumptech.glide.Glide;
+import com.example.ecomerceshoppe.Pragment.FragHome;
 import com.example.ecomerceshoppe.Pragment.FragManagerProduct;
 import com.example.ecomerceshoppe.Pragment.FragProfile;
 import com.example.ecomerceshoppe.Pragment.FragRevenue;
 import com.example.ecomerceshoppe.R;
+import com.example.ecomerceshoppe.model.User;
+import com.example.ecomerceshoppe.ultils.Feature;
 import com.google.android.material.navigation.NavigationView;
 
 public class ManagerShop extends AppCompatActivity {
@@ -27,6 +34,9 @@ public class ManagerShop extends AppCompatActivity {
     FragManagerProduct fragManagerProduct=null;
     FragRevenue fragRevenue =null;
     SharedPreferences sharedPreferences;
+    ImageView avtShop;
+    TextView shopName;
+    String userStrCurent;
 
     void LoadDataInLocal(){
         sharedPreferences = getSharedPreferences("matkhau", MODE_PRIVATE);
@@ -34,11 +44,11 @@ public class ManagerShop extends AppCompatActivity {
         String password = sharedPreferences.getString("password","");
         String idUserCurent = sharedPreferences.getString("idUserCurent","");
         String token = sharedPreferences.getString("token","");
-        String userStr = sharedPreferences.getString("user","");
+        userStrCurent = sharedPreferences.getString("user","");
         Bundle bundle = new Bundle();
-        bundle.putString("user", userStr);
+        bundle.putString("user", userStrCurent);
         bundle.putString("token", token);
-        System.out.println("idUserCurent: "+idUserCurent);
+        //set Avatar and name của Shop
 
 
 // set Fragmentclass Arguments
@@ -55,8 +65,10 @@ public class ManagerShop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_shop);
-        LoadDataInLocal();
         mapping();
+        LoadDataInLocal();
+
+
         setEvent();
     }
 
@@ -72,7 +84,11 @@ public class ManagerShop extends AppCompatActivity {
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        //set ảnh đại diện của shop và tên của shop
+        User userCurrent = Feature.ConvertStringtoUser(userStrCurent);
+        Glide.with(ManagerShop.this).load(userCurrent.getUrlAvatar()).into(avtShop);
+        shopName.setText(userCurrent.getFullName());
+        //end
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -121,8 +137,12 @@ public class ManagerShop extends AppCompatActivity {
     }
 
     private void mapping() {
+
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.navigationview);
+        View headerView = navigationView.getHeaderView(0);
+        avtShop =  headerView.findViewById(R.id.avt_Shop);
+        shopName = (TextView) headerView.findViewById(R.id.shopName);
     }
 
 }

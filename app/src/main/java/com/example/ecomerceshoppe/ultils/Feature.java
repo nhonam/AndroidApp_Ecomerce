@@ -21,7 +21,9 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class Feature {
@@ -103,7 +105,17 @@ public class Feature {
         }
     };
 
+    public static List<String> initDataForCategory() {
+        List<String> ListCategory = new ArrayList<>();
+        ListCategory.add("Áo Quần");
+        ListCategory.add("Điện Thoại");
+        ListCategory.add("Sách");
+        ListCategory.add("Máy Tính");
+        ListCategory.add("Điện Tử");
+        ListCategory.add("Thuốc");
+        return ListCategory;
 
+    }
 
 
 

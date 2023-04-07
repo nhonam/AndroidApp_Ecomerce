@@ -101,15 +101,7 @@ public class ManagerProductDetail extends AppCompatActivity {
 
     }
 
-    private void initDataForCategory() {
-        ListCategory.add("Áo Quần");
-        ListCategory.add("Điện Thoại");
-        ListCategory.add("Sách");
-        ListCategory.add("Máy Tính");
-        ListCategory.add("Điện Tử");
-        ListCategory.add("Thuốc");
 
-    }
 
 
     @Override
@@ -340,7 +332,7 @@ public class ManagerProductDetail extends AppCompatActivity {
 
     private void setEvent() {
 
-        initDataForCategory();
+        ListCategory = Feature.initDataForCategory();
         adapterCategory = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ListCategory);
         spCategory.setAdapter(adapterCategory);
 //        int selectionPosition= adapterCategory.getPosition(product.getCategory());

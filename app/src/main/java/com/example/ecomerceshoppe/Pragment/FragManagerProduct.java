@@ -32,7 +32,6 @@ import java.util.ArrayList;
 public class FragManagerProduct extends Fragment {
 
     JSONArray listProduct = new JSONArray();
-
     ListView listViewProduct;
     ArrayList<Product> ProductList = new ArrayList<>();
 
@@ -42,12 +41,13 @@ public class FragManagerProduct extends Fragment {
 
     Button btnAddProduct;
 
-
     SearchView searchView;
 
     String idUser = "639efa984b8a0a26a55db03c"; //test
 
     User userCurrent=null;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
