@@ -20,6 +20,10 @@ public class Cart {
         this.urlImage = urlImage;
     }
 
+    public Cart() {
+
+    }
+
     public String getId() {
         return id;
     }

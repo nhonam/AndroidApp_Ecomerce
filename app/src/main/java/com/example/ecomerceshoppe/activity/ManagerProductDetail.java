@@ -2,7 +2,6 @@ package com.example.ecomerceshoppe.activity;
 
 import static android.hardware.SensorPrivacyManager.Sensors.CAMERA;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,14 +25,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.example.ecomerceshoppe.API.ProductAPI;
-import com.example.ecomerceshoppe.Pragment.FragManagerProduct;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Product;
 import com.example.ecomerceshoppe.ultils.CustomToast;
 import com.example.ecomerceshoppe.ultils.Feature;
 import com.example.ecomerceshoppe.ultils.Utils;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,8 +39,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.rxjava3.internal.operators.flowable.FlowableElementAtSingle;
 
 public class ManagerProductDetail extends AppCompatActivity {
 

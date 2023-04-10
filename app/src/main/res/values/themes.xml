@@ -13,5 +13,23 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
+
     </style>
+
+    <style name="NunotoTextViewBoldStyle" parent="android:Widget.TextView">
+       <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="NunotoTextViewHeaderStyle" parent="android:Widget.TextView">
+        <item name="fontFamily">@font/nunitosans_black</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    <style name="TextViewSmallBoldStyle" parent="android:Widget.TextView">
+        <item name="fontFamily">@font/nunitosans_bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
 </resources>

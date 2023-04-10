@@ -85,6 +85,7 @@ public class FragHome extends Fragment {
     SliderView sliderView;
 
     private String category = "";
+    String idUserCurrent="";
 
     @SuppressLint("ResourceType")
     @Override
@@ -101,6 +102,9 @@ public class FragHome extends Fragment {
         View view = inflater.inflate(R.layout.frag_home, container, false);
 
         Mapping(view);
+        //lấy dữ liệu đc gửi từ trang Main
+        idUserCurrent = getArguments().getString("idUserCurent");
+        //
         nameLogo = CategoryService.loadLogoName().toArray(new String[0]);
         imgLogo = CategoryService.loadLogo();
 
@@ -227,14 +231,17 @@ public class FragHome extends Fragment {
         gr_productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final Object objSent = new Object();
                 final Bundle bundle = new Bundle();
                 try {
                     bundle.putBinder("product", new ObjectWrapperForBinder(listProduct.get(i)));
+
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-                startActivity(new Intent(getContext(), ProductDetail.class).putExtras(bundle));
+                Intent intent = new Intent(getContext(), ProductDetail.class).putExtras(bundle);
+                intent.putExtra("idUserCurrent", idUserCurrent);
+
+                startActivity(intent);
             }
         });
     }

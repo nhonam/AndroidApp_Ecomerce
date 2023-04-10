@@ -9,16 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.ActionMenuView;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.example.ecomerceshoppe.API.UserAPI;
 import com.example.ecomerceshoppe.R;
-import com.example.ecomerceshoppe.activity.CartUser;
 import com.example.ecomerceshoppe.activity.Login;
 import com.example.ecomerceshoppe.activity.ManagerShop;
 import com.example.ecomerceshoppe.activity.VerifyOTP;
@@ -26,7 +25,6 @@ import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.User;
 import com.example.ecomerceshoppe.ultils.Feature;
 import com.example.ecomerceshoppe.ultils.Utils;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,9 +40,10 @@ public class FragProfile  extends Fragment {
             adressProfile, birthdayProfile, idProfile;
 
     private TextView btnManagerProduct;
-    private ImageView btnCart;
 
-    Button btnLogout;
+    ImageView btnSetting;
+
+    LinearLayout btnLogout;
     User userCurrent=null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,31 +55,35 @@ public class FragProfile  extends Fragment {
 
          userCurrent = Feature.ConvertStringtoUser(UserStr);
 
-        View view=inflater.inflate(R.layout.frag_profile, container, false);
+        View view=inflater.inflate(R.layout.profile, container, false);
 
         mapping(view);
         setDataProfile();
         try {
-            UserAPI.getProfileUserAPI(getContext(), Utils.BASE_URL + "auth/getUser/",token , new APICallBack() {
-                @Override
-                public void onSuccess(JSONObject response) throws JSONException {
-//                    System.out.println("Profile :" + response.getJSONObject("data"));
-                        profileObj = response.getJSONObject("data");
-//                    System.out.println(profileObj);
-//                    System.out.println( profileObj.get("admin"));
-                    setEvent();
-
-                }
-
-                @Override
-                public void onError(VolleyError error) {
-
-                }
-            });
+            APIgetInfoUser(token);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
         return view;
+    }
+
+    private void APIgetInfoUser(String token) throws JSONException {
+        UserAPI.getProfileUserAPI(getContext(), Utils.BASE_URL + "auth/getUser/",token , new APICallBack() {
+            @Override
+            public void onSuccess(JSONObject response) throws JSONException {
+//                    System.out.println("Profile :" + response.getJSONObject("data"));
+                profileObj = response.getJSONObject("data");
+//                    System.out.println(profileObj);
+//                    System.out.println( profileObj.get("admin"));
+                setEvent();
+
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
     }
 
     private void setEvent() {
@@ -105,11 +108,10 @@ public class FragProfile  extends Fragment {
         });
 
 
-        btnCart.setOnClickListener(new View.OnClickListener() {
+        btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), CartUser.class);
-                startActivity(intent);
+
             }
         });
 
@@ -127,7 +129,7 @@ public class FragProfile  extends Fragment {
     }
 
     private void mapping(View view) {
-        nameProfile = view.findViewById(R.id.fullname);
+//        nameProfile = view.findViewById(R.id.fullname);
         emailProfile = view.findViewById(R.id.emailProfile);
         phoneProfile = view.findViewById(R.id.phoneProfile);
         adressProfile = view.findViewById(R.id.adressProfile);
@@ -135,21 +137,20 @@ public class FragProfile  extends Fragment {
         idProfile = view.findViewById(R.id.id_user);
         avtUser = view.findViewById(R.id.avt_User);
         nameUser = view.findViewById(R.id.name_User);
-
-        btnCart = (ImageView) view.findViewById(R.id.cart_profile);
 //        navi = view.findViewById(R.id.bottom_navigation_pro);
         btnManagerProduct = view.findViewById(R.id.btnManagerProduct);
         btnLogout = view.findViewById(R.id.logout);
+        btnSetting = view.findViewById(R.id.setting);
 
     }
 
     public void setDataProfile() {
-        System.out.println("huhuhu:"+userCurrent.getUrlAvatar());
+
         Glide.with(getContext()).load(userCurrent.getUrlAvatar()).into(avtUser);
         nameUser.setText(userCurrent.getFullName());
         idProfile.setText(userCurrent.getId());
         emailProfile.setText(userCurrent.getEmail());
-        nameProfile.setText(userCurrent.getFullName());
+//        nameProfile.setText(userCurrent.getFullName());
         phoneProfile.setText(userCurrent.getPhone());
         adressProfile.setText(userCurrent.getAddress());
 //        birthdayProfile.setText((CharSequence) userCurrent.getBirthday());

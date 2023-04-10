@@ -130,17 +130,17 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> implements Filt
     private void clickDeleteItem(String idProduct) {
         Dialog dialog = new Dialog(myContext);
 
-        dialog.setContentView(R.layout.alert_delete);
+        dialog.setContentView(R.layout.alert_yes_no);
 
-        Button btnYes = dialog.findViewById(R.id.Yes);
-        Button btnNo = dialog.findViewById(R.id.No);
+        Button btnYes = dialog.findViewById(R.id.YES);
+        Button btnNo = dialog.findViewById(R.id.NO);
 
 
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Call api xóa
-
+                System.out.println("da xoa rui nhá");
                 try {
                     ProductAPI.APIDelProduct(myContext.getApplicationContext(), Utils.BASE_URL + "product/delete/", idProduct, new APICallBack() {
                         @Override

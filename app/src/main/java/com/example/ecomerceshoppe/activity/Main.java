@@ -9,35 +9,50 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecomerceshoppe.Pragment.FragHome;
-import com.example.ecomerceshoppe.Pragment.FragNotification;
+import com.example.ecomerceshoppe.Pragment.FragCart;
 import com.example.ecomerceshoppe.Pragment.FragProfile;
 import com.example.ecomerceshoppe.R;
-import com.example.ecomerceshoppe.model.User;
+import com.example.ecomerceshoppe.ultils.Feature;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
 
 public class Main extends AppCompatActivity {
-    FragHome fragHome=null;
-    FragNotification fragNotification  = null;
+    FragHome fragHome = null;
+    FragCart fragCart = null;
     FragProfile fragProfile = null;
     SharedPreferences sharedPreferences;
     BottomNavigationView navi;
-    void LoadDataInLocal(){
-        sharedPreferences = getSharedPreferences("matkhau", MODE_PRIVATE);
-        String username = sharedPreferences.getString("username","");
-        String password = sharedPreferences.getString("password","");
-        String idUserCurent = sharedPreferences.getString("idUserCurent","");
-        String token = sharedPreferences.getString("token","");
-        String userStr = sharedPreferences.getString("user","");
-        Bundle bundle = new Bundle();
-        bundle.putString("user", userStr);
-        bundle.putString("token", token);
 
-// set Fragmentclass Arguments
+    void LoadDataInLocal() {
+        sharedPreferences = getSharedPreferences("matkhau", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        String password = sharedPreferences.getString("password", "");
+        String idUserCurent = sharedPreferences.getString("idUserCurent", "");
+        String token = sharedPreferences.getString("token", "");
+        String userStr = sharedPreferences.getString("user", "");
+
+        //tạo fragHome va truyền dữ liệu vào fragHome
+        Bundle bundleHome = new Bundle();
+        bundleHome.putString("idUserCurent", idUserCurent);
+        fragHome = new FragHome();
+        fragHome.setArguments(bundleHome);
+
+        //tạo fragCart va truyền dữ liệu vào fragCart
+        Bundle bundleCart = new Bundle();
+        bundleCart.putString("idUserCurent", idUserCurent);
+        fragCart = new FragCart();
+        fragCart.setArguments(bundleCart);
+
+
+
+//tạo fragProfile và truyền dữ liệu vào profile
+        Bundle bundleProfile = new Bundle();
+        bundleProfile.putString("user", userStr);
+        bundleProfile.putString("token", token);
         fragProfile = new FragProfile();
-        fragProfile.setArguments(bundle);
+        fragProfile.setArguments(bundleProfile);
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,15 +61,15 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.main);
         LoadDataInLocal();
         navi = findViewById(R.id.bottom_navigation);
-        if (fragHome==null)
-            fragHome= new FragHome();
+        if (fragHome == null)
+            fragHome = new FragHome();
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(
                         R.anim.fade_out,  // enter
                         R.anim.slide_out_left  // exit
                 )
-                .replace(R.id.content_main,fragHome)
+                .replace(R.id.content_main, fragHome)
                 .commit();
 
         navi.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -63,28 +78,28 @@ public class Main extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.ic_home:
                         item.setChecked(true);
-                        if (fragHome==null)
-                            fragHome= new FragHome();
+//                        if (fragHome == null)
+//                            fragHome = new FragHome();
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .setCustomAnimations(
                                         R.anim.fade_out,  // enter
                                         R.anim.slide_out_left  // exit
                                 )
-                                .replace(R.id.content_main,fragHome)
+                                .replace(R.id.content_main, fragHome)
                                 .commit();
                         break;
-                    case R.id.ic_notification:
+                    case R.id.ic_cart:
                         item.setChecked(true);
-                        if (fragNotification==null)
-                            fragNotification= new FragNotification();
+//                        if (fragNotification == null)
+//                            fragNotification = new FragCart();
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .setCustomAnimations(
-                                        R.anim.slide_in ,
+                                        R.anim.slide_in,
                                         R.anim.fade_out
                                 )
-                                .replace(R.id.content_main,fragNotification)
+                                .replace(R.id.content_main, fragCart)
                                 .commit();
 
                         break;
@@ -99,7 +114,7 @@ public class Main extends AppCompatActivity {
                                         R.anim.fade_out,  // enter
                                         R.anim.slide_in  // exit
                                 )
-                                .replace(R.id.content_main,fragProfile)
+                                .replace(R.id.content_main, fragProfile)
                                 .commit();
                         break;
                 }

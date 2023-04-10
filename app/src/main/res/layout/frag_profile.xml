@@ -53,28 +53,17 @@
 
                 </RelativeLayout>
 
+
                 <ImageView
-                    android:id="@+id/cart_profile"
+                    android:id="@+id/setting"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="41dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:padding="1dp"
-                    android:src="@drawable/ic_cart" />
-
-                <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:padding="1dp"
-                        android:src="@drawable/ic_setting" />
+                    android:src="@drawable/ic_setting" />
 
 
             </RelativeLayout>
