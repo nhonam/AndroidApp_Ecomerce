@@ -57,7 +57,7 @@ public class Login extends AppCompatActivity {
         setEvent();
     }
 
-    private void SavePassWord(String idUser, String token, User user) {
+    private void SaveInfoToLocal(String idUser, String token, User user) {
         Gson gson = new Gson();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("user", gson.toJson(user));
@@ -72,12 +72,21 @@ public class Login extends AppCompatActivity {
     private void APILoginDefault() throws JSONException {
         UserAPI.LoginAPI(getApplicationContext(), Utils.BASE_URL + "auth/login", username, password, new APICallBack() {
             @Override
-            public void onSuccess(JSONObject response) {
+            public void onSuccess(JSONObject response) throws JSONException {
                 //tạo 1 user dùng singleton
 //                    Singleton userCurrent = Singleton.getInstance(new User());
+                dataUserCurrent = response.getJSONObject("data");
+                JSONObject userCurrent = dataUserCurrent.getJSONObject("admin");
 
-                Intent intent = new Intent(Login.this, Main.class);
-                startActivity(intent);
+                System.out.println(userCurrent.getString("email")+ "geggege");
+//                if (userCurrent.getString("email").trim().isEmpty()){
+//                    Intent intent = new Intent(Login.this, Update_Profile.class);
+//                    startActivity(intent);
+//                }else {
+                    Intent intent = new Intent(Login.this, Main.class);
+                    startActivity(intent);
+//                }
+
 //
 
             }
@@ -156,7 +165,7 @@ public class Login extends AppCompatActivity {
                 userDTO.setAdmin(Boolean.parseBoolean(userCurrent.getString("isAdmin")));
                 userDTO.setBirthday(Feature.ConvertStringtoDate(userCurrent.getString("birthday")));
 
-                SavePassWord(userCurrent.getString("_id"), token, userDTO);
+                SaveInfoToLocal(userCurrent.getString("_id"), token, userDTO);
                 Intent intent = new Intent(Login.this, Main.class);
                 startActivity(intent);
             }
@@ -165,6 +174,7 @@ public class Login extends AppCompatActivity {
             public void onError(VolleyError error) {
                 edtUserName.setText("");
                 edtpassWord.setText("");
+                edtUserName.requestFocus();
                 System.err.println("Error in onError APIlogin in (login.java)" + error.getMessage());
                 CustomToast.makeText(Login.this, "Tên đăng nhập hoặc mật khẩu không đúng !", CustomToast.LENGTH_SHORT, CustomToast.ERROR, true).show();
 

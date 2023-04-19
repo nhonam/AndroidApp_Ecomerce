@@ -19,7 +19,10 @@ import com.bumptech.glide.Glide;
 import com.example.ecomerceshoppe.API.UserAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.Login;
+import com.example.ecomerceshoppe.activity.ManagerProductDetail;
 import com.example.ecomerceshoppe.activity.ManagerShop;
+import com.example.ecomerceshoppe.activity.SentOTP;
+import com.example.ecomerceshoppe.activity.Update_Profile;
 import com.example.ecomerceshoppe.activity.VerifyOTP;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.User;
@@ -36,29 +39,33 @@ public class FragProfile  extends Fragment {
     TextView nameUser;
 
 
-    TextView nameProfile, emailProfile,phoneProfile,
+    TextView fullName,  emailProfile,phoneProfile,
             adressProfile, birthdayProfile, idProfile;
 
     private TextView btnManagerProduct;
 
     ImageView btnSetting;
 
-    LinearLayout btnLogout;
+    LinearLayout btnLogout, btnUpdateProfile;
     User userCurrent=null;
+    String token="";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        String UserStr = getArguments().getString("user");
-        String token = getArguments().getString("token");
+//        String UserStr = getArguments().getString("user");
+         token = getArguments().getString("token");
 
-         userCurrent = Feature.ConvertStringtoUser(UserStr);
+
+//         userCurrent = Feature.ConvertStringtoUser(UserStr);
+
 
         View view=inflater.inflate(R.layout.profile, container, false);
 
         mapping(view);
-        setDataProfile();
+
         try {
             APIgetInfoUser(token);
         } catch (JSONException e) {
@@ -72,9 +79,30 @@ public class FragProfile  extends Fragment {
             @Override
             public void onSuccess(JSONObject response) throws JSONException {
 //                    System.out.println("Profile :" + response.getJSONObject("data"));
-                profileObj = response.getJSONObject("data");
-//                    System.out.println(profileObj);
-//                    System.out.println( profileObj.get("admin"));
+                JSONObject dataUserCurrent = response.getJSONObject("data");
+
+//                String token = dataUserCurrent.getString("token");
+                JSONObject userCurrentObj = dataUserCurrent.getJSONObject("admin");
+                String idUserCurrent = userCurrentObj.getString("_id");
+//                System.out.println(idUserCurrent);
+//                System.out.println("token" + token);
+//                System.out.println("userCurrent" + userCurrent);
+                userCurrent = new User();
+                userCurrent.setId(userCurrentObj.getString("_id"));
+                userCurrent.setFullName(userCurrentObj.getString("fullname"));
+                userCurrent.setEmail(userCurrentObj.getString("email"));
+                userCurrent.setAddress(userCurrentObj.getString("address"));
+                userCurrent.setIdentity_card(userCurrentObj.getString("identity_card"));
+                userCurrent.setPhone(userCurrentObj.getString("phone"));
+                JSONObject tmp = (JSONObject) userCurrentObj.get("avt");
+                userCurrent.setUrlAvatar(tmp.getString("url"));
+
+                userCurrent.setAdmin(Boolean.parseBoolean(userCurrentObj.getString("isAdmin")));
+
+                userCurrent.setBirthday(Feature.ConvertStringtoDate(userCurrentObj.getString("birthday")));
+
+
+                setDataProfile();
                 setEvent();
 
             }
@@ -90,17 +118,17 @@ public class FragProfile  extends Fragment {
         btnManagerProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(userCurrent.isAdmin()) {
-//                    Intent intent = new Intent(getContext(), ManagerProduct.class);
-//
-//                    startActivity(intent);
 
                     Intent intent = new Intent(getContext(), ManagerShop.class);
-//
                     startActivity(intent);
 
                 }else {
-                    Intent intent = new Intent(getContext(), VerifyOTP.class);
+
+                    Intent intent = new Intent(getContext(), SentOTP.class);
+                    intent.putExtra("email",userCurrent.getEmail());
+                    intent.putExtra("idUserCurrent",userCurrent.getId());
                     startActivity(intent);
                 }
 
@@ -108,10 +136,12 @@ public class FragProfile  extends Fragment {
         });
 
 
-        btnSetting.setOnClickListener(new View.OnClickListener() {
+        btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getContext(), Update_Profile.class);
+                intent.putExtra("idUserCurrent",userCurrent.getId());
+                startActivity(intent);
             }
         });
 
@@ -129,7 +159,7 @@ public class FragProfile  extends Fragment {
     }
 
     private void mapping(View view) {
-//        nameProfile = view.findViewById(R.id.fullname);
+        fullName = view.findViewById(R.id.fullname_Pf);
         emailProfile = view.findViewById(R.id.emailProfile);
         phoneProfile = view.findViewById(R.id.phoneProfile);
         adressProfile = view.findViewById(R.id.adressProfile);
@@ -140,6 +170,7 @@ public class FragProfile  extends Fragment {
 //        navi = view.findViewById(R.id.bottom_navigation_pro);
         btnManagerProduct = view.findViewById(R.id.btnManagerProduct);
         btnLogout = view.findViewById(R.id.logout);
+        btnUpdateProfile = view.findViewById(R.id.updateInfo);
         btnSetting = view.findViewById(R.id.setting);
 
     }
@@ -150,9 +181,10 @@ public class FragProfile  extends Fragment {
         nameUser.setText(userCurrent.getFullName());
         idProfile.setText(userCurrent.getId());
         emailProfile.setText(userCurrent.getEmail());
-//        nameProfile.setText(userCurrent.getFullName());
+        fullName.setText(userCurrent.getFullName());
         phoneProfile.setText(userCurrent.getPhone());
         adressProfile.setText(userCurrent.getAddress());
+
 //        birthdayProfile.setText((CharSequence) userCurrent.getBirthday());
 
     }

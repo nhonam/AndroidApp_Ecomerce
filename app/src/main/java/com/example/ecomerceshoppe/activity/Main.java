@@ -61,6 +61,8 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.main);
         LoadDataInLocal();
         navi = findViewById(R.id.bottom_navigation);
+        //nếu bấm lưu trong UpdateProfile thì nhảy qua fragProfile
+
         if (fragHome == null)
             fragHome = new FragHome();
         getSupportFragmentManager()
@@ -75,7 +77,7 @@ public class Main extends AppCompatActivity {
         navi.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+                 switch (item.getItemId()) {
                     case R.id.ic_home:
                         item.setChecked(true);
 //                        if (fragHome == null)

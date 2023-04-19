@@ -7,8 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -17,12 +15,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
-import com.example.ecomerceshoppe.Pragment.FragHome;
 import com.example.ecomerceshoppe.Pragment.FragManagerProduct;
-import com.example.ecomerceshoppe.Pragment.FragProfile;
 import com.example.ecomerceshoppe.Pragment.FragRevenue;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.model.User;
+import com.example.ecomerceshoppe.ultils.ExportPDF;
 import com.example.ecomerceshoppe.ultils.Feature;
 import com.google.android.material.navigation.NavigationView;
 
@@ -37,7 +34,7 @@ public class ManagerShop extends AppCompatActivity {
     ImageView avtShop;
     TextView shopName;
     String userStrCurent;
-
+    Bundle bundle = new Bundle();
     void LoadDataInLocal(){
         sharedPreferences = getSharedPreferences("matkhau", MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
@@ -45,7 +42,7 @@ public class ManagerShop extends AppCompatActivity {
         String idUserCurent = sharedPreferences.getString("idUserCurent","");
         String token = sharedPreferences.getString("token","");
         userStrCurent = sharedPreferences.getString("user","");
-        Bundle bundle = new Bundle();
+
         bundle.putString("user", userStrCurent);
         bundle.putString("token", token);
         //set Avatar and name của Shop
@@ -65,9 +62,9 @@ public class ManagerShop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_shop);
+
         mapping();
         LoadDataInLocal();
-
 
         setEvent();
     }
@@ -94,13 +91,18 @@ public class ManagerShop extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.mn_ManagerPD:
+                        item.setChecked(true);
 //                        Toast.makeText(ManagerShop.this, "Quản lí sản phẩm", Toast.LENGTH_SHORT).show();
+//                        fragManagerProduct.setArguments(bundle);
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.NoiDung,fragManagerProduct)
                                 .commit();
+;
+
                         break;
                     case R.id.mn_Revenue:
+                        item.setChecked(true);
 //                        Toast.makeText(ManagerShop.this, "Thống Kê Doanh Thu", Toast.LENGTH_SHORT).show();
                         if (fragRevenue==null)
                             fragRevenue= new FragRevenue();
@@ -122,7 +124,9 @@ public class ManagerShop extends AppCompatActivity {
 //
 //                        break;
 
+
                     case R.id.mn_Exit:
+                        item.setChecked(true);
 //                        Toast.makeText(ManagerShop.this, "Cài đặt", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ManagerShop.this, Main.class));
                         break;

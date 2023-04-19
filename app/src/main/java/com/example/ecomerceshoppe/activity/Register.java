@@ -57,6 +57,7 @@ public class Register extends AppCompatActivity {
                 } else {
                     edtPassword.setText("");
                     edtRePassword.setText("");
+                    edtPassword.requestFocus();
                     CustomToast.makeText(Register.this, "Mật khẩu và mật khâu nhập lại phải trùng nhau!", CustomToast.LENGTH_SHORT, CustomToast.WARNING, true).show();
 
                 }
@@ -82,8 +83,15 @@ public class Register extends AppCompatActivity {
 
             @Override
             public void onError(VolleyError error) {
-//                CustomToast.makeText(Register.this, "Tài khoản đã tồn tại!", CustomToast.LENGTH_SHORT, CustomToast.WARNING, true).show();
-
+                if (error.networkResponse.statusCode == 300) {
+                    edtUserName.setText("");
+                    edtRePassword.setText("");
+                    edtPassword.setText("");
+                    edtUserName.requestFocus();
+                    CustomToast.makeText(Register.this, "Tài khoản đã tồn tại!", CustomToast.LENGTH_SHORT, CustomToast.WARNING, true).show();
+                } else {
+                    // Handle other error codes here
+                }
             }
         });
     }

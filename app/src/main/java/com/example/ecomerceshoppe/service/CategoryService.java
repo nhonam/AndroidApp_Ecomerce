@@ -1,6 +1,8 @@
 package com.example.ecomerceshoppe.service;
 
+import com.example.ecomerceshoppe.API.ProductAPI;
 import com.example.ecomerceshoppe.R;
+import com.example.ecomerceshoppe.model.Product;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,8 +17,10 @@ public class CategoryService {
 
 
         String[] nameLogo = new String[]{
-                "Áo Quần", "Điện Thoại", "Sách", "Máy Tính", "Điện Tử", "Thuốc", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam"
+                "Áo Quần", "Điện Thoại & Phụ Kiện", "Máy Tính", "Nhà Sách Online", "Máy tính & LapTop", "Thiết Bị Điện tử", "Sách", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam"
         };
+
+
 
         return Arrays.asList(nameLogo);
 

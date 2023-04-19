@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
+import com.example.ecomerceshoppe.model.User;
 import com.example.ecomerceshoppe.ultils.Utils;
 
 import org.json.JSONException;
@@ -25,14 +26,14 @@ public class UserAPI {
     public static void getProfileUserAPI(Context context, String url, String access_token, APICallBack callBack) throws JSONException {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        JSONObject postData = new JSONObject();
-        postData.put("id", "63af70c03f562b7531d4c5db");
+//        JSONObject postData = new JSONObject();
+//        postData.put("id", idUser);
+//
+//        JSONObject requestBody = new JSONObject();
+//        requestBody.put("data", postData);
 
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("data", postData);
 
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, (JSONObject) requestBody.get("data"),
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -222,4 +223,59 @@ public class UserAPI {
         requestQueue.add(request);
 
     }
+    public static void UpdateInfoUserAPI(Context context, User user, APICallBack callBack) throws JSONException {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        JSONObject postData = new JSONObject();
+        postData.put("id", user.getId());
+        postData.put("fullname", user.getFullName());
+        postData.put("email", user.getEmail());
+        postData.put("address", user.getAddress());
+        postData.put("phone", user.getPhone());
+        postData.put("identity_card", user.getIdentity_card());
+        postData.put("birthday", user.getBirthday());
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("data", postData);
+
+
+
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Utils.BASE_URL + "auth/updatePatchProfile", requestBody.getJSONObject("data"),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Handle response
+                        try {
+                            callBack.onSuccess(response);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                        System.err.println("Lỗi call api UpdateInfoUserAPI (UserAPI.java) ->" + error.getMessage());
+                        callBack.onError(error);
+
+
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+
+                return headers;
+            }
+        };
+
+
+        requestQueue.add(request);
+
+    }
+
+
 }

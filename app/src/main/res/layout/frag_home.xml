@@ -33,7 +33,7 @@
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="140dp"
                 app:sliderAnimationDuration="600"
                 app:sliderAutoCycleDirection="back_and_forth"
                 app:sliderAutoCycleEnabled="true"
@@ -51,7 +51,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="140dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -61,18 +61,11 @@
 
                 </TextView>
 
-<!--                <GridView-->
-<!--                    android:horizontalSpacing="2dp"-->
-<!--                    android:verticalSpacing="2dp"-->
-<!--                    android:id="@+id/productCategory"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:numColumns="4" />-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/productCategory"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="90dp"/>
 
 <!--                <androidx.recyclerview.widget.RecyclerView-->
 <!--                    android:id="@+id/productCategory"-->
@@ -89,13 +82,7 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-                <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sản phẩm mới nhất"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
 
                 <GridView
                     android:id="@+id/latestProduct"

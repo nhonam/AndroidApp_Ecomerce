@@ -28,6 +28,7 @@ import com.example.ecomerceshoppe.API.ProductAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Product;
+import com.example.ecomerceshoppe.service.CategoryService;
 import com.example.ecomerceshoppe.ultils.CustomToast;
 import com.example.ecomerceshoppe.ultils.Feature;
 import com.example.ecomerceshoppe.ultils.Utils;
@@ -59,7 +60,7 @@ public class ManagerProductDetail extends AppCompatActivity {
     ArrayAdapter adapterCategory;
     int categoryCurrent = 0;
 
-    List<String> ListCategory = new ArrayList<>();
+    String[]  ListCategory ;
     ProgressBar progressBar;
 
 
@@ -96,8 +97,6 @@ public class ManagerProductDetail extends AppCompatActivity {
     }
 
 
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -121,7 +120,7 @@ public class ManagerProductDetail extends AppCompatActivity {
         } else if (requestCode == CAMERA) {
             bitmap = (Bitmap) data.getExtras().get("data");
             imgProduct.setImageBitmap(bitmap);
-     }
+        }
     }
 
 
@@ -161,58 +160,6 @@ public class ManagerProductDetail extends AppCompatActivity {
 
 
 
-    private void Create() {
-
-        //call api create product
-        System.out.println("nút lưu đc nhấn");
-        Product productTmp = new Product();
-        productTmp.setNameProduct("vip");
-        productTmp.setSeller(idUser);
-        productTmp.setTag("vip");
-        productTmp.setQuantity(123);
-        productTmp.setPrice(123.1);
-        productTmp.setCategory("vip");
-        productTmp.setDescription("vip");
-        progressBar.setVisibility(View.VISIBLE);
-        String base64Img = Feature.CovertBitmapToBase64(bitmap);
-
-
-        try {
-            ProductAPI.APIAddProduct(getApplicationContext(), Utils.BASE_URL + "product/create", productTmp, base64Img, new APICallBack() {
-                @Override
-                public void onSuccess(JSONObject response) throws JSONException {
-//                                progressDialog.dismiss();
-
-                    JSONObject data= response.getJSONObject("data");
-
-
-                    progressBar.setVisibility(View.GONE);
-                    CustomToast.makeText(ManagerProductDetail.this, "Thêm Mới Sản Phẩm Thành Công", CustomToast.LENGTH_SHORT, CustomToast.SUCCESS, true).show();
-
-
-                }
-
-                @Override
-                public void onError(VolleyError error) {
-                    System.err.println(error.getMessage());
-//                                progressDialog.dismiss();
-                    progressBar.setVisibility(View.GONE);
-                    CustomToast.makeText(ManagerProductDetail.this, "Error Thêm Mới Sản Phẩm Không Thành Công", CustomToast.LENGTH_SHORT, CustomToast.ERROR, true).show();
-
-                }
-            });
-        } catch (JSONException e) {
-//                        progressDialog.dismiss();
-            progressBar.setVisibility(View.GONE);
-            CustomToast.makeText(ManagerProductDetail.this, "Catch Thêm Mới Sản Phẩm Không Thành Công", CustomToast.LENGTH_SHORT, CustomToast.ERROR, true).show();
-
-            throw new RuntimeException(e);
-
-        }
-
-
-    }
-
     private void SaveCreate() {
 
         //call api create product
@@ -228,32 +175,15 @@ public class ManagerProductDetail extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         String base64Img = Feature.CovertBitmapToBase64(bitmap);
 
-
-
         try {
             ProductAPI.APIAddProduct(getApplicationContext(), Utils.BASE_URL + "product/create", productTmp, base64Img, new APICallBack() {
                 @Override
                 public void onSuccess(JSONObject response) throws JSONException {
 //                                progressDialog.dismiss();
-                    JSONObject data= response.getJSONObject("data");
+                    JSONObject data = response.getJSONObject("data");
                     progressBar.setVisibility(View.GONE);
                     CustomToast.makeText(ManagerProductDetail.this, "Thêm Mới Sản Phẩm Thành Công", CustomToast.LENGTH_SHORT, CustomToast.SUCCESS, true).show();
-                    try {
-                        ProductAPI.APIDelProduct(getApplicationContext(), Utils.BASE_URL + "product/delete/", data.getString("_id"), new APICallBack() {
-                            @Override
-                            public void onSuccess(JSONObject response) throws JSONException {
-
-                            }
-
-                            @Override
-                            public void onError(VolleyError error) {
-                            }
-                        });
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-
-
+//                    test(data);
                 }
 
                 @Override
@@ -274,6 +204,22 @@ public class ManagerProductDetail extends AppCompatActivity {
         }
     }
 
+    private void test(JSONObject data) {
+        try {
+            ProductAPI.APIDelProduct(getApplicationContext(), Utils.BASE_URL + "product/delete/", data.getString("_id"), new APICallBack() {
+                @Override
+                public void onSuccess(JSONObject response) throws JSONException {
+
+                }
+
+                @Override
+                public void onError(VolleyError error) {
+                }
+            });
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private void SaveUpdate() {
         System.out.println("update sp");
@@ -326,7 +272,7 @@ public class ManagerProductDetail extends AppCompatActivity {
 
     private void setEvent() {
 
-        ListCategory = Feature.initDataForCategory();
+        ListCategory = CategoryService.loadLogoName().toArray(new String[0]);
         adapterCategory = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ListCategory);
         spCategory.setAdapter(adapterCategory);
 //        int selectionPosition= adapterCategory.getPosition(product.getCategory());
@@ -377,7 +323,6 @@ public class ManagerProductDetail extends AppCompatActivity {
 
 
     }
-
 
 
 }

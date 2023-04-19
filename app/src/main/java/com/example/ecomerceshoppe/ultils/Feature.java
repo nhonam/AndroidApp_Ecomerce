@@ -105,17 +105,17 @@ public class Feature {
         }
     };
 
-    public static List<String> initDataForCategory() {
-        List<String> ListCategory = new ArrayList<>();
-        ListCategory.add("Áo Quần");
-        ListCategory.add("Điện Thoại");
-        ListCategory.add("Sách");
-        ListCategory.add("Máy Tính");
-        ListCategory.add("Điện Tử");
-        ListCategory.add("Thuốc");
-        return ListCategory;
-
-    }
+//    public static List<String> initDataForCategory() {
+//        List<String> ListCategory = new ArrayList<>();
+//        ListCategory.add("Áo Quần");
+//        ListCategory.add("Điện Thoại");
+//        ListCategory.add("Sách");
+//        ListCategory.add("Máy Tính");
+//        ListCategory.add("Điện Tử");
+//        ListCategory.add("Thuốc");
+//        return ListCategory;
+//
+//    }
 
 
 

@@ -9,17 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
-import com.bumptech.glide.Glide;
 import com.example.ecomerceshoppe.API.ProductAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.ProductDetail;
@@ -98,6 +94,8 @@ public class FragHome extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.frag_home, container, false);
 
@@ -106,6 +104,19 @@ public class FragHome extends Fragment {
         idUserCurrent = getArguments().getString("idUserCurent");
         //
         nameLogo = CategoryService.loadLogoName().toArray(new String[0]);
+
+//        ProductAPI.getAllCategory(getContext(), new APICallBack() {
+//            @Override
+//            public void onSuccess(JSONObject response) throws JSONException {
+//
+//            }
+//
+//            @Override
+//            public void onError(VolleyError error) {
+//
+//            }
+//        });
+
         imgLogo = CategoryService.loadLogo();
 
 

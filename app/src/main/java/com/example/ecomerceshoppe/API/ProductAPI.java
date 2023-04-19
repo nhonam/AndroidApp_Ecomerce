@@ -87,26 +87,33 @@ public class ProductAPI {
         queue.add(jsonObjectRequest);
     }
 
-    public static void getAllCategories(Context context, String category, String url) {
+
+
+    public static void getAllCategory(Context context, APICallBack callBack) {
         RequestQueue queue = Volley.newRequestQueue(context);
 
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url + category, null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, "product/get/allCategory", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // handle response
 
-                        System.out.println(response);
+                        try {
+                            callBack.onSuccess(response);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // handle error
-                        System.err.println(("API Error " + error.toString()));
-                    }
-                });
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Error: "+error.getMessage());
+                error.printStackTrace();
+                System.err.println("lỗi port server vui lòng đổi IP trong file Utils.java");
+                callBack.onError(error);
+            }
+        });
+
         queue.add(jsonObjectRequest);
     }
 

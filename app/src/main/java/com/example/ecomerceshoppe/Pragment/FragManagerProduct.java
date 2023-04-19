@@ -134,7 +134,7 @@ public class FragManagerProduct extends Fragment {
                 for (Product product : ProductList
                 ) {
 
-                    if (product.getNameProduct().toLowerCase().contains(s.toLowerCase())) {
+                    if (product.getNameProduct().toLowerCase().contains(s.toLowerCase()) || product.getTag().toLowerCase().contains(s.toLowerCase()) || product.getCategory().toLowerCase().contains(s.toLowerCase()))  {
                         list.add(product);
                     }
                 }

@@ -65,6 +65,7 @@
 
     <ScrollView
 
+        android:layout_marginTop="10dp"
         android:id="@+id/bgProfile"
         android:background="@drawable/a"
         android:layout_width="match_parent"
@@ -112,6 +113,40 @@
                     android:textSize="16sp" />
 
                 <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_people" />
+
+                    <TextView
+                        android:layout_marginStart="10dp"
+                        android:textStyle="bold"
+                        android:text="Họ tên"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/fullname_Pf"
+                        style="@style/NunotoTextViewBoldStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="16dp"
+                        android:text="Theo dõi giấc ngủ"
+                        android:textColor="#7B6F72"/>
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/linearlayout_profilefragment_item_sleep_tracker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -141,8 +176,9 @@
                         android:text="Theo dõi giấc ngủ"
                         android:textColor="#7B6F72"/>
 
-                </LinearLayout>
 
+
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/linearlayout_profilefragment_item_exercise_suggestion"
                     android:layout_width="match_parent"
@@ -238,7 +274,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="16dp"
-                        android:text="Theo dõi tiến trình"
+                        android:text="30-03-2001"
                         android:textColor="#7B6F72">
 
                     </TextView>
@@ -257,6 +293,7 @@
 
                 <LinearLayout
 
+                    android:id="@+id/updateInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
