@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class FragCart extends Fragment {
     private Cart cartUser;
-    private ArrayList<Cart> listCart = new ArrayList<>();
+    private ArrayList<Cart> listCart;
     String idUser ="63af70c03f562b7531d4c5db"; //ttesstt
     TextView txtVIew ;
 
@@ -53,7 +53,7 @@ public class FragCart extends Fragment {
                 public void onSuccess(JSONObject response) throws JSONException {
 //                    System.out.println("api get cart by user: "+response);
                     JSONArray listcartJSON = response.getJSONArray("data");
-
+                    listCart = new ArrayList<>();
                     for (int i = 0; i < listcartJSON.length() ; i++) {
                         JSONObject cartTmpObj = (JSONObject) listcartJSON.get(i);
 

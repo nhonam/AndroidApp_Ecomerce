@@ -16,7 +16,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.ecomerceshoppe.Pragment.FragManagerProduct;
+import com.example.ecomerceshoppe.Pragment.FragOrder;
 import com.example.ecomerceshoppe.Pragment.FragRevenue;
+import com.example.ecomerceshoppe.Pragment.FragSell;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.model.User;
 import com.example.ecomerceshoppe.ultils.ExportPDF;
@@ -30,6 +32,8 @@ public class ManagerShop extends AppCompatActivity {
     NavigationView navigationView;
     FragManagerProduct fragManagerProduct=null;
     FragRevenue fragRevenue =null;
+    FragOrder fragOrder =null;
+    FragSell fragSell =null;
     SharedPreferences sharedPreferences;
     ImageView avtShop;
     TextView shopName;
@@ -55,6 +59,19 @@ public class ManagerShop extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.NoiDung,fragManagerProduct)
                 .commit();
+
+        //tạo fragOrder va truyền dữ liệu vào fragOrder
+        Bundle bundleOrder = new Bundle();
+        bundleOrder.putString("idUserCurent", idUserCurent);
+        fragOrder = new FragOrder();
+        fragOrder.setArguments(bundleOrder);
+
+        //tạo fragSell va truyền dữ liệu vào fragSell
+        Bundle bundleSell = new Bundle();
+        bundleSell.putString("idUserCurent", idUserCurent);
+        fragSell = new FragSell();
+        fragSell.setArguments(bundleSell);
+
 
     }
 
@@ -91,7 +108,7 @@ public class ManagerShop extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.mn_ManagerPD:
-                        item.setChecked(true);
+//                        item.setChecked(true);
 //                        Toast.makeText(ManagerShop.this, "Quản lí sản phẩm", Toast.LENGTH_SHORT).show();
 //                        fragManagerProduct.setArguments(bundle);
                         getSupportFragmentManager()
@@ -102,7 +119,7 @@ public class ManagerShop extends AppCompatActivity {
 
                         break;
                     case R.id.mn_Revenue:
-                        item.setChecked(true);
+//                        item.setChecked(true);
 //                        Toast.makeText(ManagerShop.this, "Thống Kê Doanh Thu", Toast.LENGTH_SHORT).show();
                         if (fragRevenue==null)
                             fragRevenue= new FragRevenue();
@@ -113,16 +130,24 @@ public class ManagerShop extends AppCompatActivity {
 
                         break;
 
-//                    case R.id.mn_ManagerOrder:
-//                        Toast.makeText(ManagerShop.this, "Cài đặt", Toast.LENGTH_SHORT).show();
-//                        if (fragRevenue==null)
-//                            fragRevenue= new FragRevenue();
-//                        getSupportFragmentManager()
-//                                .beginTransaction()
-//                                .replace(R.id.NoiDung,fragRevenue)
-//                                .commit();
-//
-//                        break;
+                    case R.id.mn_ManagerOrder:
+//                        FragOrder fragOrder = new FragOrder();
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.NoiDung,fragOrder)
+                                .commit();
+
+                        break;
+
+
+                    case R.id.mn_Sell:
+//                        FragOrder fragOrder = new FragOrder();
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.NoiDung,fragSell)
+                                .commit();
+
+                        break;
 
 
                     case R.id.mn_Exit:

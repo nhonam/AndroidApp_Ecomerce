@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecomerceshoppe.Pragment.FragHome;
 import com.example.ecomerceshoppe.Pragment.FragCart;
+import com.example.ecomerceshoppe.Pragment.FragOrder;
 import com.example.ecomerceshoppe.Pragment.FragProfile;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.ultils.Feature;
@@ -18,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Main extends AppCompatActivity {
     FragHome fragHome = null;
     FragCart fragCart = null;
+    FragOrder fragOrder = null;
     FragProfile fragProfile = null;
     SharedPreferences sharedPreferences;
     BottomNavigationView navi;
@@ -41,7 +43,6 @@ public class Main extends AppCompatActivity {
         bundleCart.putString("idUserCurent", idUserCurent);
         fragCart = new FragCart();
         fragCart.setArguments(bundleCart);
-
 
 
 //tạo fragProfile và truyền dữ liệu vào profile

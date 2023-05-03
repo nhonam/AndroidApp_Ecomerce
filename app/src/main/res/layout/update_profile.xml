@@ -38,14 +38,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="1">
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:text="Họ Tên"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/fullnameUpdate"
             android:drawableLeft="@drawable/ic_people"
+            android:drawablePadding="10dp"
             android:hint="Họ tên"
             android:maxLines="1"
             android:inputType="text"
             android:textSize="16sp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="5dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:background="@drawable/bg_edt"
@@ -53,15 +60,23 @@
             android:layout_height="55dp">
 
         </EditText>
+        <TextView
+            android:layout_marginTop="7dp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:text="Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <EditText
             android:id="@+id/EmailUpdate"
             android:drawableLeft="@drawable/ic_email"
-
+            android:drawablePadding="10dp"
             android:hint="Email"
             android:maxLines="1"
             android:inputType="text"
             android:textSize="16sp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="5dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:background="@drawable/bg_edt"
@@ -69,15 +84,23 @@
             android:layout_height="55dp">
 
         </EditText>
+        <TextView
+            android:layout_marginTop="7dp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:text="Địa Chỉ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <EditText
             android:id="@+id/adressUpdatePf"
             android:drawableLeft="@drawable/ic_adress"
-
+            android:drawablePadding="10dp"
             android:hint="Địa chỉ"
             android:maxLines="1"
             android:inputType="text"
             android:textSize="16sp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="5dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:background="@drawable/bg_edt"
@@ -85,14 +108,24 @@
             android:layout_height="55dp">
 
         </EditText>
+        <TextView
+            android:layout_marginTop="7dp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:text="Ngày Sinh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <EditText
+            android:inputType="none"
+            android:focusable="false"
             android:drawableLeft="@drawable/ic_date"
             android:id="@+id/birthdayUpdate"
             android:hint="Ngày sinh"
             android:maxLines="1"
-            android:inputType="text"
+            android:drawablePadding="10dp"
             android:textSize="16sp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="5dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:background="@drawable/bg_edt"
@@ -100,6 +133,14 @@
             android:layout_height="55dp">
 
         </EditText>
+        <TextView
+            android:layout_marginTop="7dp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:text="Số Điện Thoại"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <EditText
             android:drawableLeft="@drawable/ic_phone"
             android:id="@+id/phoneUpdate"
@@ -107,7 +148,8 @@
             android:maxLines="1"
             android:inputType="text"
             android:textSize="16sp"
-            android:layout_marginBottom="15dp"
+            android:drawablePadding="10dp"
+            android:layout_marginBottom="5dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:background="@drawable/bg_edt"
@@ -115,6 +157,14 @@
             android:layout_height="55dp">
 
         </EditText>
+        <TextView
+            android:layout_marginTop="7dp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:text="Số Căn Cước Công Dân"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <EditText
             android:drawableLeft="@drawable/ic_people"
             android:id="@+id/cccdUpdate"
@@ -122,9 +172,10 @@
             android:maxLines="1"
             android:inputType="text"
             android:textSize="16sp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="5dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:drawablePadding="10dp"
             android:background="@drawable/bg_edt"
             android:layout_width="match_parent"
             android:layout_height="55dp">
@@ -144,6 +195,7 @@
         android:layout_marginStart="20dp"
         android:text="LƯU THÔNG TIN"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/background_orange"

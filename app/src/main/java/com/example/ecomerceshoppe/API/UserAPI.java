@@ -223,16 +223,21 @@ public class UserAPI {
         requestQueue.add(request);
 
     }
-    public static void UpdateInfoUserAPI(Context context, User user, APICallBack callBack) throws JSONException {
+    public static void UpdateInfoUserAPI(Context context,String image64 , User user, APICallBack callBack) throws JSONException {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         JSONObject postData = new JSONObject();
-        postData.put("id", user.getId());
+
+
         postData.put("fullname", user.getFullName());
+        postData.put("id", user.getId());
         postData.put("email", user.getEmail());
         postData.put("address", user.getAddress());
         postData.put("phone", user.getPhone());
         postData.put("identity_card", user.getIdentity_card());
+        if (!image64.equalsIgnoreCase("")){
+            postData.put("avatar","data:image/jpeg;base64,"+ image64);
+        }
         postData.put("birthday", user.getBirthday());
         JSONObject requestBody = new JSONObject();
         requestBody.put("data", postData);
@@ -240,7 +245,7 @@ public class UserAPI {
 
 
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Utils.BASE_URL + "auth/updatePatchProfile", requestBody.getJSONObject("data"),
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PATCH, Utils.BASE_URL + "auth/updatePatchProfile", requestBody.getJSONObject("data"),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

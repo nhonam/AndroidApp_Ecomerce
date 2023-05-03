@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
@@ -193,6 +194,7 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> implements Filt
             ivDel = view.findViewById(R.id.Delete_Product);
         }
     }
+
 
 
 }

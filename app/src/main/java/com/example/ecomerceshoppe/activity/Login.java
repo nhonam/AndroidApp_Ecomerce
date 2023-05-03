@@ -20,6 +20,7 @@ import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.User;
 import com.example.ecomerceshoppe.ultils.CustomToast;
 import com.example.ecomerceshoppe.ultils.Feature;
+import com.example.ecomerceshoppe.ultils.ObjectWrapperForBinder;
 import com.example.ecomerceshoppe.ultils.Utils;
 import com.google.gson.Gson;
 
@@ -78,14 +79,16 @@ public class Login extends AppCompatActivity {
                 dataUserCurrent = response.getJSONObject("data");
                 JSONObject userCurrent = dataUserCurrent.getJSONObject("admin");
 
-                System.out.println(userCurrent.getString("email")+ "geggege");
-//                if (userCurrent.getString("email").trim().isEmpty()){
-//                    Intent intent = new Intent(Login.this, Update_Profile.class);
-//                    startActivity(intent);
-//                }else {
+                if (userCurrent.getString("email").toLowerCase().trim().equalsIgnoreCase("") || userCurrent.getString("fullname") == ""){
+                    final Bundle bundle = new Bundle();
+                    bundle.putBinder("userCurrent", new ObjectWrapperForBinder(userCurrent));
+                    Intent intent = new Intent(getApplicationContext(), Update_Profile.class).putExtras(bundle);
+                    startActivity(intent);
+                }else {
+
                     Intent intent = new Intent(Login.this, Main.class);
                     startActivity(intent);
-//                }
+                }
 
 //
 
@@ -163,8 +166,8 @@ public class Login extends AppCompatActivity {
                 userDTO.setUrlAvatar(tmp.getString("url"));
 
                 userDTO.setAdmin(Boolean.parseBoolean(userCurrent.getString("isAdmin")));
-                userDTO.setBirthday(Feature.ConvertStringtoDate(userCurrent.getString("birthday")));
-
+                userDTO.setBirthday(Feature.ConvertMinutetoDate(userCurrent.getString("birthday")));
+                System.out.println("hehehhe"+userDTO.getBirthday());
                 SaveInfoToLocal(userCurrent.getString("_id"), token, userDTO);
                 Intent intent = new Intent(Login.this, Main.class);
                 startActivity(intent);

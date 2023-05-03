@@ -21,12 +21,14 @@ import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.Login;
 import com.example.ecomerceshoppe.activity.ManagerProductDetail;
 import com.example.ecomerceshoppe.activity.ManagerShop;
+import com.example.ecomerceshoppe.activity.ProductDetail;
 import com.example.ecomerceshoppe.activity.SentOTP;
 import com.example.ecomerceshoppe.activity.Update_Profile;
 import com.example.ecomerceshoppe.activity.VerifyOTP;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.User;
 import com.example.ecomerceshoppe.ultils.Feature;
+import com.example.ecomerceshoppe.ultils.ObjectWrapperForBinder;
 import com.example.ecomerceshoppe.ultils.Utils;
 
 import org.json.JSONException;
@@ -139,9 +141,15 @@ public class FragProfile  extends Fragment {
         btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Update_Profile.class);
-                intent.putExtra("idUserCurrent",userCurrent.getId());
+//                Intent intent = new Intent(getContext(), Update_Profile.class);
+//                intent.putExtra("token",userCurrent);
+//                startActivity(intent);
+
+                final Bundle bundle = new Bundle();
+                bundle.putBinder("user", new ObjectWrapperForBinder(userCurrent));
+                Intent intent = new Intent(getContext(), Update_Profile.class).putExtras(bundle);
                 startActivity(intent);
+
             }
         });
 

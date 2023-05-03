@@ -1,11 +1,13 @@
 package com.example.ecomerceshoppe.ultils;
 
-import static android.content.Context.MODE_PRIVATE;
-
-import android.content.SharedPreferences;
+import android.app.DatePickerDialog;
 import android.graphics.Bitmap;
 import android.util.Base64;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
+import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.model.User;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -16,14 +18,15 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 public class Feature {
@@ -41,28 +44,6 @@ public class Feature {
 
     }
 
-    public  static Date ConvertStringtoDate(String strDate ) {
-
-        Instant instant = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            instant = Instant.parse(strDate);
-        }
-        LocalDateTime dateTime = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-        }
-        LocalDate localDate = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            localDate = dateTime.toLocalDate();
-        }
-        Date date = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return date;
-
-    }
     public static JSONObject convertKeyValueToJSON(LinkedTreeMap<String, Object> ltm) {
 
 
@@ -105,18 +86,36 @@ public class Feature {
         }
     };
 
-//    public static List<String> initDataForCategory() {
-//        List<String> ListCategory = new ArrayList<>();
-//        ListCategory.add("Áo Quần");
-//        ListCategory.add("Điện Thoại");
-//        ListCategory.add("Sách");
-//        ListCategory.add("Máy Tính");
-//        ListCategory.add("Điện Tử");
-//        ListCategory.add("Thuốc");
-//        return ListCategory;
-//
-//    }
+    //
+public static Date ConvertStringtoDate(String dateString){
+
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    try {
+        Date date = dateFormat.parse(dateString);
+        return  date;
+    } catch (ParseException e) {
+        e.printStackTrace();
+    }
+   return new Date();
+}
+
+    public static Date ConvertMinutetoDate(String dateString){
+//        String dateString = "2023-04-22T03:12:08.690Z";
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            Date date = inputFormat.parse(dateString);
+            String outputDate = outputFormat.format(date);
+           return  date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+       return  new Date();
+    }
 
 
 
 }
+
+
