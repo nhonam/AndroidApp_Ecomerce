@@ -17,7 +17,7 @@ public class CategoryService {
 
 
         String[] nameLogo = new String[]{
-                "Áo Quần", "Điện Thoại & Phụ Kiện", "Máy Tính", "Nhà Sách Online", "Máy tính & LapTop", "Thiết Bị Điện tử", "Sách", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam", "Nho Nam"
+                "Áo Quần", "Điện Thoại & Phụ Kiện", "Máy Tính", "Nhà Sách Online", "Máy tính & LapTop", "Thiết Bị Điện tử", "Sách"
         };
 
 
@@ -41,18 +41,13 @@ public class CategoryService {
 
     public static int[] loadLogo() {
         int[] logo  = new int[]{
-                R.drawable.a,
-                R.drawable.b,
-                R.drawable.c,
-                R.drawable.d,
-                R.drawable.e,
-                R.drawable.f,
-                R.drawable.g,
-                R.drawable.h,
-                R.drawable.i,
-                R.drawable.bn1,
-                R.drawable.bn2,
-                R.drawable.bn3
+                R.drawable.quanao,
+                R.drawable.dt,
+                R.drawable.maytitnh,
+                R.drawable.sach,
+                R.drawable.pc,
+                R.drawable.dientu,
+                R.drawable.sach1
 
         };
 

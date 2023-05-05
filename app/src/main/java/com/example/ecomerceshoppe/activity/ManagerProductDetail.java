@@ -38,8 +38,6 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ManagerProductDetail extends AppCompatActivity {
 
@@ -183,7 +181,7 @@ public class ManagerProductDetail extends AppCompatActivity {
                     JSONObject data = response.getJSONObject("data");
                     progressBar.setVisibility(View.GONE);
                     CustomToast.makeText(ManagerProductDetail.this, "Thêm Mới Sản Phẩm Thành Công", CustomToast.LENGTH_SHORT, CustomToast.SUCCESS, true).show();
-//                    test(data);
+                    test(data);
                 }
 
                 @Override

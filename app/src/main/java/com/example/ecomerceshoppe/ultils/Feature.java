@@ -92,14 +92,17 @@ public static Date ConvertStringtoDate(String dateString){
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     try {
         Date date = dateFormat.parse(dateString);
+        System.out.println(date);
         return  date;
     } catch (ParseException e) {
         e.printStackTrace();
     }
+//    Date date = dateFormat.parse(dateString);
+//    System.out.println(date);
    return new Date();
 }
 
-    public static Date ConvertMinutetoDate(String dateString){
+    public static String ConvertMinutetoDate(String dateString){
 //        String dateString = "2023-04-22T03:12:08.690Z";
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -107,11 +110,11 @@ public static Date ConvertStringtoDate(String dateString){
         try {
             Date date = inputFormat.parse(dateString);
             String outputDate = outputFormat.format(date);
-           return  date;
+           return  outputDate;
         } catch (ParseException e) {
             e.printStackTrace();
         }
-       return  new Date();
+       return  "new Date()";
     }
 
 

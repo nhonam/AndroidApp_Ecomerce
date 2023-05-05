@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.example.ecomerceshoppe.API.CartAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.Main;
+import com.example.ecomerceshoppe.activity.Payment;
 import com.example.ecomerceshoppe.adapter.CartAdapter;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Cart;
@@ -30,7 +31,7 @@ public class FragCart extends Fragment {
     private Cart cartUser;
     private ArrayList<Cart> listCart;
     String idUser ="63af70c03f562b7531d4c5db"; //ttesstt
-    TextView txtVIew ;
+    TextView btnBuyCart ;
 
 
     ListView listViewCart;
@@ -56,7 +57,7 @@ public class FragCart extends Fragment {
                     listCart = new ArrayList<>();
                     for (int i = 0; i < listcartJSON.length() ; i++) {
                         JSONObject cartTmpObj = (JSONObject) listcartJSON.get(i);
-
+                        System.out.println(cartTmpObj.get("product"));
                         JSONObject productObj = (JSONObject) cartTmpObj.get("product");
 
                         JSONObject imgObj =  (JSONObject) productObj.get("img");
@@ -94,6 +95,7 @@ public class FragCart extends Fragment {
     private void mapping(View view){
         listViewCart = view.findViewById(R.id.listViewCart);
         ic_homeCart = view.findViewById(R.id.homeCart);
+        btnBuyCart = view.findViewById(R.id.btnBuyCart);
 
 
 
@@ -110,6 +112,13 @@ public class FragCart extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), Main.class);
                 startActivity(intent);
+            }
+        });
+
+        btnBuyCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               startActivity(new Intent(getContext(), Payment.class));
             }
         });
 

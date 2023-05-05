@@ -2,7 +2,6 @@ package com.example.ecomerceshoppe.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,7 +13,6 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.android.volley.VolleyError;
 import com.example.ecomerceshoppe.API.UserAPI;
-import com.example.ecomerceshoppe.DTO.UserDTO;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.User;
@@ -26,10 +24,6 @@ import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 public class Login extends AppCompatActivity {
     AppCompatButton btnLogin;
@@ -79,13 +73,12 @@ public class Login extends AppCompatActivity {
                 dataUserCurrent = response.getJSONObject("data");
                 JSONObject userCurrent = dataUserCurrent.getJSONObject("admin");
 
-                if (userCurrent.getString("email").toLowerCase().trim().equalsIgnoreCase("") || userCurrent.getString("fullname") == ""){
+                if (userCurrent.getString("email").toLowerCase().trim().equalsIgnoreCase("") || userCurrent.getString("fullname").trim().equalsIgnoreCase("")){
                     final Bundle bundle = new Bundle();
                     bundle.putBinder("userCurrent", new ObjectWrapperForBinder(userCurrent));
                     Intent intent = new Intent(getApplicationContext(), Update_Profile.class).putExtras(bundle);
                     startActivity(intent);
                 }else {
-
                     Intent intent = new Intent(Login.this, Main.class);
                     startActivity(intent);
                 }
@@ -166,7 +159,8 @@ public class Login extends AppCompatActivity {
                 userDTO.setUrlAvatar(tmp.getString("url"));
 
                 userDTO.setAdmin(Boolean.parseBoolean(userCurrent.getString("isAdmin")));
-                userDTO.setBirthday(Feature.ConvertMinutetoDate(userCurrent.getString("birthday")));
+                System.out.println("nanannanana"+userCurrent.getString("birthday"));
+//                userDTO.setBirthday( userCurrent.getString("birthday"))));
                 System.out.println("hehehhe"+userDTO.getBirthday());
                 SaveInfoToLocal(userCurrent.getString("_id"), token, userDTO);
                 Intent intent = new Intent(Login.this, Main.class);

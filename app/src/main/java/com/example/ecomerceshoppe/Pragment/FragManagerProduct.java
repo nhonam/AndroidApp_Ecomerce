@@ -34,7 +34,7 @@ public class FragManagerProduct extends Fragment {
 
     JSONArray listProduct = new JSONArray();
     ListView listViewProduct;
-    ArrayList<Product> ProductList = new ArrayList<>();
+    ArrayList<Product> ProductList ;
 
     private int positionCurrent = 0;
 
@@ -76,6 +76,7 @@ public class FragManagerProduct extends Fragment {
                 public void onSuccess(JSONObject response) throws JSONException {
                     listProduct = response.getJSONArray("data");
                     JSONObject productObj = new JSONObject();
+                    ProductList= new ArrayList<>();
                     for (int i = 0; i < listProduct.length(); i++) {
                         productObj = (JSONObject) listProduct.get(i);
 

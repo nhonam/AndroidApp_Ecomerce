@@ -8,12 +8,11 @@ import android.view.Window;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.ecomerceshoppe.Pragment.FragHome;
 import com.example.ecomerceshoppe.Pragment.FragCart;
+import com.example.ecomerceshoppe.Pragment.FragHome;
 import com.example.ecomerceshoppe.Pragment.FragOrder;
 import com.example.ecomerceshoppe.Pragment.FragProfile;
 import com.example.ecomerceshoppe.R;
-import com.example.ecomerceshoppe.ultils.Feature;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Main extends AppCompatActivity {

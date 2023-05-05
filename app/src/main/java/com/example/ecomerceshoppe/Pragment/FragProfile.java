@@ -101,6 +101,7 @@ public class FragProfile  extends Fragment {
 
                 userCurrent.setAdmin(Boolean.parseBoolean(userCurrentObj.getString("isAdmin")));
 
+                System.out.println("hehehe"+Feature.ConvertStringtoDate(userCurrentObj.getString("birthday")));
                 userCurrent.setBirthday(Feature.ConvertStringtoDate(userCurrentObj.getString("birthday")));
 
 

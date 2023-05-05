@@ -70,11 +70,11 @@ public class FragHome extends Fragment {
 
 
     int[] imgSliders = {
-            R.drawable.a,
-            R.drawable.b,
-            R.drawable.c,
-            R.drawable.d,
-            R.drawable.f,
+            R.drawable.banner1,
+            R.drawable.banner2,
+            R.drawable.banner3,
+            R.drawable.banner4,
+            R.drawable.banner2,
 
     };
 

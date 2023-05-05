@@ -53,6 +53,8 @@ public class Update_Profile extends AppCompatActivity {
     ImageView imgProfile;
     User userCur = null;
 
+    String ngaySinh="";
+
 
     private void setMapping() {
         tvFullName = findViewById(R.id.fullnameUpdate);
@@ -131,6 +133,7 @@ public class Update_Profile extends AppCompatActivity {
         tvEmail.setText(userCur.getEmail());
         tvAdress.setText(userCur.getAddress());
         System.out.println("nânnanananna"+userCur.getBirthday());
+
         tvBirthdat.setText(String.valueOf( userCur.getBirthday()));
         tvPhone.setText(userCur.getPhone());
         tvCCCD.setText(userCur.getIdentity_card());
@@ -180,7 +183,9 @@ public class Update_Profile extends AppCompatActivity {
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         c.set(year, monthOfYear, dayOfMonth);
                         EditText editTextDate = findViewById(R.id.birthdayUpdate);
+                        ngaySinh = simpleDateFormat.format(c.getTime());
                         editTextDate.setText(simpleDateFormat.format(c.getTime()));
+
                     }
                 }, year, month, day);
         datePickerDialog.show();
@@ -192,7 +197,7 @@ public class Update_Profile extends AppCompatActivity {
         user.setFullName(String.valueOf(tvFullName.getText()));
         user.setEmail(String.valueOf(tvEmail.getText()));
         user.setAddress(String.valueOf(tvAdress.getText()));
-        user.setBirthday(Feature.ConvertStringtoDate(String.valueOf(tvBirthdat.getText())));
+        user.setBirthday(  Feature.ConvertStringtoDate(ngaySinh) );
         user.setPhone(String.valueOf(tvPhone.getText()));
         user.setIdentity_card(String.valueOf(tvCCCD.getText()));
 
