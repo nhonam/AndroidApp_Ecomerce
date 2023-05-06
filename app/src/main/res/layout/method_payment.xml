@@ -93,7 +93,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/MoMo_Logo" />
+                android:src="@drawable/momo" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

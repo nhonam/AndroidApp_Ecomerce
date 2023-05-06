@@ -18,6 +18,8 @@ public class Payment extends AppCompatActivity {
     BottomSheetDialog dialogPayment;
     TextView btnMethodPayment;
 
+    Button btnBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -49,7 +51,7 @@ public class Payment extends AppCompatActivity {
 
     private void createDialog() {
         View view = getLayoutInflater().inflate(R.layout.method_payment, null, false);
-        Button btnSubmit = view.findViewById(R.id.submit_quanti);
+        TextView btnSubmit = view.findViewById(R.id.btnPayment);
 //        EditText edtQuanti = findViewById();
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

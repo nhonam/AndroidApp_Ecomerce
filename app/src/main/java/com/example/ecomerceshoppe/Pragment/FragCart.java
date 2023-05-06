@@ -1,5 +1,5 @@
 package com.example.ecomerceshoppe.Pragment;
-
+// cuối kỳ
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
