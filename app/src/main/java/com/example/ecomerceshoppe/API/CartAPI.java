@@ -39,7 +39,7 @@ public class CartAPI {
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
-                        System.out.println( "Nam : " +response);
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -75,6 +75,35 @@ public class CartAPI {
                     public void onErrorResponse(VolleyError error) {
                         // Handle error
                         System.err.println("Lỗi call api getCartByUser (CartAPI.java) -> " + error.getMessage());
+                        callBack.onError(error);
+
+                    }
+                }) ;
+        requestQueue.add(request);
+    }
+
+
+    public static void DeleteCart(Context context, String url, String idCart, APICallBack callBack) throws JSONException {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, url+idCart, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Handle response
+                        try {
+                            callBack.onSuccess(response);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                        System.err.println("Lỗi call api Delete (CartAPI.java) -> " + error.getMessage());
                         callBack.onError(error);
 
                     }

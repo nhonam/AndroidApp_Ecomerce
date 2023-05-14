@@ -44,8 +44,6 @@ public class FragHome extends Fragment {
     GridView gr_productList;
     RecyclerView rcvCategory;
 
-//    RecyclerView rcvCategory;
-
     //Name Category Product
     String[] nameLogo;
     //logo Category Product
@@ -59,15 +57,9 @@ public class FragHome extends Fragment {
 
     List<String> urlProductList = new ArrayList<String>();
 
-    List<Product> ListProduct = new ArrayList<Product>();
-
-
     CategoryRCVAdapter categoryRCVAdapter;
     ProductLatestAdapter latestProduct_test;
     SliderAdapter sliderAdapter;
-
-
-
 
     int[] imgSliders = {
             R.drawable.banner1,
@@ -126,7 +118,7 @@ public class FragHome extends Fragment {
 //            ProductAPI.getAPIJson(this,"https://dummyjson.com/products/1");
 //            ProductAPI.getAllCategories(this, "Thời Trang Nam", Utils.BASE_URL+"product/search/");
 
-
+            //call api get all product in app
             ProductAPI.getAPIJson(getContext(), Utils.BASE_URL + "product/get/allProduct/", new APICallBack() {
                 @Override
                 public void onSuccess(JSONObject response) {
@@ -140,13 +132,10 @@ public class FragHome extends Fragment {
 
                             productTmp = (JSONObject) listProduct.get(i);
                             nameProductList.add((String) productTmp.get("name_product"));
-
                             imgTmp = (JSONObject) productTmp.get("img");
                             urlImgTmp = (String) imgTmp.get("url");
-
-                            priceProductList.add(Double.parseDouble(productTmp.getString("price")));
-
-                            priceProductList.add(1000.0);
+//                            priceProductList.add(Double.parseDouble(productTmp.getString("price")));
+                            priceProductList.add((productTmp.getDouble("price")));
                             urlProductList.add(String.valueOf(urlImgTmp));
 
                         }
@@ -168,11 +157,8 @@ public class FragHome extends Fragment {
             });
 
         } else {
-            Toast.makeText(getContext()
-
-                    , "khong có internet", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "khong có internet", Toast.LENGTH_LONG).show();
         }
-
 
         return view;
     }
@@ -181,6 +167,7 @@ public class FragHome extends Fragment {
         //setCategoryProduct and click item category
         categoryRCVAdapter = new CategoryRCVAdapter(getContext(), nameLogo, imgLogo, (view, position) -> {
             category = nameLogo[position];
+            //call api all product của category
             ProductAPI.getAPIJson(getContext(), Utils.BASE_URL + "product/get/allProduct/" + category, new APICallBack() {
 
                 @Override
@@ -261,8 +248,6 @@ public class FragHome extends Fragment {
         rcvCategory = view.findViewById(R.id.productCategory);
         gr_productList = view.findViewById(R.id.latestProduct);
         sliderView = view.findViewById(R.id.slider);
-
-
     }
 }
 

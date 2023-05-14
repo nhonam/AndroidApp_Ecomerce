@@ -120,13 +120,49 @@ public class ProductAPI {
     public static void APIDelProduct(Context context, String url, String idProduct, APICallBack callBack) throws JSONException {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        JSONObject postData = new JSONObject();
-        postData.put("id", "63af70c03f562b7531d4c5db");
-
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("data", postData);
+//        JSONObject postData = new JSONObject();
+//        postData.put("id", "63af70c03f562b7531d4c5db");
+//
+//        JSONObject requestBody = new JSONObject();
+//        requestBody.put("data", postData);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, url+idProduct,null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Handle response
+                        try {
+                            callBack.onSuccess(response);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                        callBack.onError(error);
+                    }
+                });
+
+
+        requestQueue.add(request);
+
+    }
+
+    public static void APICheckProduct(Context context, String url, String idProduct, APICallBack callBack) throws JSONException {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+//        JSONObject postData = new JSONObject();
+//        postData.put("id", "63af70c03f562b7531d4c5db");
+//
+//        JSONObject requestBody = new JSONObject();
+//        requestBody.put("data", postData);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url+idProduct,null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

@@ -20,7 +20,7 @@
 
 
         <ImageView
-            android:id="@+id/navigatePayment"
+            android:id="@+id/ic_backPayment"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_back" />
@@ -56,7 +56,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -134,99 +134,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="230dp"
                 android:background="#f5f4f2">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+              <ListView
+                  android:id="@+id/lvPayment"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content">
 
-                    android:gravity="center">
-
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="5dp"
-
-                        android:src="@drawable/l" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
-                                android:src="@drawable/baseline_storefront_24"
-                                app:tint="#5C5C5C" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="3dp"
-                                android:fontFamily="@font/shopee1"
-                                android:text="Trần Nhật Duy"
-                                android:textColor="@color/black"
-                                android:textStyle="bold" />
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/baseline_chevron_right_24"
-                                app:tint="#5C5C5C" />
-
-                        </LinearLayout>
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="19dp">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/shopee6"
-                                android:text="Tee basic ss1 CREWZ áo thun tay lỡ unisex Local Brand -Lamo Store(V427)" />
-                        </RelativeLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="42dp"
-                                android:layout_marginTop="3dp"
-                                android:layout_marginRight="190dp"
-                                android:fontFamily="@font/shopee6"
-                                android:text="399.000đ"
-                                android:textColor="#252424"
-                                android:textSize="18dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="x1">
-
-                            </TextView>
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-                </LinearLayout>
+              </ListView>
             </LinearLayout>
 
             <LinearLayout

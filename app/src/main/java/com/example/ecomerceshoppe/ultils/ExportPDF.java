@@ -1,6 +1,11 @@
 package com.example.ecomerceshoppe.ultils;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,17 +15,20 @@ import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
 import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import com.example.ecomerceshoppe.R;
+import com.example.ecomerceshoppe.activity.ManagerShop;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class ExportPDF {
+public class ExportPDF extends Activity {
 
-    // variables for our buttons.
-    Button generatePDFbtn;
 
     // declaring width and height
     // for our PDF file.
@@ -142,29 +150,29 @@ public class ExportPDF {
 ////        return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED;
 //    }
 
-//    private void requestPermission() {
-//        // requesting permissions if not provided.
-//        ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-//    }
+    private void requestPermission() {
+        // requesting permissions if not provided.
+        ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode == PERMISSION_REQUEST_CODE) {
-//            if (grantResults.length > 0) {
-//
-//                // after requesting permissions we are showing
-//                // users a toast message of permission granted.
-//                boolean writeStorage = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-//                boolean readStorage = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-//
-//                if (writeStorage && readStorage) {
-//                    Toast.makeText(this, "Permission Granted..", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
-//                    finish();
-//                }
-//            }
-//        }
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0) {
+
+                // after requesting permissions we are showing
+                // users a toast message of permission granted.
+                boolean writeStorage = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                boolean readStorage = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+                if (writeStorage && readStorage) {
+                    Toast.makeText(this, "Permission Granted..", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        }
+    }
 }

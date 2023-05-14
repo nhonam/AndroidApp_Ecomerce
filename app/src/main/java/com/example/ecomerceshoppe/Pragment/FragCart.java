@@ -1,10 +1,15 @@
 package com.example.ecomerceshoppe.Pragment;
 // cuối kỳ
+
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,12 +18,15 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.VolleyError;
 import com.example.ecomerceshoppe.API.CartAPI;
+import com.example.ecomerceshoppe.API.ProductAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.Main;
+import com.example.ecomerceshoppe.activity.ManagerShop;
 import com.example.ecomerceshoppe.activity.Payment;
 import com.example.ecomerceshoppe.adapter.CartAdapter;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Cart;
+import com.example.ecomerceshoppe.ultils.CustomToast;
 import com.example.ecomerceshoppe.ultils.Utils;
 
 import org.json.JSONArray;
@@ -30,20 +38,21 @@ import java.util.ArrayList;
 public class FragCart extends Fragment {
     private Cart cartUser;
     private ArrayList<Cart> listCart;
-    String idUser ="63af70c03f562b7531d4c5db"; //ttesstt
-    TextView btnBuyCart ;
-
+    String idUser = "63af70c03f562b7531d4c5db"; //ttesstt
+    TextView btnBuyCart;
+    public static TextView tongTien;
+    CartAdapter cartAdapter;
 
     ListView listViewCart;
 
     ImageView ic_homeCart;
+    public static CheckBox cbCheckAll;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.activity_cart_user, container, false);
+        View view = inflater.inflate(R.layout.activity_cart_user, container, false);
         //lấy dữ liệu đc gửi từ trang Main
         idUser = getArguments().getString("idUserCurent");
         mapping(view);
@@ -55,12 +64,12 @@ public class FragCart extends Fragment {
 //                    System.out.println("api get cart by user: "+response);
                     JSONArray listcartJSON = response.getJSONArray("data");
                     listCart = new ArrayList<>();
-                    for (int i = 0; i < listcartJSON.length() ; i++) {
+                    for (int i = 0; i < listcartJSON.length(); i++) {
                         JSONObject cartTmpObj = (JSONObject) listcartJSON.get(i);
-                        System.out.println(cartTmpObj.get("product"));
+//                        System.out.println(cartTmpObj.get("product"));
                         JSONObject productObj = (JSONObject) cartTmpObj.get("product");
 
-                        JSONObject imgObj =  (JSONObject) productObj.get("img");
+                        JSONObject imgObj = (JSONObject) productObj.get("img");
                         JSONObject sellerObj = (JSONObject) productObj.get("seller");
                         Cart cartTemp = new Cart();
                         cartTemp.setId(cartTmpObj.getString("_id"));
@@ -91,20 +100,22 @@ public class FragCart extends Fragment {
     }
 
 
-
-    private void mapping(View view){
+    private void mapping(View view) {
         listViewCart = view.findViewById(R.id.listViewCart);
         ic_homeCart = view.findViewById(R.id.homeCart);
         btnBuyCart = view.findViewById(R.id.btnBuyCart);
-
+        cbCheckAll = view.findViewById(R.id.selectAll);
+        tongTien = view.findViewById(R.id.tongtien);
 
 
     }
-    private  void setEvent(){
 
-        CartAdapter cartAdapter = new CartAdapter(getContext(), R.layout.row_cart, listCart);
 
+    private void setEvent() {
+        cartAdapter = new CartAdapter(getContext(), R.layout.row_cart, listCart);
         listViewCart.setAdapter(cartAdapter);
+
+
 
 
         ic_homeCart.setOnClickListener(new View.OnClickListener() {
@@ -118,11 +129,49 @@ public class FragCart extends Fragment {
         btnBuyCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               startActivity(new Intent(getContext(), Payment.class));
+
+                Intent intent = new Intent(getContext(), Payment.class);
+                intent.putExtra("listOrder", buyCarts());
+                startActivity(intent);
             }
         });
 
 
+        cbCheckAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cartAdapter.notifyDataSetChanged();
+                if (cbCheckAll.isChecked()) {
+                    cartAdapter.CheckAll();
+                } else if (!cbCheckAll.isChecked()) {
+                    cartAdapter.UnCheckAll();
+                }
+
+            }
+        });
+
+        listViewCart.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                cartAdapter = new CartAdapter(getContext(), R.layout.row_cart, listCart);
+//                listViewCart.setAdapter(cartAdapter);
+                cartAdapter.notifyDataSetChanged();
+                System.out.println(i+"namnam");
+            }
+        });
+
+
+    }
+
+    //lấy những sản phẩm được tích chọn là mua
+    private ArrayList<Cart> buyCarts() {
+        ArrayList<Cart> BuyCartList = new ArrayList<>();
+        for (int i = 0; i < listCart.size(); i++) {
+            if (listCart.get(i).getSelected()) {
+                BuyCartList.add(listCart.get(i));
+            }
+        }
+        return BuyCartList;
     }
 
 }

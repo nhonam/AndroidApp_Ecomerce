@@ -20,4 +20,10 @@
         android:icon="@drawable/ic_profile"
         android:title="Tôi"/>
 
+    <item
+        android:id="@+id/ic_search"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
+        android:title="Tôi"/>
+
 </menu>

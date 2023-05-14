@@ -46,7 +46,7 @@ public class Login extends AppCompatActivity {
         try {
             APILoginDefault();
         } catch (JSONException e) {
-            System.out.println("Error catch LoginAPI in class (Login.java)" + e.getMessage());
+            System.err.println("Error catch LoginAPI in class (Login.java)" + e.getMessage());
             throw new RuntimeException(e);
         }
         setEvent();
@@ -118,7 +118,7 @@ public class Login extends AppCompatActivity {
                 try {
                     APILogin();
                 } catch (JSONException e) {
-                    System.out.println("Error catch LoginAPI in class (Login.java)" + e.getMessage());
+                    System.err.println("Error catch LoginAPI in class (Login.java)" + e.getMessage());
                     throw new RuntimeException(e);
                 }
 
@@ -159,9 +159,9 @@ public class Login extends AppCompatActivity {
                 userDTO.setUrlAvatar(tmp.getString("url"));
 
                 userDTO.setAdmin(Boolean.parseBoolean(userCurrent.getString("isAdmin")));
-                System.out.println("nanannanana"+userCurrent.getString("birthday"));
+//                System.out.println("nanannanana"+userCurrent.getString("birthday"));
 //                userDTO.setBirthday( userCurrent.getString("birthday"))));
-                System.out.println("hehehhe"+userDTO.getBirthday());
+//                System.out.println("hehehhe"+userDTO.getBirthday());
                 SaveInfoToLocal(userCurrent.getString("_id"), token, userDTO);
                 Intent intent = new Intent(Login.this, Main.class);
                 startActivity(intent);

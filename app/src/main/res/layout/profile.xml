@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Quản Lí Sản Phẩm"
+                    android:text="Trang Người Bán"
                     android:textColor="#E6000000"
                     android:textStyle="bold"></TextView>
 

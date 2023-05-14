@@ -181,7 +181,7 @@ public class ManagerProductDetail extends AppCompatActivity {
                     JSONObject data = response.getJSONObject("data");
                     progressBar.setVisibility(View.GONE);
                     CustomToast.makeText(ManagerProductDetail.this, "Thêm Mới Sản Phẩm Thành Công", CustomToast.LENGTH_SHORT, CustomToast.SUCCESS, true).show();
-                    test(data);
+                    CheckProductExist(data);
                 }
 
                 @Override
@@ -202,9 +202,9 @@ public class ManagerProductDetail extends AppCompatActivity {
         }
     }
 
-    private void test(JSONObject data) {
+    private void CheckProductExist(JSONObject data) {
         try {
-            ProductAPI.APIDelProduct(getApplicationContext(), Utils.BASE_URL + "product/delete/", data.getString("_id"), new APICallBack() {
+            ProductAPI.APICheckProduct(getApplicationContext(), Utils.BASE_URL + "product/check-product/", data.getString("_id"), new APICallBack() {
                 @Override
                 public void onSuccess(JSONObject response) throws JSONException {
 

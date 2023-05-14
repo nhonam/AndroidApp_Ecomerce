@@ -12,6 +12,7 @@ import com.example.ecomerceshoppe.Pragment.FragCart;
 import com.example.ecomerceshoppe.Pragment.FragHome;
 import com.example.ecomerceshoppe.Pragment.FragOrder;
 import com.example.ecomerceshoppe.Pragment.FragProfile;
+import com.example.ecomerceshoppe.Pragment.FragSearch;
 import com.example.ecomerceshoppe.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -20,6 +21,7 @@ public class Main extends AppCompatActivity {
     FragCart fragCart = null;
     FragOrder fragOrder = null;
     FragProfile fragProfile = null;
+    FragSearch fragSearch = null;
     SharedPreferences sharedPreferences;
     BottomNavigationView navi;
 
@@ -74,6 +76,20 @@ public class Main extends AppCompatActivity {
                 .replace(R.id.content_main, fragHome)
                 .commit();
 
+        if (Payment.isActive == true) {
+            fragHome = new FragHome();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(
+                            R.anim.fade_out,  // enter
+                            R.anim.slide_out_left  // exit
+                    )
+                    .replace(R.id.content_main, fragHome)
+                    .commit();
+
+            Payment.isActive = false;
+        }
+
         navi.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -105,6 +121,21 @@ public class Main extends AppCompatActivity {
                                 .commit();
 
                         break;
+
+                     case R.id.ic_search:
+                         item.setChecked(true);
+                        if (fragSearch == null)
+                            fragSearch = new FragSearch();
+                         getSupportFragmentManager()
+                                 .beginTransaction()
+                                 .setCustomAnimations(
+                                         R.anim.slide_in,
+                                         R.anim.fade_out
+                                 )
+                                 .replace(R.id.content_main, fragSearch)
+                                 .commit();
+
+                         break;
                     case R.id.ic_profile:
                         item.setChecked(true);
 //                        if (fragProfile==null)

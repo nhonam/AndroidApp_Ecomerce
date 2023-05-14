@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.TextView;
 
@@ -91,6 +92,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
     }
 
     private class ViewHolder {
+
         TextView tvIDOrder, tvCustomer, tvtotalOrder, tvadrressOrder, tvdayOrder, tvstatusOrder;
         public ViewHolder(View view) {
             tvCustomer = view.findViewById(R.id.idCustomer);
