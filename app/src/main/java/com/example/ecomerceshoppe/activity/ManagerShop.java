@@ -72,6 +72,13 @@ public class ManagerShop extends AppCompatActivity {
         fragSell.setArguments(bundleSell);
 
 
+        //tạo fraRevenue va truyền dữ liệu vào fraRevenue
+        Bundle bundleRevenue = new Bundle();
+        bundleRevenue.putString("idUserCurent", idUserCurent);
+        fragRevenue = new FragRevenue();
+        fragRevenue.setArguments(bundleRevenue);
+
+
     }
 
     @Override
@@ -120,8 +127,7 @@ public class ManagerShop extends AppCompatActivity {
                     case R.id.mn_Revenue:
 //                        item.setChecked(true);
 //                        Toast.makeText(ManagerShop.this, "Thống Kê Doanh Thu", Toast.LENGTH_SHORT).show();
-                        if (fragRevenue==null)
-                            fragRevenue= new FragRevenue();
+
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.NoiDung,fragRevenue)

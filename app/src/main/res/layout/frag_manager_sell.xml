@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:id="@+id/manager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Xác Nhận Đơn Hàng"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+    <SearchView
+        android:id="@+id/seacrch_sell"
+        style="@style/border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/manager"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="50dp"
+        android:background="#CAC4C4" />
+
+    <!--    <RelativeLayout-->
+
+    <!--        android:id="@+id/lv"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
+    <ListView
+        android:layout_marginTop="100dp"
+        android:id="@+id/listviewMsell"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+    <!--    </RelativeLayout>-->
+
+
+
+
+
+</RelativeLayout>

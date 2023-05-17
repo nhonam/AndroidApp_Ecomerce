@@ -153,16 +153,19 @@ public class ProductAPI {
 
     }
 
-    public static void APICheckProduct(Context context, String url, String idProduct, APICallBack callBack) throws JSONException {
+    public static void APICheckProduct(Context context, String url, Product product, String idProduct, APICallBack callBack) throws JSONException {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-//        JSONObject postData = new JSONObject();
-//        postData.put("id", "63af70c03f562b7531d4c5db");
-//
-//        JSONObject requestBody = new JSONObject();
-//        requestBody.put("data", postData);
+        JSONObject postData = new JSONObject();
+        postData.put("name_product", product.getNameProduct());
+        postData.put("tag", product.getTag());
+        postData.put("price", product.getPrice());
+        postData.put("quantity", product.getQuantity());
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url+idProduct,null,
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("data", postData);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url+idProduct, requestBody.getJSONObject("data"),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

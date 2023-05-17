@@ -17,9 +17,9 @@ import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.User;
 import com.example.ecomerceshoppe.ultils.CustomToast;
-import com.example.ecomerceshoppe.ultils.Feature;
 import com.example.ecomerceshoppe.ultils.ObjectWrapperForBinder;
 import com.example.ecomerceshoppe.ultils.Utils;
+import com.example.ecomerceshoppe.ultils.dialog;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -44,7 +44,8 @@ public class Login extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("matkhau", MODE_PRIVATE);
         ReadPassWord();
         try {
-            APILoginDefault();
+            if (!username.equalsIgnoreCase("") || !password.equalsIgnoreCase(""))
+                APILoginDefault();
         } catch (JSONException e) {
             System.err.println("Error catch LoginAPI in class (Login.java)" + e.getMessage());
             throw new RuntimeException(e);
@@ -65,7 +66,9 @@ public class Login extends AppCompatActivity {
     }
 
     private void APILoginDefault() throws JSONException {
-        UserAPI.LoginAPI(getApplicationContext(), Utils.BASE_URL + "auth/login", username, password, new APICallBack() {
+         dialog dialog = new dialog(Login.this);
+         dialog.startLoadingdialog();
+            UserAPI.LoginAPI(getApplicationContext(), Utils.BASE_URL + "auth/login", username, password, new APICallBack() {
             @Override
             public void onSuccess(JSONObject response) throws JSONException {
                 //tạo 1 user dùng singleton
@@ -135,6 +138,8 @@ public class Login extends AppCompatActivity {
     }
 
     public void APILogin() throws JSONException {
+        dialog dialog = new dialog(Login.this);
+        dialog.startLoadingdialog();
         UserAPI.LoginAPI(getApplicationContext(), Utils.BASE_URL + "auth/login", username, password, new APICallBack() {
             @Override
             public void onSuccess(JSONObject response) throws JSONException {
@@ -173,6 +178,7 @@ public class Login extends AppCompatActivity {
                 edtpassWord.setText("");
                 edtUserName.requestFocus();
                 System.err.println("Error in onError APIlogin in (login.java)" + error.getMessage());
+                dialog.dismissdialog();
                 CustomToast.makeText(Login.this, "Tên đăng nhập hoặc mật khẩu không đúng !", CustomToast.LENGTH_SHORT, CustomToast.ERROR, true).show();
 
             }

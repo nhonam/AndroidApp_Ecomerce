@@ -22,6 +22,7 @@ import com.example.ecomerceshoppe.adapter.SellAdapter;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Order;
 import com.example.ecomerceshoppe.ultils.CustomToast;
+import com.example.ecomerceshoppe.ultils.ExportPDF;
 import com.example.ecomerceshoppe.ultils.ObjectWrapperForBinder;
 import com.example.ecomerceshoppe.ultils.Utils;
 
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 public class FragSell extends Fragment {
 
     private ArrayList<Order> listSell; //list hàng chưa được shop xác nhận
-    String idShop = "63af70c03f562b7531d4c5db"; //ttesstt
+    String idShop = "";//"63af70c03f562b7531d4c5db"; //ttesstt
 
 
     ListView listViewSell;
@@ -44,7 +45,7 @@ public class FragSell extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.frag_manager_order_shop, container, false);
+        View view = inflater.inflate(R.layout.frag_manager_sell, container, false);
         //lấy dữ liệu đc gửi từ trang ManagerShop
         idShop = getArguments().getString("idUserCurent");
         mapping(view);
@@ -71,7 +72,7 @@ public class FragSell extends Fragment {
                 for (int i = 0; i < dataArr.length(); i++) {
                     data = (JSONObject) dataArr.get(i);
                     //nếu đang chờ đc xác nhận của shop thì add vào list
-                    if( data.getString("status").equalsIgnoreCase("PENDING")){
+                    if( data.getString("status").equalsIgnoreCase("pendding")){
                         orderTmp.setId(data.getString("_id"));
                         orderTmp.setCustomer(data.getString("customer"));
                         orderTmp.setTotal_Price(data.getDouble("total_amount"));
@@ -95,7 +96,7 @@ public class FragSell extends Fragment {
 
 
     private void mapping(View view) {
-        listViewSell = view.findViewById(R.id.listviewManagerOrder);
+        listViewSell = view.findViewById(R.id.listviewMsell);
 
     }
 
@@ -130,8 +131,11 @@ public class FragSell extends Fragment {
                     SellerAPI.confirmSellAPI(getContext(), idOrder, new APICallBack() {
                         @Override
                         public void onSuccess(JSONObject response) throws JSONException {
-                            CustomToast.makeText(getContext(), "Xác nhận bán mặt hàng thành công, Shiper sẽ sớm tới lấy hàng, vui lòng chuẩn bị hàng !", CustomToast.LENGTH_SHORT, CustomToast.SUCCESS, true).show();
+                            CustomToast.makeText(getContext(), "Xác nhận bán mặt hàng thành công, Shiper sẽ sớm tới lấy hàng, vui lòng chuẩn bị hàng !", CustomToast.LENGTH_LONG, CustomToast.SUCCESS, true).show();
                             sellAdapter.notifyDataSetChanged();
+                            ExportPDF exportPDF = new ExportPDF();
+                            exportPDF.main(getContext(), "Hoadon" + idOrder);
+
                         }
 
                         @Override

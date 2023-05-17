@@ -1,34 +1,30 @@
 package com.example.ecomerceshoppe.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-
 import com.android.volley.VolleyError;
 import com.example.ecomerceshoppe.API.UserAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.ultils.CustomToast;
+import com.example.ecomerceshoppe.ultils.dialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class Register extends AppCompatActivity {
-
     EditText edtUserName, edtPassword, edtRePassword;
     AppCompatButton btnRegister;
     TextView btnLoginNow;
-
     String userName = "", password = "", repassword = "";
-    SharedPreferences sharedPreferences;
+    //SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +32,6 @@ public class Register extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_register);
-
         mapping();
         setEvent();
     }
@@ -74,6 +69,8 @@ public class Register extends AppCompatActivity {
     }
 
     private void APIRegister() throws JSONException {
+        dialog dialog = new dialog(Register.this);
+        dialog.startLoadingdialog();
         UserAPI.RegisterAPI(getApplicationContext(), userName, password, repassword, new APICallBack() {
             @Override
             public void onSuccess(JSONObject response) throws JSONException {
@@ -88,6 +85,7 @@ public class Register extends AppCompatActivity {
                     edtRePassword.setText("");
                     edtPassword.setText("");
                     edtUserName.requestFocus();
+                    dialog.dismissdialog();
                     CustomToast.makeText(Register.this, "Tài khoản đã tồn tại!", CustomToast.LENGTH_SHORT, CustomToast.WARNING, true).show();
                 } else {
                     // Handle other error codes here

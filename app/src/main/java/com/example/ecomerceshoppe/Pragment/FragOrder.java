@@ -1,6 +1,6 @@
 package com.example.ecomerceshoppe.Pragment;
 
-import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +20,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class FragOrder extends Fragment {
     private Order orderUser;
     private ArrayList<Order> listOrder;
-    String idShop = "63af70c03f562b7531d4c5db"; //ttesstt
+    String idShop = "";//"63af70c03f562b7531d4c5db"; //ttesstt
 
 
     ListView listViewOrder;
@@ -57,17 +59,27 @@ public class FragOrder extends Fragment {
             public void onSuccess(JSONObject response) throws JSONException {
                 JSONArray dataArr = (JSONArray) response.get("data");
                 JSONObject data; //item data in dataArr
-                Order orderTmp = new Order();
+
                 listOrder = new ArrayList<>();
                 for (int i = 0; i < dataArr.length(); i++) {
+                    Order orderTmp = new Order();
                     data = (JSONObject) dataArr.get(i);
                     orderTmp.setId(data.getString("_id"));
                     orderTmp.setCustomer(data.getString("customer"));
                     orderTmp.setTotal_Price(data.getDouble("total_amount"));
-//                    orderTmp.setCreatAtOrder(data.getString("createdAt"));
+                    orderTmp.setAdress(data.getString("address"));
                     orderTmp.setStatus(data.getString("status"));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        orderTmp.setCreatAtOrder( Date.from(Instant.parse(data.getString("createdAt"))));
+                    }
+
                     listOrder.add(orderTmp);
+
                 }
+                System.out.println("================");
+                System.out.println(listOrder.get(0).getId());
+                System.out.println(listOrder.get(1).getId());
+                System.out.println("================");
                 setEvent();
             }
 
@@ -86,8 +98,8 @@ public class FragOrder extends Fragment {
 
     private void setEvent() {
         orderAdapter = new OrderAdapter(getContext(), R.layout.row_manager_order, listOrder);
-        System.out.println(orderAdapter);
-        listViewOrder.setAdapter(orderAdapter);
+//        System.out.println(orderAdapter);
+              listViewOrder.setAdapter(orderAdapter);
 
 
     }

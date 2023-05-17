@@ -123,7 +123,7 @@ public class ExportPDF extends Activity {
 
         // below line is used to set the name of
         // our PDF file and its path.
-        File file = new File(Environment.getExternalStorageDirectory(), fileName+"_Baocao.pdf");
+        File file = new File(Environment.getExternalStorageDirectory(), fileName+".pdf");
 
         try {
             // after creating a file name we will

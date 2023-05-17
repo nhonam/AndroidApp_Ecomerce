@@ -32,6 +32,7 @@ import com.example.ecomerceshoppe.service.CategoryService;
 import com.example.ecomerceshoppe.ultils.CustomToast;
 import com.example.ecomerceshoppe.ultils.Feature;
 import com.example.ecomerceshoppe.ultils.Utils;
+import com.example.ecomerceshoppe.ultils.dialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +60,9 @@ public class ManagerProductDetail extends AppCompatActivity {
     int categoryCurrent = 0;
 
     String[]  ListCategory ;
-    ProgressBar progressBar;
+
+    dialog loadding = new dialog(ManagerProductDetail.this);
+
 
 
     @Override
@@ -79,8 +82,7 @@ public class ManagerProductDetail extends AppCompatActivity {
     }
 
     private void mapping() {
-        progressBar = (ProgressBar) findViewById(R.id.spin_kit);
-        progressBar.setVisibility(View.GONE);
+
         edtName = findViewById(R.id.nameProduct_ManagerProductDetail);
         edtTag = findViewById(R.id.tag_ManagerProductDetail);
         edtQuanti = findViewById(R.id.quantity_ManagerProductDetail);
@@ -170,31 +172,31 @@ public class ManagerProductDetail extends AppCompatActivity {
         productTmp.setPrice(Double.parseDouble(String.valueOf(edtPrice.getText())));
         productTmp.setCategory(String.valueOf(spCategory.getSelectedItem()));
         productTmp.setDescription(String.valueOf(edtDescription.getText()));
-        progressBar.setVisibility(View.VISIBLE);
+
         String base64Img = Feature.CovertBitmapToBase64(bitmap);
 
         try {
+            loadding.startLoadingdialog();
             ProductAPI.APIAddProduct(getApplicationContext(), Utils.BASE_URL + "product/create", productTmp, base64Img, new APICallBack() {
                 @Override
                 public void onSuccess(JSONObject response) throws JSONException {
 //                                progressDialog.dismiss();
                     JSONObject data = response.getJSONObject("data");
-                    progressBar.setVisibility(View.GONE);
-                    CustomToast.makeText(ManagerProductDetail.this, "Thêm Mới Sản Phẩm Thành Công", CustomToast.LENGTH_SHORT, CustomToast.SUCCESS, true).show();
-                    CheckProductExist(data);
+
+                    CheckProductExist(data, productTmp);
                 }
 
                 @Override
                 public void onError(VolleyError error) {
                     System.err.println(error.getMessage());
 //                                progressDialog.dismiss();
-                    progressBar.setVisibility(View.GONE);
+                    loadding.dismissdialog();
                     CustomToast.makeText(ManagerProductDetail.this, "Error Thêm Mới Sản Phẩm Không Thành Công", CustomToast.LENGTH_SHORT, CustomToast.ERROR, true).show();
                 }
             });
         } catch (JSONException e) {
 //                        progressDialog.dismiss();
-            progressBar.setVisibility(View.GONE);
+            loadding.dismissdialog();
             CustomToast.makeText(ManagerProductDetail.this, "Catch Thêm Mới Sản Phẩm Không Thành Công", CustomToast.LENGTH_SHORT, CustomToast.ERROR, true).show();
 
             throw new RuntimeException(e);
@@ -202,16 +204,20 @@ public class ManagerProductDetail extends AppCompatActivity {
         }
     }
 
-    private void CheckProductExist(JSONObject data) {
+    private void CheckProductExist(JSONObject data, Product product) {
         try {
-            ProductAPI.APICheckProduct(getApplicationContext(), Utils.BASE_URL + "product/check-product/", data.getString("_id"), new APICallBack() {
+            ProductAPI.APICheckProduct(getApplicationContext(), Utils.BASE_URL + "product/check-product/", product,  data.getString("_id"), new APICallBack() {
                 @Override
                 public void onSuccess(JSONObject response) throws JSONException {
-
+                    loadding.dismissdialog();
+                    CustomToast.makeText(ManagerProductDetail.this, "Sản Phẩm Đã Có Trong Cửa Hàng", CustomToast.LENGTH_SHORT, CustomToast.WARNING, true).show();
                 }
 
                 @Override
                 public void onError(VolleyError error) {
+                    loadding.dismissdialog();
+                    CustomToast.makeText(ManagerProductDetail.this, "Thêm Mới Sản Phẩm Thành Công", CustomToast.LENGTH_SHORT, CustomToast.SUCCESS, true).show();
+
                 }
             });
         } catch (JSONException e) {
@@ -220,7 +226,7 @@ public class ManagerProductDetail extends AppCompatActivity {
     }
 
     private void SaveUpdate() {
-        System.out.println("update sp");
+
         Product productTmp = new Product();
         productTmp.setId(product.getId());
         productTmp.setNameProduct(String.valueOf(edtName.getText()));
@@ -234,7 +240,7 @@ public class ManagerProductDetail extends AppCompatActivity {
         String base64Img = "";
         if (bitmap != null) {
             //anim loading
-            progressBar.setVisibility(View.VISIBLE);
+
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
             byte[] bytes = byteArrayOutputStream.toByteArray();
@@ -242,10 +248,11 @@ public class ManagerProductDetail extends AppCompatActivity {
         }
 
         try {
+            loadding.startLoadingdialog();
             ProductAPI.APIUpdateProduct(getApplicationContext(), Utils.BASE_URL + "product/updatePatch/", productTmp, base64Img, new APICallBack() {
                 @Override
                 public void onSuccess(JSONObject response) throws JSONException {
-                    progressBar.setVisibility(View.GONE);
+                 loadding.dismissdialog();
                     CustomToast.makeText(ManagerProductDetail.this, "Cập Nhật Sản Phẩm Thành Công", CustomToast.LENGTH_SHORT, CustomToast.SUCCESS, true).show();
 //                            System.out.println(response);
 //                            progressDialog.dismiss();
@@ -255,13 +262,13 @@ public class ManagerProductDetail extends AppCompatActivity {
                 @Override
                 public void onError(VolleyError error) {
 //                            System.err.println(error.getMessage());
-                    progressBar.setVisibility(View.GONE);
+                    loadding.dismissdialog();
                     CustomToast.makeText(ManagerProductDetail.this, "Cập Nhật Sản Phẩm Không Thành Công", CustomToast.LENGTH_SHORT, CustomToast.ERROR, true).show();
 
                 }
             });
         } catch (JSONException e) {
-            progressBar.setVisibility(View.GONE);
+           loadding.dismissdialog();
             CustomToast.makeText(ManagerProductDetail.this, "Cập Nhật Sản Phẩm Không Thành Công", CustomToast.LENGTH_SHORT, CustomToast.ERROR, true).show();
 
             throw new RuntimeException(e);

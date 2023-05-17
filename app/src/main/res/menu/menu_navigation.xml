@@ -12,12 +12,12 @@
     <item
         android:id="@+id/mn_ManagerOrder"
         android:icon="@drawable/ic_store"
-        android:title="Quản Lí Đơn Hàng" />
+        android:title="Theo Dõi Đơn Hàng" />
 
     <item
         android:id="@+id/mn_Sell"
         android:icon="@drawable/ic_order"
-        android:title="Quản Lí Bán Hàng" />
+        android:title="Đơn Hàng Chờ Xác Nhận" />
 
     <item
         android:id="@+id/mn_Exit"

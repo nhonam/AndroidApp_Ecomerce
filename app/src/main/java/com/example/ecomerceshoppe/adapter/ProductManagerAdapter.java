@@ -28,6 +28,7 @@ import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Product;
 import com.example.ecomerceshoppe.ultils.CustomToast;
 import com.example.ecomerceshoppe.ultils.Utils;
+import com.example.ecomerceshoppe.ultils.dialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -141,8 +142,9 @@ public class ProductManagerAdapter extends ArrayAdapter<Product> implements Filt
             @Override
             public void onClick(View v) {
                 //Call api xóa
-                System.out.println("da xoa rui nhá");
+
                 try {
+//                    com.example.ecomerceshoppe.ultils.dialog loadding = new dialog();
                     ProductAPI.APIDelProduct(myContext.getApplicationContext(), Utils.BASE_URL + "product/delete/", idProduct, new APICallBack() {
                         @Override
                         public void onSuccess(JSONObject response) throws JSONException {

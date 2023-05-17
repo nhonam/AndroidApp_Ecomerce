@@ -162,15 +162,7 @@
                         android:layout_weight="1"
                         android:text="Số lượng"
                         android:textColor="@color/black" />
-                    <com.github.ybq.android.spinkit.SpinKitView
 
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/spin_kit"
-                        style="@style/SpinKitView.Large.FadingCircle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        app:SpinKit_Color="@color/primary" />
 
                     <EditText
                         android:id="@+id/quantity_ManagerProductDetail"
