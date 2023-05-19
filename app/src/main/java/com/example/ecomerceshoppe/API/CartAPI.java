@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,6 +26,43 @@ public class CartAPI {
         postData.put("product", idProduct);
         postData.put("customer", idUser);
         postData.put("quantity", quantity);
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("data", postData);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, (JSONObject) requestBody.get("data"),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Handle response
+                        try {
+                            callBack.onSuccess(response);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                        callBack.onError(error);
+                    }
+                });
+        requestQueue.add(request);
+
+    }
+
+    public static void APIBuyProduct(Context context, String url, String idUser, String address, JSONArray arrProduct, Double tongtien, APICallBack callBack) throws JSONException {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        JSONObject postData = new JSONObject();
+        postData.put("customer", idUser);
+        postData.put("product", arrProduct);
+        postData.put("total_amount", tongtien);
+        postData.put("address", address);
 
         JSONObject requestBody = new JSONObject();
         requestBody.put("data", postData);

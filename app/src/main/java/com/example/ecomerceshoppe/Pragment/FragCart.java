@@ -36,9 +36,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class FragCart extends Fragment {
-    private Cart cartUser;
+
     private ArrayList<Cart> listCart;
-    String idUser = "63af70c03f562b7531d4c5db"; //ttesstt
+    String idUser = ""; //ttesstt  63af70c03f562b7531d4c5db
     TextView btnBuyCart;
     public static TextView tongTien;
     CartAdapter cartAdapter;
@@ -73,7 +73,9 @@ public class FragCart extends Fragment {
                         JSONObject sellerObj = (JSONObject) productObj.get("seller");
                         Cart cartTemp = new Cart();
                         cartTemp.setId(cartTmpObj.getString("_id"));
+//                        System.out.println(cartTmpObj.getString("_id")+"-+-");
                         cartTemp.setShopName(sellerObj.getString("fullname"));
+//                        cartTemp.setS(sellerObj.getString("_id"));
                         cartTemp.setNameProduct(productObj.getString("name_product"));
                         cartTemp.setPrice(productObj.getDouble("price"));
                         cartTemp.setQuantity(cartTmpObj.getInt("quantity"));
@@ -132,6 +134,7 @@ public class FragCart extends Fragment {
 
                 Intent intent = new Intent(getContext(), Payment.class);
                 intent.putExtra("listOrder", buyCarts());
+                intent.putExtra("idUser",idUser);
                 startActivity(intent);
             }
         });
@@ -156,7 +159,7 @@ public class FragCart extends Fragment {
 //                cartAdapter = new CartAdapter(getContext(), R.layout.row_cart, listCart);
 //                listViewCart.setAdapter(cartAdapter);
                 cartAdapter.notifyDataSetChanged();
-                System.out.println(i+"namnam");
+
             }
         });
 
@@ -169,6 +172,8 @@ public class FragCart extends Fragment {
         for (int i = 0; i < listCart.size(); i++) {
             if (listCart.get(i).getSelected()) {
                 BuyCartList.add(listCart.get(i));
+//                System.out.println(BuyCartList.get(i).getId()+"|||000000000000000000");
+
             }
         }
         return BuyCartList;
