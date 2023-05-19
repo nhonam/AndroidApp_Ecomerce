@@ -159,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="1.235.999đ"
+                    android:text="0đ"
                     android:textColor="#f57224"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -172,7 +172,7 @@
                 android:gravity="center"
                 android:padding="12dp"
                 android:id="@+id/btnBuyCart"
-                android:text="Mua hàng (10)"
+                android:text="Mua hàng "
                 android:textColor="@color/white"
                 android:textSize="15dp"
                 android:textStyle="bold|normal" />

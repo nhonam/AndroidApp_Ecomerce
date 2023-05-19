@@ -12,7 +12,7 @@ public class Cart implements Parcelable {
     //full name của user
     private String shopName;
     private String nameProduct;
-    private Double price;
+    private int price;
     private int quantity;
     private String urlImage;
     private Boolean isSelected = false;
@@ -22,9 +22,9 @@ public class Cart implements Parcelable {
         shopName = in.readString();
         nameProduct = in.readString();
         if (in.readByte() == 0) {
-            price = null;
+            price = 0;
         } else {
-            price = in.readDouble();
+            price = in.readInt();
         }
         quantity = in.readInt();
         urlImage = in.readString();
@@ -52,14 +52,14 @@ public class Cart implements Parcelable {
         isSelected = selected;
     }
 
-    public Cart(String id, String shopName, String nameProduct, Double price, int quantity, String urlImage) {
-        this.id = id;
-        this.shopName = shopName;
-        this.nameProduct = nameProduct;
-        this.price = price;
-        this.quantity = quantity;
-        this.urlImage = urlImage;
-    }
+//    public Cart(String id, String shopName, String nameProduct, Double price, int quantity, String urlImage) {
+//        this.id = id;
+//        this.shopName = shopName;
+//        this.nameProduct = nameProduct;
+//        this.price = price;
+//        this.quantity = quantity;
+//        this.urlImage = urlImage;
+//    }
 
     public Cart() {
 
@@ -89,11 +89,11 @@ public class Cart implements Parcelable {
         this.nameProduct = nameProduct;
     }
 
-    public Double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -123,7 +123,7 @@ public class Cart implements Parcelable {
         parcel.writeString(id);
         parcel.writeString(shopName);
         parcel.writeString(nameProduct);
-        if (price == null) {
+        if (price == 0) {
             parcel.writeByte((byte) 0);
         } else {
             parcel.writeByte((byte) 1);

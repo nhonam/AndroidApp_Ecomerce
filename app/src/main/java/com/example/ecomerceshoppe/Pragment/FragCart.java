@@ -1,14 +1,12 @@
 package com.example.ecomerceshoppe.Pragment;
 // cuối kỳ
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,15 +16,12 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.VolleyError;
 import com.example.ecomerceshoppe.API.CartAPI;
-import com.example.ecomerceshoppe.API.ProductAPI;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.activity.Main;
-import com.example.ecomerceshoppe.activity.ManagerShop;
 import com.example.ecomerceshoppe.activity.Payment;
 import com.example.ecomerceshoppe.adapter.CartAdapter;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Cart;
-import com.example.ecomerceshoppe.ultils.CustomToast;
 import com.example.ecomerceshoppe.ultils.Utils;
 
 import org.json.JSONArray;
@@ -77,7 +72,7 @@ public class FragCart extends Fragment {
                         cartTemp.setShopName(sellerObj.getString("fullname"));
 //                        cartTemp.setS(sellerObj.getString("_id"));
                         cartTemp.setNameProduct(productObj.getString("name_product"));
-                        cartTemp.setPrice(productObj.getDouble("price"));
+                        cartTemp.setPrice(productObj.getInt("price"));
                         cartTemp.setQuantity(cartTmpObj.getInt("quantity"));
                         cartTemp.setUrlImage(imgObj.getString("url"));
 

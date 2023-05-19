@@ -162,13 +162,13 @@ public class Payment extends AppCompatActivity {
         PayMentAdapter payMentAdapter = new PayMentAdapter(getApplicationContext(),R.layout.item_payment, listProductPayment);
         lvPayment.setAdapter(payMentAdapter);
 
-//        btnbackPayment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                isActive = true;
-//                startActivity(new Intent(getApplicationContext(), Main.class));
-//            }
-//        });
+        btnbackPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isActive = true;
+                startActivity(new Intent(getApplicationContext(), Main.class));
+            }
+        });
     }
 
     private  void mapping(){

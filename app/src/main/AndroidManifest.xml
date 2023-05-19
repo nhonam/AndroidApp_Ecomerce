@@ -35,33 +35,9 @@
             android:exported="false" />
 
         <activity
-            android:name=".activity.ManagerShop"
-            android:exported="false" />
-
-        <activity
-            android:name=".activity.ProductDetail"
-            android:exported="false" />
-
-        <activity
             android:name=".activity.Main"
             android:exported="false" />
 
-
-        <activity
-            android:name=".activity.Update_Profile"
-            android:exported="false" />
-        <activity
-            android:name=".activity.SentOTP"
-            android:exported="false" />
-
-
-
-        <activity
-            android:name=".activity.ManagerProductDetail"
-            android:exported="false" />
-        <activity
-            android:name=".activity.Register"
-            android:exported="false" />
 
         <activity
             android:name=".activity.Login"

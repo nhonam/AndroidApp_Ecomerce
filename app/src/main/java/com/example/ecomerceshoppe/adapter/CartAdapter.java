@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -24,8 +23,6 @@ import com.example.ecomerceshoppe.Pragment.FragCart;
 import com.example.ecomerceshoppe.R;
 import com.example.ecomerceshoppe.interfaces.APICallBack;
 import com.example.ecomerceshoppe.model.Cart;
-import com.example.ecomerceshoppe.model.Order;
-import com.example.ecomerceshoppe.model.Product;
 import com.example.ecomerceshoppe.ultils.CustomToast;
 import com.example.ecomerceshoppe.ultils.Utils;
 
@@ -33,7 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CartAdapter extends ArrayAdapter<Cart> {
     Context myContext;
@@ -148,7 +144,7 @@ public class CartAdapter extends ArrayAdapter<Cart> {
         }
 
 
-        viewHolder.ImgCart.setOnClickListener(new View.OnClickListener() {
+        viewHolder.Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(cart.getSelected())
@@ -188,7 +184,7 @@ public class CartAdapter extends ArrayAdapter<Cart> {
 
     private class ViewHolder {
 
-         TextView txtShopName, txtProductName, txtPrice;
+         TextView txtShopName, txtProductName, txtPrice, Delete;
          EditText edtQuantity;
          public   CheckBox checkBox;
          ImageView ImgCart;
@@ -203,6 +199,7 @@ public class CartAdapter extends ArrayAdapter<Cart> {
             txtPrice = view.findViewById(R.id.priceCart);
             edtQuantity = view.findViewById(R.id.quantityCart);
             ImgCart = view.findViewById(R.id.imgCart);
+            Delete = view.findViewById(R.id.Delete);
 
         }
 

@@ -9,19 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecomerceshoppe.Pragment.FragCart;
-import com.example.ecomerceshoppe.Pragment.FragHome;
-import com.example.ecomerceshoppe.Pragment.FragOrder;
-import com.example.ecomerceshoppe.Pragment.FragProfile;
-import com.example.ecomerceshoppe.Pragment.FragSearch;
 import com.example.ecomerceshoppe.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Main extends AppCompatActivity {
-    FragHome fragHome = null;
+
     FragCart fragCart = null;
-    FragOrder fragOrder = null;
-    FragProfile fragProfile = null;
-    FragSearch fragSearch = null;
+
+
     SharedPreferences sharedPreferences;
     BottomNavigationView navi;
 
@@ -34,10 +29,6 @@ public class Main extends AppCompatActivity {
         String userStr = sharedPreferences.getString("user", "");
 
         //tạo fragHome va truyền dữ liệu vào fragHome
-        Bundle bundleHome = new Bundle();
-        bundleHome.putString("idUserCurent", idUserCurent);
-        fragHome = new FragHome();
-        fragHome.setArguments(bundleHome);
 
         //tạo fragCart va truyền dữ liệu vào fragCart
         Bundle bundleCart = new Bundle();
@@ -47,11 +38,6 @@ public class Main extends AppCompatActivity {
 
 
 //tạo fragProfile và truyền dữ liệu vào profile
-        Bundle bundleProfile = new Bundle();
-        bundleProfile.putString("user", userStr);
-        bundleProfile.putString("token", token);
-        fragProfile = new FragProfile();
-        fragProfile.setArguments(bundleProfile);
 
     }
 
@@ -65,48 +51,48 @@ public class Main extends AppCompatActivity {
         navi = findViewById(R.id.bottom_navigation);
         //nếu bấm lưu trong UpdateProfile thì nhảy qua fragProfile
 
-        if (fragHome == null)
-            fragHome = new FragHome();
+         if (fragCart == null)
+            fragCart = new FragCart();
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(
                         R.anim.fade_out,  // enter
                         R.anim.slide_out_left  // exit
                 )
-                .replace(R.id.content_main, fragHome)
+                .replace(R.id.content_main, fragCart)
                 .commit();
 
-        if (Payment.isActive == true) {
-            fragHome = new FragHome();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(
-                            R.anim.fade_out,  // enter
-                            R.anim.slide_out_left  // exit
-                    )
-                    .replace(R.id.content_main, fragHome)
-                    .commit();
-
-            Payment.isActive = false;
-        }
+//        if (Payment.isActive == true) {
+//            fragHome = new FragHome();
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .setCustomAnimations(
+//                            R.anim.fade_out,  // enter
+//                            R.anim.slide_out_left  // exit
+//                    )
+//                    .replace(R.id.content_main, fragHome)
+//                    .commit();
+//
+//            Payment.isActive = false;
+//        }
 
         navi.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                  switch (item.getItemId()) {
-                    case R.id.ic_home:
-                        item.setChecked(true);
-//                        if (fragHome == null)
-//                            fragHome = new FragHome();
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .setCustomAnimations(
-                                        R.anim.fade_out,  // enter
-                                        R.anim.slide_out_left  // exit
-                                )
-                                .replace(R.id.content_main, fragHome)
-                                .commit();
-                        break;
+//                    case R.id.ic_home:
+//                        item.setChecked(true);
+////                        if (fragHome == null)
+////                            fragHome = new FragHome();
+//                        getSupportFragmentManager()
+//                                .beginTransaction()
+//                                .setCustomAnimations(
+//                                        R.anim.fade_out,  // enter
+//                                        R.anim.slide_out_left  // exit
+//                                )
+//                                .replace(R.id.content_main, fragHome)
+//                                .commit();
+//                        break;
                     case R.id.ic_cart:
                         item.setChecked(true);
 //                        if (fragNotification == null)
@@ -122,34 +108,34 @@ public class Main extends AppCompatActivity {
 
                         break;
 
-                     case R.id.ic_search:
-                         item.setChecked(true);
-                        if (fragSearch == null)
-                            fragSearch = new FragSearch();
-                         getSupportFragmentManager()
-                                 .beginTransaction()
-                                 .setCustomAnimations(
-                                         R.anim.slide_in,
-                                         R.anim.fade_out
-                                 )
-                                 .replace(R.id.content_main, fragSearch)
-                                 .commit();
-
-                         break;
-                    case R.id.ic_profile:
-                        item.setChecked(true);
-//                        if (fragProfile==null)
-//                            fragProfile= new FragProfile();
-
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .setCustomAnimations(
-                                        R.anim.fade_out,  // enter
-                                        R.anim.slide_in  // exit
-                                )
-                                .replace(R.id.content_main, fragProfile)
-                                .commit();
-                        break;
+//                     case R.id.ic_search:
+//                         item.setChecked(true);
+//                        if (fragSearch == null)
+//                            fragSearch = new FragSearch();
+//                         getSupportFragmentManager()
+//                                 .beginTransaction()
+//                                 .setCustomAnimations(
+//                                         R.anim.slide_in,
+//                                         R.anim.fade_out
+//                                 )
+//                                 .replace(R.id.content_main, fragSearch)
+//                                 .commit();
+//
+//                         break;
+//                    case R.id.ic_profile:
+//                        item.setChecked(true);
+////                        if (fragProfile==null)
+////                            fragProfile= new FragProfile();
+//
+//                        getSupportFragmentManager()
+//                                .beginTransaction()
+//                                .setCustomAnimations(
+//                                        R.anim.fade_out,  // enter
+//                                        R.anim.slide_in  // exit
+//                                )
+//                                .replace(R.id.content_main, fragProfile)
+//                                .commit();
+//                        break;
                 }
                 return false;
             }

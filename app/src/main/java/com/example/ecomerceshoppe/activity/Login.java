@@ -76,16 +76,9 @@ public class Login extends AppCompatActivity {
                 dataUserCurrent = response.getJSONObject("data");
                 JSONObject userCurrent = dataUserCurrent.getJSONObject("admin");
 
-                if (userCurrent.getString("email").toLowerCase().trim().equalsIgnoreCase("") || userCurrent.getString("fullname").trim().equalsIgnoreCase("")){
-                    final Bundle bundle = new Bundle();
-                    bundle.putBinder("userCurrent", new ObjectWrapperForBinder(userCurrent));
-                    Intent intent = new Intent(getApplicationContext(), Update_Profile.class).putExtras(bundle);
-                    startActivity(intent);
-                }else {
+
                     Intent intent = new Intent(Login.this, Main.class);
                     startActivity(intent);
-                }
-
 //
 
             }
@@ -125,13 +118,6 @@ public class Login extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
 
-            }
-        });
-
-        txtregisterNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Login.this, Register.class));
             }
         });
 
